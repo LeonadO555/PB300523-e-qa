@@ -1,19 +1,9 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.Test;
 
-public class FirstSeleniumTest {
+public class Locators {
     public WebDriver driver;
-
-    @Test
-    public void firstSeleniumTest() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("http://phonebook.telran-edu.de:8080/user/login");
-        driver.manage().window().maximize();
         // name
         WebElement elementVariantNameOne = driver.findElement(By.xpath("//*[@name='email']"));
         WebElement elementVariantNameTwo = driver.findElement(By.cssSelector("[name='email']"));
@@ -36,9 +26,5 @@ public class FirstSeleniumTest {
         WebElement elementPasswordFive = driver.findElement(By.xpath("//*[@formcontrolname='password']"));
         //button Login
         WebElement elementLogin = driver.findElement(By.xpath("//*[@type='submit']"));
-
-        driver.quit();
-
-
     }
-}
+
