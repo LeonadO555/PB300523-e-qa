@@ -11,17 +11,29 @@ public class LoginTest extends TestBase{
 
 
 
+    //@Test
+    //public void userCanLogin(){
+        //String email = "newtest@gmail.com";
+        //String password = "newtest@gmail.com";
+
+
+        //loginPage = new LoginPage(app.driver); //драйвер берем из апликейшн манагер
+        //loginPage.login(email, password);
+
+        //contactsPage = new ContactsPage(app.driver);
+        //Assert.assertTrue(contactsPage.confirmLogin(), "User is not logged");// assert - проверка
+
     @Test
-    public void userCanLogin(){
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
+        public void userCannotLoginWithInvalidEmail(){
+            String email = "newtestgmail.com";
+            String password = "newtest@gmail.com";
 
 
-        loginPage = new LoginPage(app.driver); //драйвер берем из апликейшн манагер
-        loginPage.login(email, password);
+            loginPage = new LoginPage(app.driver); //драйвер берем из апликейшн манагер
+            loginPage.login(email, password);
 
-        contactsPage = new ContactsPage(app.driver);
-        Assert.assertTrue(contactsPage.confirmLogin(), "User is not logged");// assert - проверка
-    }
+            contactsPage = new ContactsPage(app.driver);
+            Assert.assertFalse(contactsPage.confirmLogin(), "User is logged");
+}
 
 }
