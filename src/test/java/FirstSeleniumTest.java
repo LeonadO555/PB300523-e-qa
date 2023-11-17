@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.List;
 
 public class FirstSeleniumTest {
@@ -17,6 +18,7 @@ public class FirstSeleniumTest {
         driver = new ChromeDriver();
         driver.get("http://phonebook.telran-edu.de:8080/user/login");
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WebElement emailInput = driver.findElement(By.xpath("//*[@name='email']"));
         emailInput.sendKeys("newtest@gmail.com");
 
