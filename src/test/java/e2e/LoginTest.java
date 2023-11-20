@@ -43,4 +43,23 @@ public class LoginTest extends TestBase {
         Assert.assertFalse(contactsPage.confirmLogin(),"User is logged");
     }
 
+    @Test
+    public void userCannotLoginWithInvalidData(){
+        String email = "asdasfafs";
+        String password = "asdasfafs";
+        loginPage = new LoginPage(app.driver);
+        loginPage.login(email,password);
+        contactsPage = new ContactsPage(app.driver);
+        Assert.assertFalse(contactsPage.confirmLogin(),"User is logged");
+    }
+    @Test
+    public void userCannotLoginWithEmptyDate(){
+        String email = "";
+        String password = "";
+        loginPage = new LoginPage(app.driver);
+        loginPage.login(email,password);
+        contactsPage = new ContactsPage(app.driver);
+        Assert.assertFalse(contactsPage.confirmLogin(),"User is logged");
+    }
+
 }
