@@ -8,6 +8,8 @@ public class ContactsPage extends BasePage {
     public ContactsPage(WebDriver driver) {
         super(driver);
     }
+    @FindBy(xpath = "//*[@href='/contacts']")
+    WebElement addContactButton;
 
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']")
     WebElement header;
@@ -30,5 +32,8 @@ public class ContactsPage extends BasePage {
 
     public boolean confirmLogin() {
         return header.isDisplayed();
+    }
+    public void setSearchInput(String contactValue){
+        searchInput.sendKeys(contactValue);
     }
 }
