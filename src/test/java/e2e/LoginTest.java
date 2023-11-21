@@ -22,7 +22,10 @@ public class LoginTest extends TestBase {
     }
 
     @Test
-    public void userCannotWithInvalidEmail() {
+
+
+    public void userCannotLoginWithInvalidEmail() {
+
         String email = "newtestgmail.com";
         String password = "newtest@gmail.com";
 
@@ -44,4 +47,5 @@ public class LoginTest extends TestBase {
         contactsPage = new ContactsPage(app.driver);
         Assert.assertFalse(contactsPage.confirmlogin(), "User is logged");
     }
+
 }
