@@ -8,6 +8,7 @@ public class ContactsPage extends BasePage {
     public ContactsPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
 
@@ -33,7 +34,17 @@ public class ContactsPage extends BasePage {
     public boolean confirmLogin() {
         return header.isDisplayed();
     }
-    public void setSearchInput(String contactValue){
+
+    public AddContactDialog openAddContactDialog() {
+        addContactButton.click();
+        return new AddContactDialog(driver);
+    }
+
+    public void openDeleteDialog(){
+        deleteButton.click();
+    }
+
+    public void setSearchInput(String contactValue) {
         searchInput.sendKeys(contactValue);
     }
 }
