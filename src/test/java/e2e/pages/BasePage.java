@@ -15,8 +15,7 @@ public class BasePage {
 
     protected boolean isElementDisplayed(WebElement element) {
         try {
-            element.isDisplayed();
-            return true;
+            return element.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
