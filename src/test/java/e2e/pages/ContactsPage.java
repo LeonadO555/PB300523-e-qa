@@ -32,18 +32,20 @@ public class ContactsPage extends BasePage {
     WebElement logoutButton;
 
 
-    public boolean confirmLogin() {return header.isDisplayed();}
+    public boolean confirmLogin() {
+        return header.isDisplayed();
+    }
 
-    public AddContactDialog openAddContactDialog(){
-
+    public AddContactDialog openAddContactDialog() {
         addContactButton.click();
         return new AddContactDialog(driver);
     }
-    public void openDeleteDialog(){
+
+    public void openDeleteDialog() {
         deleteButton.click();
     }
 
-    public void setSearchInput(String contactValue){
+    public void setSearchInput(String contactValue) {
         searchInput.sendKeys(contactValue);
     }
 }

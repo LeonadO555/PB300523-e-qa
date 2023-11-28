@@ -48,5 +48,4 @@ public class LoginTest extends TestBase {
         contactsPage = new ContactsPage(app.driver);
         Assert.assertFalse(contactsPage.confirmLogin(), "User is logged");
     }
-
 }
