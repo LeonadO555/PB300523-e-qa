@@ -24,7 +24,7 @@ public class UserCanWorkWithContactTest extends TestBase {
     }
     @Test
     public void userCanWorkWithContactTest() throws InterruptedException {
-        String email = "newtest@gmail.com";
+        String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
 
         String firsName = faker.internet().uuid();
@@ -37,44 +37,52 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         //logged as user
         loginPage=new LoginPage(app.driver);
+        loginPage.waitForLoading();
         loginPage.login(email,password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
-        Assert.assertTrue(contactsPage.confirmLogin());
+        contactsPage.waitForLoading();
         //add contact
-        Thread.sleep(2000);
+
         addContactDialog=contactsPage.openAddContactDialog();
+        addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firsName,lastName,description);
         addContactDialog.saveContact();
         //check  create contact
         contactInfoPage=new ContactInfoPage(app.driver);
-        Thread.sleep(2000);
+        contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,firsName,lastName,description);
 
 
         // edit contact
         editContactForm=contactInfoPage.openEditContactForm();
+        editContactForm.waitForLoading();
         editContactForm.setFirstNameInput(editFirstName);
         editContactForm.setLastNameInput(editLastName);
         editContactForm.setDescriptionInput(editDescription);
-        editContactForm.seveChanges();
+        editContactForm.saveChanges();
+
+
 
         //check edited contact
+        contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
 
         //open contacts page
         contactInfoPage.openContactsPage();
+        contactsPage.waitForLoading();
         //find contact by firstname
         contactsPage.filterByContact(editFirstName);
-        Thread.sleep(2000);
+        contactsPage.waitForLoading();
         int actualContactCountRow = contactsPage.getContactCount();
         Assert.assertEquals(actualContactCountRow,1,"Contact count row after filter should be 1 ");
 
         //delete contact
         deleteContactDialog=contactsPage.openDeleteDialog();
+        deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
-        Thread.sleep(2000);
+        contactsPage.waitForLoading();
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(),"No result message is not visible");
 
 

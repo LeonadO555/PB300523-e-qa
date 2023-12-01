@@ -36,6 +36,14 @@ public class AddContactDialog extends ContactsPage {
 
     @FindBy(xpath = "//*[@id='form-error-firstName']")
     WebElement errorMessage;
+    public void waitForOpen(){
+        getWait().forInvisibility(dialog);
+        getWait().forInvisibility(firstnameInput);
+        getWait().forInvisibility(lastNameInput);
+        getWait().forInvisibility(descriptionInput);
+        getWait().forInvisibility(saveButton);
+
+    }
 
     public void setFirstNameInput(String firstName) {
         setInput(firstnameInput, firstName);//смотреть в классе BasePage,можно сделать так,а можно написать логику для каждого!
@@ -59,7 +67,9 @@ public class AddContactDialog extends ContactsPage {
 
     public void saveContact() {
         try {
+            getWait().forClickable(saveButton);
             saveButton.click();
+            getWait().forInvisibility(dialog);
         }catch (StaleElementReferenceException e){
             e.printStackTrace();
         }

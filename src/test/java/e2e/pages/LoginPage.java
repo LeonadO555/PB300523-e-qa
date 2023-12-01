@@ -18,6 +18,12 @@ public class LoginPage extends BasePage {
     WebElement passwordImput;
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
+    public void waitForLoading(){
+        getWait().forInvisibility(emailImput);
+        getWait().forInvisibility(passwordImput);
+        getWait().forInvisibility(loginButton);
+
+    }
 
 
     //describe methods

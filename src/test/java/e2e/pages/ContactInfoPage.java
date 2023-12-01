@@ -20,6 +20,12 @@ public class ContactInfoPage extends ContactsPage {
     WebElement descriptionField;
     @FindBy(xpath = "//button[@id='btn-edit-contact']")
     WebElement editButton;
+    public void waitForLoading(){
+        getWait().forVisibility(firstNameField);
+        getWait().forVisibility(lastNameField);
+        getWait().forVisibility(descriptionField);
+        getWait().forVisibility(editButton);
+    }
 
     public void openTab(ContactInfoTabs tab){
         driver.findElement(By.xpath("//*[@id='ngb-nav-"+tab.value+"']")).click();
