@@ -15,7 +15,7 @@ public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']")
     public WebElement header;
-    @FindBy(xpath = "//div[@class='collapse navbar-collapse']//*[@href='/']")
+    @FindBy(xpath = "//div[@class='collapse navbar-collpse']//*[@href='/']")
     WebElement contactsButton;
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
@@ -55,15 +55,15 @@ public class ContactsPage extends BasePage {
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
 
-    public AddContactDialog openAddContactDialog()  {
-        addContactButton.click();
-        return new AddContactDialog(driver);
-    }
-
-    public DeleteContactDialog openDeleteDialog(){
-        deleteButton.click();
-        return new DeleteContactDialog(driver);
-    }
+//    public AddContactDialog openAddContactDialog()  {
+//        addContactButton.click();
+//        return new AddContactDialog(driver);
+//    }
+//
+//    public DeleteContactDialog openDeleteDialog(){
+//        deleteButton.click();
+//        return new DeleteContactDialog(driver);
+//    }
 
     public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);

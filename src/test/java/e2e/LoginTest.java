@@ -8,18 +8,18 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
-    ContactsPage contactsPage;
+    //ContactsPage contactsPage;
 
     @Test
     public void userCanLogin(){
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
+        String email = "standard_user";
+        String password = "secret_sauce";
 
         loginPage = new LoginPage(app.driver);
         loginPage.login(email, password);
 
-        contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
+//        contactsPage = new ContactsPage(app.driver);
+//        contactsPage.waitForLoading();
     }
 
     @Test

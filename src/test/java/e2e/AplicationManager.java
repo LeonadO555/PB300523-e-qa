@@ -12,7 +12,7 @@ public class AplicationManager {
     protected void init(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("http://phonebook.telran-edu.de:8080/user/login");
+        driver.get("https://www.saucedemo.com/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }

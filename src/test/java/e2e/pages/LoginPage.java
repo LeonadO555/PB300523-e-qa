@@ -11,8 +11,8 @@ public class LoginPage extends BasePage{
     }
 
     // Describe locator
-    @FindBy(xpath = "//*[@name='email']")
-    WebElement emailInput;
+    @FindBy(xpath = "//*[@name='user-name']")
+    WebElement userNameInput;
 
     @FindBy(xpath = "//*[@name='password']")
     WebElement passwordInput;
@@ -21,14 +21,14 @@ public class LoginPage extends BasePage{
     WebElement loginButton;
 
     public void waitForLoading(){
-        getWait().forVisibility(emailInput);
+        getWait().forVisibility(userNameInput);
         getWait().forVisibility(passwordInput);
         getWait().forVisibility(loginButton);
     }
 
     //Describe methods
     public void login(String email, String password){
-        emailInput.sendKeys(email);
+        userNameInput.sendKeys(email);
         passwordInput.sendKeys(password);
         loginButton.click();
     }
