@@ -26,6 +26,7 @@ public class UserCanWorkWithContactTest extends TestBase {
     public void userCanWorkWithContactTest() throws InterruptedException {
         String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
+        String language = "English";
 
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
@@ -37,11 +38,14 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         //logged as user
         loginPage=new LoginPage(app.driver);
-        loginPage.waitForLoading();
+        //loginPage.waitForLoading();
         loginPage.login(email,password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
+        contactsPage.selectLanguage(language);
+        String actualLanguage = contactsPage.getLanguage();
+        Assert.assertEquals(actualLanguage,language);
         //add contact
 
         addContactDialog=contactsPage.openAddContactDialog();

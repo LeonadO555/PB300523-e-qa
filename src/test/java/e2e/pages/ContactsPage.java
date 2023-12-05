@@ -39,7 +39,8 @@ public class ContactsPage extends BasePage {
     WebElement noResultsMessage;
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
-    public void waitForLoading(){
+
+    public void waitForLoading() {
         getWait().forInvisibility(header);
         getWait().forInvisibility(contactsButton);
         getWait().forInvisibility(addContactButton);
@@ -50,11 +51,11 @@ public class ContactsPage extends BasePage {
     }
 
 
-
-    public void openContactsPage(){
+    public void openContactsPage() {
         contactsButton.click();
     }
-    public int getContactCount(){
+
+    public int getContactCount() {
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
 
@@ -63,7 +64,16 @@ public class ContactsPage extends BasePage {
         return new AddContactDialog(driver);
     }
 
-    public DeleteContactDialog openDeleteDialog(){
+    public void selectLanguage(String language) {
+        getSelect(languageDropdown).selectByVisibleText(language);
+
+    }
+
+    public String getLanguage() {
+        return getSelect(languageDropdown).getFirstSelectedOption().getText();
+    }
+
+    public DeleteContactDialog openDeleteDialog() {
         getWait().forClickable(deleteButton);
         deleteButton.click();
         return new DeleteContactDialog(driver);
@@ -72,7 +82,9 @@ public class ContactsPage extends BasePage {
     public void filterByContact(String contactValue) {
         searchInput.sendKeys(contactValue);
     }
-    public boolean isNoResultMessageDisplayed(){
+
+    public boolean isNoResultMessageDisplayed() {
+        getWait().forVisibility(noResultsMessage);
         return isElementDisplayed(noResultsMessage);
     }
 }
