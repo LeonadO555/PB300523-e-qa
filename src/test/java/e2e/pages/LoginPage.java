@@ -12,16 +12,16 @@ public class LoginPage extends BasePage {
 
     //describe locator
 
-    @FindBy(xpath = "//*[@name = 'email']")
-    WebElement emailImput;
-    @FindBy(xpath = "//*[@name = 'password']")
-    WebElement passwordImput;
+    @FindBy(xpath = "//*[@name='email']")
+    WebElement emailInput;
+    @FindBy(xpath = "//*[@name='password']")
+    WebElement passwordInput;
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
     public void waitForLoading(){
-        getWait().forInvisibility(emailImput);
-        getWait().forInvisibility(passwordImput);
-        getWait().forInvisibility(loginButton);
+        getWait().forVisibility(emailInput);
+        getWait().forVisibility(passwordInput);
+        getWait().forVisibility(loginButton);
 
     }
 
@@ -29,8 +29,8 @@ public class LoginPage extends BasePage {
     //describe methods
 
     public void login(String email, String password) {
-        emailImput.sendKeys(email);
-        passwordImput.sendKeys(password);
+        emailInput.sendKeys(email);
+        passwordInput.sendKeys(password);
         loginButton.click();
     }
 

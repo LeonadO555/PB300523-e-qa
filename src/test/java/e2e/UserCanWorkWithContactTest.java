@@ -38,7 +38,7 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         //logged as user
         loginPage=new LoginPage(app.driver);
-        //loginPage.waitForLoading();
+        loginPage.waitForLoading();
         loginPage.login(email,password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
@@ -86,7 +86,7 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
-        contactsPage.waitForLoading();
+
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(),"No result message is not visible");
 
 

@@ -37,11 +37,11 @@ public class AddContactDialog extends ContactsPage {
     @FindBy(xpath = "//*[@id='form-error-firstName']")
     WebElement errorMessage;
     public void waitForOpen(){
-        getWait().forInvisibility(dialog);
-        getWait().forInvisibility(firstnameInput);
-        getWait().forInvisibility(lastNameInput);
-        getWait().forInvisibility(descriptionInput);
-        getWait().forInvisibility(saveButton);
+        getWait().forVisibility(dialog);
+        getWait().forVisibility(firstnameInput);
+        getWait().forVisibility(lastNameInput);
+        getWait().forVisibility(descriptionInput);
+        getWait().forVisibility(saveButton);
 
     }
 

@@ -41,10 +41,10 @@ public class ContactsPage extends BasePage {
     WebElement logoutButton;
 
     public void waitForLoading() {
-        getWait().forInvisibility(header);
-        getWait().forInvisibility(contactsButton);
-        getWait().forInvisibility(addContactButton);
-        getWait().forInvisibility(contactsList);
+        getWait().forVisibility(header);
+        getWait().forVisibility(contactsButton);
+        getWait().forVisibility(addContactButton);
+        getWait().forVisibility(contactsList);
         getWait().forAllVisibility(contactRows);
         getWait().forClickable(addContactButton);
         getWait().forClickable(contactsButton);
