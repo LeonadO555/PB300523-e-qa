@@ -3,6 +3,7 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import e2e.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -35,8 +36,8 @@ public class UserCanWorkWithContactTest extends TestBase {
         Assert.assertEquals(actualStreetName,street,actualStreetName+ "is not equal "+street);
 
     }
-    @Test
-    public void userCanWorkWithContactTest() throws InterruptedException {
+    @Test(dataProvider = "newContact",dataProviderClass = DataProviders.class)//интегрировали параметры в тест;
+    public void userCanWorkWithContactTest(String firstName,String lastName,String description){
         String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
@@ -45,9 +46,9 @@ public class UserCanWorkWithContactTest extends TestBase {
         String postCode = "19455";
         String street = "Dresdner st 8";
 
-        String firsName = faker.internet().uuid();
-        String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence();
+//        String firsName = faker.internet().uuid();
+//        String lastName = faker.internet().uuid();
+//        String description = faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -67,12 +68,12 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         addContactDialog=contactsPage.openAddContactDialog();
         //addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firsName,lastName,description);
+        addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
         //check  create contact
         contactInfoPage=new ContactInfoPage(app.driver);
         //contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firsName,lastName,description);
+        checkContactData(contactInfoPage,firstName,lastName,description);
 
 
         // edit contact
