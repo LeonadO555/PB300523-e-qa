@@ -12,13 +12,13 @@ public class ContactInfoPage extends ContactsPage {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[@id='contact-first-name']")
+    @FindBy(xpath = "//*[@id='contact-first-name']")
     WebElement firstNameField;
-    @FindBy(xpath = "//div[@id='contact-last-name']")
+    @FindBy(xpath = "//*[@id='contact-last-name']")
     WebElement lastNameField;
-    @FindBy(xpath = "//div[@id='contact-description']")
+    @FindBy(xpath = "//*[@id='contact-description']")
     WebElement descriptionField;
-    @FindBy(xpath = "//button[id='btn-edit-contact']")
+    @FindBy(xpath = "//*[@id='btn-edit-contact']")
     WebElement editButton;
     public void waitForLoading(){
         getWait().forVisibility(firstNameField);
