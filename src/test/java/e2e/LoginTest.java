@@ -11,54 +11,31 @@ public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
 
-    @Test(dataProvider = "invalidLoginData",dataProviderClass = DataProviders.class)
-    public void userCanLogin(String email,String password) {
-//        String email = "newtest@gmail.com";
-//        String password = "newtest@gmail.com";
-
-        loginPage = new LoginPage(app.driver);
-        loginPage.login(email, password);
-
-//        contactsPage = new ContactsPage(app.driver);
-//        contactsPage.waitForLoading();
-    }
     @Test
-    public void userCannotLoginWithInvalidEmail() {
-        String email = "newtesst@gmail.com";
-        String password = "newtest@gmail.com";
-
-        loginPage = new LoginPage(app.driver);
-        loginPage.login(email, password);
-
-        contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
-    }
-    @Test
-    public void userCannotLoginWithInvalidPassword(){
+    public void userCanLogin() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
 
         loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
+        loginPage.login(email, password);
+
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
     }
 
-    @Test
-    public void userCannotLoginWithInvalidData(){
-        String email = "asdasfafs";
-        String password = "asdasfafs";
+    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataProviders.class)
+    public void userCannotLoginWithInvalidData(String email, String password) {
         loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
-        contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
+        loginPage.login(email, password);
     }
+
+
     @Test
-    public void userCannotLoginWithEmptyDate(){
+    public void userCannotLoginWithEmptyDate() {
         String email = "";
         String password = "";
         loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
+        loginPage.login(email, password);
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
     }
