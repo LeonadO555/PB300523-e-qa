@@ -23,4 +23,17 @@ public class DataProviders {
         list.add(new Object[]{faker.internet().uuid(),"Manolov","QA pro course"});
         return list.iterator();
     }
+
+    @DataProvider
+    public Iterator<Object[]> userCanNotLoginTest(){
+
+        List<Object[]> list = new ArrayList<>();
+
+        list.add(new Object[]{"newtestgmail.com", "newtest@gmail.com"});
+        list.add(new Object[]{"newtest@gmail.com", "newtestgmail.com"});
+        list.add(new Object[]{"newtestgmail.com", "newtestgmail.com"});
+        list.add(new Object[]{"newtestgmail.com", "newtest@gmail.com"});
+
+        return list.iterator();
+    }
 }
