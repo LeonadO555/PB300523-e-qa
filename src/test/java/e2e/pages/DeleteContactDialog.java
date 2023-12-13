@@ -19,8 +19,9 @@ public class DeleteContactDialog extends ContactsPage{
 
     public void waitForOpen(){
         getWait().forVisibility(dialog);
-        getWait().forInVisibility(confirmDeletionCheckbox);
-        getWait().forInVisibility(removeContactButton);
+        getWait().forVisibility(confirmDeletionCheckbox);
+        getWait().forVisibility(removeContactButton);
+
 
     }
 

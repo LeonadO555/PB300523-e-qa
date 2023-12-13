@@ -26,7 +26,7 @@ public class UserCanWorkWithContactTest extends TestBase{
 
 
     @Test(dataProvider = "newContact", dataProviderClass = DataProviders.class)
-    public void userCanWorkWithContactTest(String firstName, String lastName, String description)  {
+    public void userCanWorkWithContactTest(String firstName, String lastName, String description)throws InterruptedException  {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
 

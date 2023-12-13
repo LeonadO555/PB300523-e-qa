@@ -39,10 +39,10 @@ public class AddContactDialog extends ContactsPage{
 
     public void waitForOpen(){
         getWait().forVisibility(dialog);
-        getWait().forInVisibility(firstNameInput);
-        getWait().forInVisibility(lastNameInput);
-        getWait().forInVisibility(descriptionInput);
-        getWait().forInVisibility(saveButton);
+        getWait().forVisibility(firstNameInput);
+        getWait().forVisibility(lastNameInput);
+        getWait().forVisibility(descriptionInput);
+        getWait().forVisibility(saveButton);
 
     }
 

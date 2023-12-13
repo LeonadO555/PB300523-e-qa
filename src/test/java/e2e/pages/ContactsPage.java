@@ -16,7 +16,7 @@ public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//*[@class='collapse navbar-collapse']")
     public WebElement header;
-    @FindBy(xpath = "//*[@class='collapse navbar-collapse']//*[@href='/contacts']")
+    @FindBy(xpath = "//*[@class='collapse navbar-collapse']//*[@href='/']")
     WebElement contactsButton;
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
@@ -41,7 +41,7 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//*[@type='warning']")
     WebElement noResultMessage;
 
-    @FindBy(xpath = "//*[text()='Logout']")
+    @FindBy(xpath = "//*[@text='Logout']")
     WebElement logoutButton;
 
     public void waitForLoading(){
@@ -71,13 +71,12 @@ public class ContactsPage extends BasePage {
     }
 
     public AddContactDialog openAddContactDialog(){
-
         addContactButton.click();
         return new AddContactDialog(driver);
     }
 
     public void selectLanguage(String language){
-        getSelect(languageDropdown).deselectByVisibleText(language);
+        getSelect(languageDropdown).selectByVisibleText(language);
     }
 
     public String getLanguage(){
@@ -97,7 +96,7 @@ public class ContactsPage extends BasePage {
     }
 
     public boolean isNoResultDisplayed(){
-        getWait().forInVisibility(noResultMessage);
+        getWait().forVisibility(noResultMessage);
         return isElementDisplayed(noResultMessage);
     }
 
