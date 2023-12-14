@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FirstSeleniumTest {
     public WebDriver driver;
-    @Test
+    @Test(alwaysRun = false)
     public void firstSeleniumTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();

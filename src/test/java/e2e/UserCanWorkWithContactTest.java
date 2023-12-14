@@ -19,7 +19,6 @@ public class UserCanWorkWithContactTest extends TestBase {
     Faker faker = new Faker();
 
     private void checkContactData(ContactInfoPage page,String firstName,String lastName,String description){
-        contactInfoPage = new ContactInfoPage(app.driver);
         String actualFirstName = page.getFirstName();
         String actualLastName = page.getLastName();
         String actualDescription = page.getDescription();
