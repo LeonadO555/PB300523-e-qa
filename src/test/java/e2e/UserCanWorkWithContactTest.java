@@ -93,7 +93,8 @@ public class UserCanWorkWithContactTest extends TestBase{
         deleteContactDialog.removeContact();
 
         //check that contact was
-        Assert.assertTrue(addContactDialog.isNoResultDisplayed(),"No result message is not visible");
+        Assert.assertTrue(contactsPage.isNoResultDisplayed(),"No result message is not visible");
+        contactsPage.takeScreenshotNoResultMessage();
     }
 
 }

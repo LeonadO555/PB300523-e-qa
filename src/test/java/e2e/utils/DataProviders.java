@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DataProviders {
-    //[{"Oksana", "Povkh", "I am a student"}, ]
+
     Faker faker = new Faker();
     @DataProvider
     public Iterator<Object[]> newContact() {
@@ -16,6 +16,14 @@ public class DataProviders {
         list.add(new Object[]{faker.internet().uuid(), faker.name().lastName(), faker.lorem().paragraph()});
         //list.add(new Object[]{faker.internet().uuid(), faker.internet().uuid(), faker.lorem().sentence()});
         //list.add(new Object[]{faker.internet().uuid(), "Povkh", "I am a student"});
+        return list.iterator();
+    }
+    @DataProvider
+    public Iterator<Object[]> invalidLoginData(){
+        List<Object[]> list = new ArrayList<>();
+        list.add(new Object[]{"Steven","newtest@gmail.com", "with_invalid_email"});
+        list.add(new Object[]{"newtest@gmail.com",faker.internet().uuid(), "with_invalid_password"});
+        list.add(new Object[]{"213123","234234", "with_invalid_data"});
         return list.iterator();
     }
 }

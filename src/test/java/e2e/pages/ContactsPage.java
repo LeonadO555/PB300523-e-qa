@@ -100,5 +100,9 @@ public class ContactsPage extends BasePage {
         return isElementDisplayed(noResultMessage);
     }
 
+    public void  takeScreenshotNoResultMessage(){
+        takeAndCompareScreenshot("contactPageNoResultMessage", noResultMessage);
+    }
+
 
 }
