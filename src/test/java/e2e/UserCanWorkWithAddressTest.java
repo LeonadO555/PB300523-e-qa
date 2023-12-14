@@ -43,7 +43,7 @@ public class UserCanWorkWithAddressTest extends TestBase{
         String country = "Germany";
         String city = "Berlin";
         String postCode = "19455";
-        String street = "Dresdner st 8";
+        String street = "Dresdener st 8";
 
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
