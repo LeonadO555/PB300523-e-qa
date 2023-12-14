@@ -20,13 +20,12 @@ public class DataProviders {
 
     }
     @DataProvider
-    public Iterator<Object[]>invalidLoginData(){
+    public Iterator<Object[]> invalidLoginData(){
         List<Object[]> list = new ArrayList<>();
-        list.add(new Object[]{"newtest@gmm.com","newtest@gmail.com"});
-        list.add(new Object[]{"newtest@gmail.com","newtesddt@gmail.com"});
-        list.add(new Object[]{"newtest@gmdsail.com","newtessdfddt@gmail.com"});
+        list.add(new Object[]{"newtest","newtest@gmail.com", "with_invalid_email"});
+        list.add(new Object[]{"newtest@gmail.com","newtesddt@gmail.com","with_invalid_password"});
+        list.add(new Object[]{"1234556","344565677","with_invalid_data"});
         return list.iterator();
-
     }
 
 }

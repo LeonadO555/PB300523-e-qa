@@ -45,7 +45,7 @@ public class UserCanWorkWithContactTest extends TestBase {
         String postCode = "19455";
         String street = "Dresdner st 8";
 
-        String firsName = faker.internet().uuid();
+        String firstName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();
 
@@ -70,7 +70,7 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         //Check created contact
         contactInfoPage = new ContactInfoPage(app.driver);
-        contactsPage.waitForLoading();
+        contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage, firstName, lastName, description);
 
         // edit contact
@@ -105,7 +105,8 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.removeContact();
 
         //check that contact was deleted
-        contactsPage.waitForLoading();
+        //contactsPage.waitForLoading();
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        contactsPage.takeScreenShotNoResultMessage();
     }
 }

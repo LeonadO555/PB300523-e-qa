@@ -37,11 +37,11 @@ public class LoginTest extends TestBase {
     }
 
     @Test(dataProvider = "invalidLoginData", dataProviderClass = DataProviders.class)
-    public void userCannotWithInvalidPassword(String email,String password) {
-
-
+    public void userCannotWithInvalidPassword(String email,String password, String caseName) {
         loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
         loginPage.login(email, password);
         loginPage.waitForLoading();
+        loginPage.takeLoginPageScreenshot(caseName + "_negative_Login_Case");
     }
 }

@@ -7,8 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.awt.*;
 import java.awt.Dimension;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -25,7 +27,7 @@ public class BasePage {
         return new Wait(driver);
     }
 
-    public Select getSelect(WebElement element){
+    public Select getSelect(WebElement element) {
         return new Select(element);
     }
 
@@ -42,29 +44,65 @@ public class BasePage {
         input.clear();
         input.sendKeys(value);
     }
-    protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element) throws IOException {
-        String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
-        String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";
+
+    private File takeScreenshot(WebElement element) {
         File tmp;
-        if (element == null){
-            tmp = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        }else {
+        if (element == null) {
+            tmp = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            System.out.println("Take screenshot page");
+        } else {
             tmp = element.getScreenshotAs(OutputType.FILE);
+            System.out.println("Take screenshot element");
         }
-        Files.copy(tmp.toPath(), new File(tmpFilePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        return tmp;
+    }
 
-        File referencImageFile = new File(referenceImageFilePath);
-        if (!referencImageFile.exists()){
-            throw new RuntimeException("Referenc image file does not exist" + referenceImageFilePath);
-        }
-
+    private double calculateMaxDifferentPercentRation() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
 
-        double maxDiffPercent = 0.01 * width * height;
+        return 0.01 * width * height;
+    }
 
-        ProcessBuilder pb = new ProcessBuilder("compare !!! ", "-metric", "AE", referenceImageFilePath, tmpFilePath, "null:");
+    private Process setCompareCommandToTerminal(String refImgFilePath, String tmpFilePath) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe", "compare", "-metric", "AE", refImgFilePath, tmpFilePath, "null:");
+        return pb.start();
+    }
 
+    private double getDifferenceFromLogs(BufferedReader reader) throws IOException {
+        String line;
+        double difference = 0;
+        while ((line = reader.readLine()) != null) {
+            difference = Integer.parseInt(line.trim());
+        }
+        return difference;
+    }
+
+    protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element) {
+        String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
+        String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";
+        File tmp = takeScreenshot(element);
+        try {
+            Files.copy(tmp.toPath(), new File(tmpFilePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            File referencImageFile = new File(referenceImageFilePath);
+            if (!referencImageFile.exists()) {
+                throw new RuntimeException("Reference image file does not exist, but there is tmp file, need remove tmp_ from name file" + tmpFilePath);
+            }
+            double maxDiffPercent = calculateMaxDifferentPercentRation();
+            Process process = setCompareCommandToTerminal(referenceImageFilePath, tmpFilePath);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            double difference = getDifferenceFromLogs(reader);
+            reader.close();
+            process.destroy();
+
+            if (difference > maxDiffPercent) {
+                throw new RuntimeException(referenceImageFilePath + " not equal " + tmpFilePath + " difference: " + difference);
+            }
+            Files.deleteIfExists(new File(tmpFilePath).toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

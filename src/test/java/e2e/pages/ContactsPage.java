@@ -80,6 +80,10 @@ public class ContactsPage extends BasePage {
         return isElementDisplayed(noResultsMessage);
     }
 
+    public void  takeScreenShotNoResultMessage(){
+        takeAndCompareScreenshot("contactPageNoResultMessage", noResultsMessage);
+    }
+
 
     public void selectLanguage(String language){
         getSelect(languageDropdown).selectByVisibleText(language);
