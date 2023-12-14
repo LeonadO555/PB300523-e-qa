@@ -31,5 +31,16 @@ public class LoginTest extends TestBase {
         loginPage.login(email,password);
         loginPage.waitForLoading();
     }
+    @Test
+    public void userCannotLoginWithInvalidEmail(){
+        String email = "invalid@gmail.com";
+        String password = "newtest@gmail.com";
+
+        loginPage = new LoginPage(app.driver);
+        loginPage.login(email, password);
+
+        contactsPage = new ContactsPage(app.driver);
+        Assert.assertFalse(contactsPage.confirmLogin(),"User is logged");
+    }
 
 }
