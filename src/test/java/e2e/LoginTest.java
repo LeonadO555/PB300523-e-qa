@@ -41,5 +41,38 @@ public class LoginTest extends TestBase {
         loginPage.takeLoginPageScreenshot(caseName + "negative_Login_Case");
     }
 
+    private  void loginTestMethod(String email, String password, String screenshotName , boolean negativeCase){
+        loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
+        loginPage.login(email, password);
+        loginPage.takeLoginPageScreenshot(screenshotName);
+        if (negativeCase){
+            loginPage.waitForLoading();
+        } else {
+            contactsPage = new ContactsPage(app.driver);
+            contactsPage.waitForLoading();
+            contactsPage.takeScreenshotHeader();
+        }
+    }
+    @Test
+    public void userCanLoginWithValidData(){
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", null, false);
+    }
+     // TODO: theree is a bug...
+    @Test
+    public void userCanLoginWithValidEmail(){
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", "login_invalid_email", true);
+    }
+
+    @Test
+    public void userCanLoginWithValidPassword(){
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", "login_invalid_password", true);
+    }
+
+    @Test
+    public void userCanLoginWithValidEmailAndPassword(){
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", "login_invalid_email_and_password",true);
+    }
+
 }
 

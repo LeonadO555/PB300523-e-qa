@@ -100,6 +100,10 @@ public class ContactsPage extends BasePage {
         return isElementDisplayed(noResultMessage);
     }
 
+    public void takeScreenshotHeader(){
+        takeAndCompareScreenshot("header", header);
+    }
+
     public void  takeScreenshotNoResultMessage(){
         takeAndCompareScreenshot("contactPageNoResultMessage", noResultMessage);
     }
