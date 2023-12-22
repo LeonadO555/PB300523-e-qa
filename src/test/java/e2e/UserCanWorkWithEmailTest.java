@@ -12,8 +12,11 @@ public class UserCanWorkWithEmailTest extends TestBase{
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
-    EmailPage emailPage;
+    EmailInfoPage emailInfoPage;
     AddEmailDialog addEmailDialog;
+
+    DeleteEmail deleteEmail;
+
     Faker faker = new Faker();
 
     private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
@@ -25,7 +28,7 @@ public class UserCanWorkWithEmailTest extends TestBase{
         Assert.assertEquals(actualDescription,description,actualDescription+ "is not equal "+description);
     }
 
-    private void checkEmailData(EmailPage page,String email){
+    private void checkEmailData(EmailInfoPage page, String email){
         String actualEmailName = page.getEmail();
         Assert.assertEquals(actualEmailName,email,actualEmailName+ "is not equal " + email);
 
@@ -41,7 +44,6 @@ public class UserCanWorkWithEmailTest extends TestBase{
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();
-
 
         //logged as user
         loginPage=new LoginPage(app.driver);
@@ -66,15 +68,29 @@ public class UserCanWorkWithEmailTest extends TestBase{
         contactInfoPage.openTab(ContactInfoTabs.EMAILS);
 
 
-        emailPage = new EmailPage(app.driver);
-        emailPage.waitForLoading();
+        emailInfoPage = new EmailInfoPage(app.driver);
+        emailInfoPage.waitForLoading();
 
-        emailPage.clickOnAddEmailButton();
+        emailInfoPage.clickOnAddEmailButton();
+
 
         addEmailDialog = new AddEmailDialog(app.driver);
-        //addEmailDialog.waitForLoading();
+        addEmailDialog.waitForLoading();
         addEmailDialog.setEmailInput(expectedEmail);
         addEmailDialog.saveEmail();
-        checkEmailData(emailPage ,expectedEmail);
+        checkEmailData(emailInfoPage,expectedEmail);
+        addEmailDialog.tabDropDawn();
+
+
+
+
+
+        //delete email
+        deleteEmail = emailInfoPage.openEmailDelete();
+        deleteEmail.waitForOpen();
+        deleteEmail.setConfirmDeletion();
+        deleteEmail.removeEmail();
+        deleteEmail.waitForLoading();
+
     }
 }

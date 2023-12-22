@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddEmailDialog extends EmailPage {
+public class AddEmailDialog extends EmailInfoPage {
     public AddEmailDialog(WebDriver driver) {
         super(driver);
 

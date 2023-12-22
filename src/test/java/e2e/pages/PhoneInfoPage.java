@@ -1,40 +1,44 @@
 package e2e.pages;
 
-import e2e.enums.ContactInfoTabs;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EmailPage extends ContactInfoPage{
-    //import constructor!!!
-    public EmailPage(WebDriver driver) {
+public class PhoneInfoPage extends ContactInfoPage{
+    public PhoneInfoPage(WebDriver driver) {
         super(driver);
     }
-
 
     @FindBy(xpath = "//*[@id='search']")
     WebElement searchInput;
 
     @FindBy(xpath = "//*[@id='btn-add-phone']")
-    WebElement addEmailButton;
-    @FindBy(xpath = "//*[@class='row-table w-95']")
-    WebElement emailInputField;
+    WebElement addPhoneButton;
+    @FindBy(xpath = "//*[@class='custom-select']")
+    WebElement countryCodeDropdown;
+
+    @FindBy(xpath = "//*[@id='selected-cc']")
+    WebElement phoneInputField;
     @FindBy(xpath = "//*[@class='dropdown-toggle btn btn-outline-light btn-block']")
     WebElement optionDropDown;
 
 
-
     public void waitForLoading(){
         getWait().forVisibility(searchInput);
-        getWait().forClickable(addEmailButton);
+        getWait().forClickable(addPhoneButton);
     }
 
-    public void clickOnAddEmailButton(){
-        addEmailButton.click();
+    public void clickOnAddPhoneButton(){
+        addPhoneButton.click();
     }
-    public String getEmail(){
-        return emailInputField.getText();
+    public String getCountryCode(){
+        return countryCodeDropdown.getText();
     }
+
+    public String getPhoneNumber(){
+        return phoneInputField.getText();
+    }
+
     public void clickOnDropdownButtonEdit(String edit){
         getSelect(optionDropDown).selectByVisibleText(edit);
     }
@@ -42,3 +46,4 @@ public class EmailPage extends ContactInfoPage{
         getSelect(optionDropDown).selectByVisibleText(remove);
     }
 }
+
