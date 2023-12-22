@@ -3,7 +3,6 @@ package e2e.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class EditContactForm extends ContactInfoPage{
     public EditContactForm(WebDriver driver) {
@@ -30,7 +29,7 @@ public class EditContactForm extends ContactInfoPage{
     }
 
     public void setFirstNameInput(String firstName){
-        setInput(firstNameInput, firstName);
+        setInput(firstNameInput,firstName);
     }
 
     public  void setLastNameInput(String lastName){

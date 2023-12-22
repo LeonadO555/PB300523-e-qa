@@ -1,7 +1,9 @@
 package e2e;
 
 import com.github.javafaker.Faker;
+import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import e2e.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,6 +11,7 @@ public class UserCanWorkWithContactTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
+
     ContactInfoPage contactInfoPage;
     EditContactForm editContactForm;
     DeleteContactDialog deleteContactDialog;
@@ -16,22 +19,24 @@ public class UserCanWorkWithContactTest extends TestBase {
     Faker faker = new Faker();
 
     private void checkContactData(ContactInfoPage page,String firstName,String lastName,String description){
-        String actualFirstName = contactInfoPage.getFirstName();
-        String actualLastName = contactInfoPage.getLastName();
-        String actualDescription = contactInfoPage.getDescription();
+        String actualFirstName = page.getFirstName();
+        String actualLastName = page.getLastName();
+        String actualDescription = page.getDescription();
         Assert.assertEquals(actualFirstName,firstName,actualFirstName + " is not equal " + firstName);
         Assert.assertEquals(actualLastName,lastName,actualLastName + " is not equal " + lastName);
         Assert.assertEquals(actualDescription,description,actualDescription + " is not equal " + description);
     }
 
-    @Test
-    public void userCanWorkWithContactTest() throws InterruptedException {
+    @Test(dataProvider = "newContact",dataProviderClass = DataProviders.class)
+    public void userCanWorkWithContactTest(String firstName, String lastName, String description) {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
+        String language = "English";
 
-        String firstName =faker.internet().uuid();
-        String lastName =faker.internet().uuid();
-        String description =faker.lorem().sentence();
+
+        // String firstName =faker.internet().uuid();
+        // String lastName =faker.internet().uuid();
+        // String description =faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -42,8 +47,14 @@ public class UserCanWorkWithContactTest extends TestBase {
         loginPage.getWait();
         loginPage.login(email,password);
 
+
+
         // Check that user was logged " Проверьте, что пользователь залогинился "
+
         contactsPage = new ContactsPage(app.driver);
+        contactsPage.waitForLoading();
+        contactsPage.selectLanguage(language);
+        Assert.assertEquals(contactsPage.getLanguage(),language);
 
 
         // add contact " добавить контакт "
@@ -52,11 +63,14 @@ public class UserCanWorkWithContactTest extends TestBase {
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
 
+
+
         // check created contact " Создать новый контакт "
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,firstName,lastName,description);
+        //contactInfoPage.openTab(ContactInfoTabs.EMAILS);
 
 
         // edit contact " изменить контакт "
@@ -90,7 +104,7 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.removeContact();
 
         //check that contact was deleted
-        contactsPage.waitForLoading();
+
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
 
     }
