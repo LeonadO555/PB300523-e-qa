@@ -17,6 +17,10 @@ public class AddEmailDialog extends EmailInfoPage{
         getWait().forVisibility(emailInputField);
         getWait().forVisibility(saveButton);
     }
+    public void waitForClose(){
+        getWait().forInvisibility(emailInputField);
+        getWait().forInvisibility(saveButton);
+    }
 
     public void setEmail(String email){
         emailInputField.sendKeys(email);

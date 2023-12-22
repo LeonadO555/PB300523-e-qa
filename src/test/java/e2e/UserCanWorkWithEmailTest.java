@@ -27,7 +27,6 @@ public class UserCanWorkWithEmailTest extends TestBase{
     private void checkEmailData(EmailInfoPage page,String emailInput){
         String actualEmailName = page.getEmail();
         Assert.assertEquals(actualEmailName,emailInput,actualEmailName+ "is not equal "+emailInput);
-
     }
     @Test
     public void userCanWorkWithEmailTest(){
@@ -35,6 +34,9 @@ public class UserCanWorkWithEmailTest extends TestBase{
         String password = "newtest@gmail.com";
         String language = "English";
         String emailInput = "newEmail@gmail.com";
+        String dropDownEdit = "Edit";
+        String changedEmail = "newEEEmail@gmail.com";
+        String dropDownRemove = "Remove";
 
 
         String firsName = faker.internet().uuid();
@@ -74,5 +76,16 @@ public class UserCanWorkWithEmailTest extends TestBase{
         addEmailDialog.setEmail(emailInput);
         addEmailDialog.clickOnSaveButton();
         checkEmailData(emailPage ,emailInput);
+
+        emailPage.clickOnDropdownButtonEdit(dropDownEdit);
+        addEmailDialog.waitForOpen();
+        addEmailDialog.setEmail(changedEmail);
+        addEmailDialog.clickOnSaveButton();
+        addEmailDialog.waitForClose();
+        emailPage.clickOnDropdownButtonEdit(dropDownRemove);
+
+
+
+
     }
 }

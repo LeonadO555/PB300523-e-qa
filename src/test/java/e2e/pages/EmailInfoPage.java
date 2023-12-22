@@ -24,8 +24,7 @@ public class EmailInfoPage extends ContactInfoPage{
     public void waitForLoading(){
         getWait().forVisibility(searchInput);
         getWait().forClickable(addEmailButton);
-        getWait().forVisibility(emailField);
-        getWait().forVisibility(optionDropDown);
+
     }
 
     public void clickOnAddEmailButton(){
