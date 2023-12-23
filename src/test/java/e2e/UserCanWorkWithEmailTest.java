@@ -3,6 +3,8 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,6 +15,7 @@ public class UserCanWorkWithEmailTest extends TestBase{
     ContactInfoPage contactInfoPage;
     EmailInfoPage emailPage;
     AddEmailDialog addEmailDialog;
+    EditEmail editEmail;
     Faker faker = new Faker();
 
     private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
@@ -48,6 +51,7 @@ public class UserCanWorkWithEmailTest extends TestBase{
         loginPage=new LoginPage(app.driver);
         //loginPage.waitForLoading();
         loginPage.login(email,password);
+        loginPage.takeLoginPageScreenshot("LoginPageScreenshotEmailTest");
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
         //contactsPage.waitForLoading();
@@ -74,15 +78,24 @@ public class UserCanWorkWithEmailTest extends TestBase{
         addEmailDialog = new AddEmailDialog(app.driver);
         //addEmailDialog.waitForLoading();
         addEmailDialog.setEmail(emailInput);
+        addEmailDialog.takeEmailDialogScreenshot("EmailScreenshot");
         addEmailDialog.clickOnSaveButton();
         checkEmailData(emailPage ,emailInput);
 
-        emailPage.clickOnDropdownButtonEdit(dropDownEdit);
+
+
+        emailPage = new EmailInfoPage(app.driver);
+        emailPage.clickOnDropdownButtonEdit();
         addEmailDialog.waitForOpen();
-        addEmailDialog.setEmail(changedEmail);
-        addEmailDialog.clickOnSaveButton();
-        addEmailDialog.waitForClose();
-        emailPage.clickOnDropdownButtonEdit(dropDownRemove);
+        editEmail = new EditEmail(app.driver);
+        editEmail.setEmailInputField(changedEmail);
+        editEmail.takeEmailEditPageScreenshot("EditedScreenshot");
+        editEmail.saveChange();
+        emailPage.waitForLoading();
+        checkEmailData(emailPage,changedEmail);
+        emailPage.clickOnDropdownButtonRemove();
+        Assert.assertTrue(emailPage.isNoResultMessageDisplayed(),"No result message is not visible");
+        emailPage.takeScreenshotNoResultMessage();
 
 
 

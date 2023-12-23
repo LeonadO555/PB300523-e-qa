@@ -4,15 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddEmailDialog extends EmailInfoPage{
-    public AddEmailDialog(WebDriver driver) {
+public class EditEmail extends EmailInfoPage{
+    public EditEmail(WebDriver driver) {
         super(driver);
     }
-@FindBy(xpath = "//*[@id='input-email']")
+    @FindBy(xpath = "//*[@id='input-email']")
     WebElement emailInputField;
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
-
     public void waitForOpen(){
         getWait().forVisibility(emailInputField);
         getWait().forVisibility(saveButton);
@@ -22,15 +21,15 @@ public class AddEmailDialog extends EmailInfoPage{
         getWait().forInvisibility(saveButton);
     }
 
-    public void setEmail(String email){
-        emailInputField.sendKeys(email);
-    }
-    public void clickOnSaveButton(){
-        saveButton.click();
-    }
+    public void setEmailInputField(String editEmail){
+        setInput(emailInputField ,editEmail);
 
-    public void takeEmailDialogScreenshot(String actualScreenshotName){
+    }
+    public void saveChange(){
+        saveButton.click();
+        getWait().forInvisibility(saveButton);
+    }
+    public void takeEmailEditPageScreenshot(String actualScreenshotName){
         takeAndCompareScreenshot(actualScreenshotName,null);
     }
-
 }
