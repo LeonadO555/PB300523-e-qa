@@ -16,6 +16,7 @@ public class UserCanWorkWithEmailTest extends TestBase{
     EmailInfoPage emailPage;
     AddEmailDialog addEmailDialog;
     EditEmail editEmail;
+    DeleteEmail deleteEmail;
     Faker faker = new Faker();
 
     private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
@@ -93,8 +94,9 @@ public class UserCanWorkWithEmailTest extends TestBase{
         editEmail.saveChange();
         emailPage.waitForLoading();
         checkEmailData(emailPage,changedEmail);
-        emailPage.clickOnDropdownButtonRemove();
-        Assert.assertTrue(emailPage.isNoResultMessageDisplayed(),"No result message is not visible");
+        deleteEmail = new DeleteEmail(app.driver);
+        deleteEmail.clickOnDropdownButtonRemove();
+        Assert.assertTrue(deleteEmail.isNoResultMessageDisplayed(),"No result message is not visible");
         emailPage.takeScreenshotNoResultMessage();
 
 

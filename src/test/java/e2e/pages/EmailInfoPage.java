@@ -6,10 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EmailInfoPage extends ContactInfoPage{
+public class EmailInfoPage extends ContactInfoPage {
     public EmailInfoPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@id='search']")
     WebElement searchInput;
 
@@ -23,39 +24,32 @@ public class EmailInfoPage extends ContactInfoPage{
     WebElement noResultMessage;
 
 
-
-    public void waitForLoading(){
+    public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forClickable(addEmailButton);
 
     }
 
-    public void clickOnAddEmailButton(){
+    public void clickOnAddEmailButton() {
         addEmailButton.click();
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return emailField.getText();
     }
-    public void clickOnDropdownButtonEdit(){
+
+    public void clickOnDropdownButtonEdit() {
         getWait().forClickable(optionDropDown);
         optionDropDown.click();
         WebElement editOpen = driver.findElement(By.xpath("//*[text()='Edit']"));
         editOpen.click();
     }
-    public void clickOnDropdownButtonRemove(){
-        getWait().forClickable(optionDropDown);
-        optionDropDown.click();
-        WebElement removeOpen = driver.findElement(By.xpath("//*[text()='Remove  ']"));
-        removeOpen.click();
+    public void takeEmailInfoPageScreenshot(String actualScreenshotName) {
+        takeAndCompareScreenshot(actualScreenshotName, null);
     }
-    public boolean isNoResultMessageDisplayed(){
-        return isElementDisplayed(noResultMessage);
-    }
-    public void takeEmailInfoPageScreenshot(String actualScreenshotName){
-        takeAndCompareScreenshot(actualScreenshotName,null);
-    }
-    public void takeScreenshotNoResultMessage(){
-        takeAndCompareScreenshot("EmailPageNoResultMessage",noResultMessage);
+
+    public void takeScreenshotNoResultMessage() {
+        takeAndCompareScreenshot("EmailPageNoResultMessage", noResultMessage);
     }
 
 }
