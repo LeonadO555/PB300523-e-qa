@@ -3,7 +3,6 @@ package e2e.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class AddressesInfoPage extends ContactInfoPage {
 
@@ -13,7 +12,7 @@ public class AddressesInfoPage extends ContactInfoPage {
     }
 
     @FindBy(xpath = "//*[@id='search']")
-    WebElement searchInput;
+    WebElement searchAddressInput;
     @FindBy(xpath = "//*[@id='btn-add-phone']")
     WebElement addAddressButton;
     @FindBy(xpath = "//*[@class='close']")
@@ -28,18 +27,17 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement postCodeField;
     @FindBy(xpath = "//*[@class='col-street']")
     WebElement streetField;
+    @FindBy(xpath = "//*[@class='dropdown-item btn-address-edit']")
+    WebElement editButton;
+    @FindBy(xpath = "//*[@class='dropdown-item btn-address-remove']")
+    WebElement removeButton;
 
 
-    public void waitForLoading(){
-        getWait().forVisibility(searchInput);
+    public void waitForLoading() {
+        getWait().forVisibility(searchAddressInput);
         getWait().forVisibility(addAddressButton);
-        getWait().forVisibility(closeButton);
-        getWait().forVisibility(optionDropDown);
-        getWait().forVisibility(countryField);
-        getWait().forVisibility(cityField);
-        getWait().forVisibility(postCodeField);
-        getWait().forVisibility(streetField);
     }
+
     public String getCountry() {
         return countryField.getText();
     }
@@ -51,11 +49,32 @@ public class AddressesInfoPage extends ContactInfoPage {
     public String getPostCode() {
         return postCodeField.getText();
     }
+
     public String getStreet() {
         return streetField.getText();
     }
-    public void clickOnAddressButton(){
+
+    public void clickOnAddressButton() {
         addAddressButton.click();
     }
+
+    public EditAddressDialog openEditAddressDialog() {
+        optionDropDown.click();
+        getWait().forVisibility(editButton);
+        editButton.click();
+        return new EditAddressDialog(driver);
+    }
+
+    public void filterByPostCode(String postCodeValue) {
+        searchAddressInput.sendKeys(postCodeValue);
+    }
+
+    public void deleteAddress() {
+        optionDropDown.click();
+        getWait().forVisibility(removeButton);
+        removeButton.click();
+
+    }
+
 }
 

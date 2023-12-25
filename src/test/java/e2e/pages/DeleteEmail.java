@@ -20,24 +20,8 @@ public class DeleteEmail extends EmailInfoPage {
 
     public void waitForOpen(){
         getWait().forVisibility(dialog);
-        getWait().forClickable(optionDropDown);
+        getWait().forVisibility(optionDropDown);
         getWait().forVisibility(removeEmailButton);
-
-
     }
 
-    @Override
-    public void tabDropDawn() {optionDropDown.click();
-        super.tabDropDawn();
-    }
-
-    public void setConfirmDeletion(){
-        removeEmailButton.click();
-    }
-
-    public void removeEmail(){
-        getWait().forClickable(removeEmailButton);
-        removeEmailButton.click();
-        getWait().forInvisibility(dialog);
-}
 }

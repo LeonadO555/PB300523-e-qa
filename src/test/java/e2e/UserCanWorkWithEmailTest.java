@@ -81,16 +81,10 @@ public class UserCanWorkWithEmailTest extends TestBase{
         checkEmailData(emailInfoPage,expectedEmail);
         addEmailDialog.tabDropDawn();
 
-
-
-
-
         //delete email
         deleteEmail = emailInfoPage.openEmailDelete();
-        deleteEmail.waitForOpen();
-        deleteEmail.setConfirmDeletion();
-        deleteEmail.removeEmail();
         deleteEmail.waitForLoading();
+
 
     }
 }

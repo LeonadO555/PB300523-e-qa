@@ -25,6 +25,8 @@ public class EmailInfoPage extends ContactInfoPage{
     WebElement removeEmailButton;
 
 
+
+
     public void waitForLoading(){
         getWait().forVisibility(searchInput);
         getWait().forClickable(addEmailButton);
@@ -46,13 +48,6 @@ public class EmailInfoPage extends ContactInfoPage{
         getWait().forClickable(removeEmailButton);
         removeEmailButton.click();
         return new DeleteEmail(driver);
-    }
 
-
-    public void clickOnDropdownButtonEdit(String edit){
-        getSelect(optionDropDown).selectByVisibleText(edit);
-    }
-    public void clickOnDropdownButtonDelete(String remove){
-        getSelect(optionDropDown).selectByVisibleText(remove);
     }
 }
