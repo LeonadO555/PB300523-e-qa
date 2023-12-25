@@ -1,6 +1,5 @@
 package e2e.pages;
 
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,25 +20,20 @@ public class AddEmailDialog extends EmailInfoPage {
     WebElement closeWindowsButton;
 
 
-    public void waitForOpen(){
+    public void waitForOpen() {
         getWait().forVisibility(dialog);
         getWait().forVisibility(emailFieldInput);
         getWait().forClickable(saveButton);
         getWait().forClickable(closeWindowsButton);
 
     }
-    public void setEmailInput(String email){
+
+    public void setEmailInput(String email) {
         emailFieldInput.sendKeys(email);
     }
-    public void saveEmail(){
-        try {
-            getWait().forClickable(saveButton);
-            saveButton.click();
-            getWait().forInvisibility(dialog);
-        }catch (StaleElementReferenceException e){
-            e.printStackTrace();
-        }
 
+    public void saveEmailButtonClick() {
+        saveButton.click();
     }
 
 }

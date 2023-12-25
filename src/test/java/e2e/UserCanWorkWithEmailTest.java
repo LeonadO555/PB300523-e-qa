@@ -6,7 +6,7 @@ import e2e.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserCanWorkWithEmailTest extends TestBase{
+public class UserCanWorkWithEmailTest extends TestBase {
 
     LoginPage loginPage;
     ContactsPage contactsPage;
@@ -15,30 +15,37 @@ public class UserCanWorkWithEmailTest extends TestBase{
     EmailInfoPage emailInfoPage;
     AddEmailDialog addEmailDialog;
 
-    DeleteEmail deleteEmail;
+    EditEmailDialog editEmailDialog;
+
+    DeleteContactDialog deleteContactDialog;
+
+
 
     Faker faker = new Faker();
 
-    private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
-        String actualFirstName=page.getFirstName();
-        String actualLastName=page.getLastName();
-        String actualDescription=page.getDescription();
-        Assert.assertEquals(actualFirstName,firsName,actualFirstName+ "is not equal "+firsName);
-        Assert.assertEquals(actualLastName,lastName,actualLastName+ "is not equal "+lastName);
-        Assert.assertEquals(actualDescription,description,actualDescription+ "is not equal "+description);
+    private void checkContactData(ContactInfoPage page, String firsName, String lastName, String description) {
+        String actualFirstName = page.getFirstName();
+        String actualLastName = page.getLastName();
+        String actualDescription = page.getDescription();
+        Assert.assertEquals(actualFirstName, firsName, actualFirstName + "is not equal " + firsName);
+        Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
+        Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
 
-    private void checkEmailData(EmailInfoPage page, String email){
+    private void checkEmailData(EmailInfoPage page, String email) {
         String actualEmailName = page.getEmail();
-        Assert.assertEquals(actualEmailName,email,actualEmailName+ "is not equal " + email);
+        Assert.assertEquals(actualEmailName, email, actualEmailName + "is not equal " + email);
 
     }
+
     @Test
-    public void userCanWorkWithEmailTest(){
+    public void userCanWorkWithEmailTest() {
         String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
         String expectedEmail = "newhrest@gmail.com";
+
+        String editExpectedEmail = "new.manolov@gmail.com";
 
 
         String firsName = faker.internet().uuid();
@@ -46,51 +53,82 @@ public class UserCanWorkWithEmailTest extends TestBase{
         String description = faker.lorem().sentence();
 
         //logged as user
-        loginPage=new LoginPage(app.driver);
-        //loginPage.waitForLoading();
-        loginPage.login(email,password);
+        loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
+        loginPage.login(email, password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
-        //contactsPage.waitForLoading();
+        contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
-        Assert.assertEquals(actualLanguage,language);
+        Assert.assertEquals(actualLanguage, language);
         //add contact
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firsName,lastName,description);
+        addContactDialog.setAddContactForm(firsName, lastName, description);
         addContactDialog.saveContact();
         //check  create contact
-        contactInfoPage=new ContactInfoPage(app.driver);
+        contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firsName,lastName,description);
+        checkContactData(contactInfoPage, firsName, lastName, description);
         contactInfoPage.openTab(ContactInfoTabs.EMAILS);
 
-
+        // create email
         emailInfoPage = new EmailInfoPage(app.driver);
         emailInfoPage.waitForLoading();
-
         emailInfoPage.clickOnAddEmailButton();
-
-
         addEmailDialog = new AddEmailDialog(app.driver);
         addEmailDialog.waitForLoading();
         addEmailDialog.setEmailInput(expectedEmail);
-        addEmailDialog.saveEmail();
-        checkEmailData(emailInfoPage,expectedEmail);
-        addEmailDialog.tabDropDawn();
+        addEmailDialog.saveEmailButtonClick();
 
+        // check email data
+        emailInfoPage = new EmailInfoPage(app.driver);
+        emailInfoPage.waitForLoading();
+        checkEmailData(emailInfoPage, expectedEmail);
 
+        // edit email dialog
 
+        editEmailDialog = emailInfoPage.openEditEmailDialog();
+        editEmailDialog.waitForOpen();
+        editEmailDialog.setEditEmail(editExpectedEmail);
+        editEmailDialog.saveEmailChanges();
+        emailInfoPage.waitForLoading();
 
+        //check edited email
+        checkEmailData(emailInfoPage,editExpectedEmail);
+        emailInfoPage.waitForLoading();
+
+        //check search form
+        emailInfoPage.filterByEmail(editExpectedEmail);
+        emailInfoPage.waitForLoading();
 
         //delete email
-        deleteEmail = emailInfoPage.openEmailDelete();
-        deleteEmail.waitForOpen();
-        deleteEmail.setConfirmDeletion();
-        deleteEmail.removeEmail();
-        deleteEmail.waitForLoading();
+        emailInfoPage.deleteEmail();
+
+        //open contacts page
+        contactInfoPage.openContactsPage();
+        contactsPage.waitForLoading();
+        //filter by contact name
+        contactsPage.filterByContact(firsName);
+        contactsPage.waitForLoading();
+
+        //check row
+        int actualContactCountRow = contactsPage.getContactCount();
+        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
+
+        //delete contact
+        deleteContactDialog = contactsPage.openDeleteDialog();
+        deleteContactDialog.waitForOpen();
+        deleteContactDialog.setConfirmDeletion();
+        deleteContactDialog.removeContact();
+
+        //check that contact was deleted
+
+        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        contactsPage.takeScreenshotNoResultMessage();
+
 
     }
 }

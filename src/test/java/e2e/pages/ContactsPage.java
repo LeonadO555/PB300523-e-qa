@@ -1,5 +1,7 @@
 package e2e.pages;
 
+import e2e.pages.AddContactDialog;
+import e2e.pages.AddEmailDialog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

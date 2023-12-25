@@ -13,18 +13,22 @@ public class AddPhoneDialog extends PhoneInfoPage {
     @FindBy(xpath = "//*[@role='dialog']")
     WebElement dialog;
 
-    @FindBy(xpath = "//*[@class='custom-select']")
+    @FindBy(xpath = "//*[@id='cc-select']")
     WebElement countryCodeDropdown;
     @FindBy(xpath = "//*[@id='selected-cc']")
     WebElement phoneInputField;
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
+    @FindBy(xpath = "//*[@aria-label='Close']")
+    WebElement closeWindowsButton;
+
     public void waitForOpen() {
         getWait().forVisibility(dialog);
         getWait().forVisibility(countryCodeDropdown);
         getWait().forVisibility(phoneInputField);
         getWait().forVisibility(saveButton);
+        getWait().forVisibility(closeWindowsButton);
 
     }
     public void selectCodeCountry(String code){
@@ -34,14 +38,8 @@ public class AddPhoneDialog extends PhoneInfoPage {
         phoneInputField.sendKeys(phone);
     }
     public void savePhoneNumber(){
-        try {
-            getWait().forClickable(saveButton);
-            saveButton.click();
-            getWait().forInvisibility(dialog);
-        }catch (StaleElementReferenceException e){
-            e.printStackTrace();
+        saveButton.click();
     }
-}
 }
 
 

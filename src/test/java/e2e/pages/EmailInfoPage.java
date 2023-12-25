@@ -4,13 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EmailInfoPage extends ContactInfoPage{
+public class EmailInfoPage extends ContactInfoPage {
     //import constructor!!!
     public EmailInfoPage(WebDriver driver) {
         super(driver);
     }
-
-
     @FindBy(xpath = "//*[@id='search']")
     WebElement searchInput;
 
@@ -21,38 +19,43 @@ public class EmailInfoPage extends ContactInfoPage{
     @FindBy(xpath = "//*[@class='dropdown-toggle btn btn-outline-light btn-block']")
     WebElement optionDropDown;
 
+    @FindBy(xpath = "//*[@class='dropdown-item btn-email-edit']")
+    WebElement editEmailButton;
+
     @FindBy(xpath = "//*[@class='dropdown-item btn-email-remove']")
     WebElement removeEmailButton;
 
 
-    public void waitForLoading(){
+    public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forClickable(addEmailButton);
     }
 
-    public void clickOnAddEmailButton(){
+
+    public void clickOnAddEmailButton() {
         addEmailButton.click();
     }
-    public String getEmail(){
+
+    public EditEmailDialog openEditEmailDialog() {
+        optionDropDown.click();
+        getWait().forVisibility(editEmailButton);
+        editEmailButton.click();
+        return new EditEmailDialog(driver);
+    }
+
+    public String getEmail() {
         return emailInputField.getText();
     }
 
-    public void tabDropDawn(){optionDropDown.click();
-
+    public void filterByEmail(String emailCheck){
+        searchInput.sendKeys(emailCheck);
     }
 
 
-    public DeleteEmail openEmailDelete(){
-        getWait().forClickable(removeEmailButton);
+    public void deleteEmail() {
+        optionDropDown.click();
+        getWait().forVisibility(removeEmailButton);
         removeEmailButton.click();
-        return new DeleteEmail(driver);
-    }
 
-
-    public void clickOnDropdownButtonEdit(String edit){
-        getSelect(optionDropDown).selectByVisibleText(edit);
-    }
-    public void clickOnDropdownButtonDelete(String remove){
-        getSelect(optionDropDown).selectByVisibleText(remove);
     }
 }

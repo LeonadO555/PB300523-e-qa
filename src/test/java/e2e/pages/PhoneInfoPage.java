@@ -14,13 +14,24 @@ public class PhoneInfoPage extends ContactInfoPage{
 
     @FindBy(xpath = "//*[@id='btn-add-phone']")
     WebElement addPhoneButton;
+
+
     @FindBy(xpath = "//*[@class='custom-select']")
-    WebElement countryCodeDropdown;
+    WebElement countryCodeField;
 
     @FindBy(xpath = "//*[@id='selected-cc']")
     WebElement phoneInputField;
+
     @FindBy(xpath = "//*[@class='dropdown-toggle btn btn-outline-light btn-block']")
     WebElement optionDropDown;
+
+    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-edit']")
+    WebElement editPhoneButton;
+
+    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
+    WebElement removePhoneButton;
+
+
 
 
     public void waitForLoading(){
@@ -30,20 +41,33 @@ public class PhoneInfoPage extends ContactInfoPage{
 
     public void clickOnAddPhoneButton(){
         addPhoneButton.click();
+
+
     }
+
+    public EditPhoneDialog openEditPhoneDialog() {
+        optionDropDown.click();
+        getWait().forVisibility(editPhoneButton);
+        editPhoneButton.click();
+        return new EditPhoneDialog(driver);
+    }
+
     public String getCountryCode(){
-        return countryCodeDropdown.getText();
+        return countryCodeField.getText();
     }
 
     public String getPhoneNumber(){
         return phoneInputField.getText();
     }
-
-    public void clickOnDropdownButtonEdit(String edit){
-        getSelect(optionDropDown).selectByVisibleText(edit);
+    public void filterByPhone(String phoneCheckValue){
+        searchInput.sendKeys(phoneCheckValue);
     }
-    public void clickOnDropdownButtonDelete(String remove){
-        getSelect(optionDropDown).selectByVisibleText(remove);
+
+    public void deletePhone() {
+        optionDropDown.click();
+        getWait().forVisibility(removePhoneButton);
+        removePhoneButton.click();
+
     }
 }
 
