@@ -16,7 +16,6 @@ public class UserCanWorkWithAddressTest extends TestBase {
     AddressesInfoPage addressesInfoPage;
     AddAddressDialog addAddressDialog;
     EditAddressDialog editAddressDialog;
-    DeleteAddress deleteAddress;
 
     Faker faker = new Faker();
 
