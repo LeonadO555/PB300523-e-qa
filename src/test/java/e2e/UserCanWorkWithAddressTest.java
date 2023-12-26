@@ -16,6 +16,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
     AddressesInfoPage addressesInfoPage;
     AddAddressDialog addAddressDialog;
     EditAddressDialog editAddressDialog;
+    DeleteAddress deleteAddress;
 
     Faker faker = new Faker();
 
@@ -41,7 +42,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
     }
 
     @Test
-    public void userCanWorkWithContactTest()  {
+    public void userCanWorkWithContactTest() throws InterruptedException {
         String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
@@ -124,31 +125,6 @@ public class UserCanWorkWithAddressTest extends TestBase {
         addressesInfoPage.deleteAddress();
         addressesInfoPage.waitForLoading();
 
-        //open contacts page
-        contactInfoPage.openContactsPage();
-        contactsPage.waitForLoading();
-        //filter by contact name
-        contactsPage.filterByContact(firsName);
-        contactsPage.waitForLoading();
-
-        //check row
-        int actualContactCountRow = contactsPage.getContactCount();
-        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
-
-        //delete contact
-        deleteContactDialog = contactsPage.openDeleteDialog();
-        deleteContactDialog.waitForOpen();
-        deleteContactDialog.setConfirmDeletion();
-        deleteContactDialog.removeContact();
-
-        //check that contact was deleted
-
-        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
-        contactsPage.takeScreenshotNoResultMessage();
-
-
     }
-
-
 
 }

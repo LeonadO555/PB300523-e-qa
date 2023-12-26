@@ -9,6 +9,8 @@ public class EmailInfoPage extends ContactInfoPage {
     public EmailInfoPage(WebDriver driver) {
         super(driver);
     }
+
+
     @FindBy(xpath = "//*[@id='search']")
     WebElement searchInput;
 
@@ -45,6 +47,11 @@ public class EmailInfoPage extends ContactInfoPage {
 
     public String getEmail() {
         return emailInputField.getText();
+    }
+
+    public void tabDropDawn() {
+        optionDropDown.click();
+
     }
 
     public void filterByEmail(String emailCheck){
