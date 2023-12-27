@@ -27,7 +27,7 @@ public class EditContactForm extends ContactInfoPage {
         getWait().forVisibility(lastNameInput);
         getWait().forVisibility(descriptionInput);
         getWait().forVisibility(saveButton);
-        getWait().forVisibility(saveButton);
+        getWait().forClickable(saveButton);
 
     }
 
