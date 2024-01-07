@@ -24,7 +24,6 @@ public class ContactInfoPage extends ContactsPage{
         getWait().forVisibility(firstNameField);
         getWait().forVisibility(lastNameField);
         getWait().forVisibility(descriptionField);
-        getWait().forVisibility(editButton);
         getWait().forClickable(editButton);
     }
 
