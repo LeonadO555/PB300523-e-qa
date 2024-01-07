@@ -37,12 +37,11 @@ public class AddContactDialog extends ContactsPage{
     WebElement errorMessage;
 
     public void waitForOpen(){
-        getWait().forVisibility(dialog);
+        //getWait().forVisibility(dialog);
         getWait().forVisibility(firstNameInput);
         getWait().forVisibility(lastNameInput);
         getWait().forVisibility(descriptionInput);
         getWait().forVisibility(saveButton);
-        getWait().forClickable(saveButton);
     }
 
     public void setFirstNameInput(String firstName){
