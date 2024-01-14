@@ -25,8 +25,37 @@ public class LoginTest extends TestBase{
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email, password);
+
         loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
         loginPage.waitForLoading();
-
     }
+
+    private void loginTestMethod(String email, String password, boolean typeOfCase){
+        loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
+        loginPage.login(email, password);
+        if (typeOfCase){
+            loginPage.waitForLoading();
+        }else {
+            contactsPage = new ContactsPage(app.driver);
+            contactsPage.waitForLoading();
+        }
+    }
+
+    @Test
+    public void userCanLoginWithValidData(){
+        loginTestMethod("newtest@gmail.com","newtest@gmail.com", false);
+    }
+
+    @Test
+    public void userCanLoginWithInvalidEmail(){
+        loginTestMethod("newtest@gmail.com","newtest@gmail.com", false);
+    }
+
+    @Test
+    public void userCanLoginWithInvalidEmail(){
+        loginTestMethod("newtest@gmail.com","newtest@gmail.com", false);
+    }
+
+
 }
