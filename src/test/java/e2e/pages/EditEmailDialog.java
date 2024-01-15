@@ -4,36 +4,40 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddEmailDialog extends EmailInfoPage {
-    public AddEmailDialog(WebDriver driver) {
+public class EditEmailDialog extends EmailInfoPage {
+    public EditEmailDialog(WebDriver driver) {
         super(driver);
-
     }
 
     @FindBy(xpath = "//*[@role='dialog']")
     WebElement dialog;
+
+    @FindBy(xpath = "//*[@class='dropdown-toggle btn btn-outline-light btn-block']")
+    WebElement optionDropDown;
+
     @FindBy(xpath = "//*[@id='input-email']")
-    WebElement emailFieldInput;
+    WebElement emailInputField;
+
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
+
     @FindBy(xpath = "//*[@aria-label='Close']")
     WebElement closeWindowsButton;
 
 
     public void waitForOpen() {
-        getWait().forVisibility(dialog);
-        getWait().forVisibility(emailFieldInput);
+        getWait().forVisibility(emailInputField);
+        getWait().forVisibility(saveButton);
         getWait().forClickable(saveButton);
-        getWait().forClickable(closeWindowsButton);
 
     }
 
-    public void setEmailInput(String email) {
-        emailFieldInput.sendKeys(email);
+    public void setEditEmail(String editExpectedEmail) {
+        setInput(emailInputField, editExpectedEmail);
     }
 
-    public void saveEmailButtonClick() {
+    public void saveEmailChanges() {
         saveButton.click();
+        getWait().forInvisibility(saveButton);
     }
-
 }

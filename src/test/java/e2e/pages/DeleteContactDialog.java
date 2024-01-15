@@ -9,25 +9,27 @@ public class DeleteContactDialog extends ContactsPage{
     public DeleteContactDialog(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@role='dialog']")
     WebElement dialog;
     @FindBy(xpath = "//*[@id='check-box-remove-contact']")
-    WebElement confirmDeleteCheckbox;
+    WebElement confirmDeletionCheckbox;
     @FindBy(xpath = "//*[@id='submit-remove']")
-    WebElement removedContactButton;
+    WebElement removeContactButton;
 
     public void waitForOpen(){
         getWait().forVisibility(dialog);
-        getWait().forVisibility(confirmDeleteCheckbox);
-        getWait().forVisibility(removedContactButton);
+        getWait().forVisibility(confirmDeletionCheckbox);
+        getWait().forVisibility(removeContactButton);
     }
 
     public void setConfirmDeletion(){
-        confirmDeleteCheckbox.click();
+        confirmDeletionCheckbox.click();
     }
+
     public void removeContact(){
-        getWait().forClickable(removedContactButton);
-        removedContactButton.click();
+        getWait().forClickable(removeContactButton);
+        removeContactButton.click();
         getWait().forInvisibility(dialog);
     }
 }

@@ -8,8 +8,8 @@ import org.testng.Assert;
 
 import java.util.List;
 
-public class ContactsPage extends BasePage{
-    public ContactsPage(WebDriver driver){
+public class ContactsPage extends BasePage {
+    public ContactsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -17,23 +17,23 @@ public class ContactsPage extends BasePage{
     public WebElement header;
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']//*[@href='/']")
     WebElement contactsButton;
-    @FindBy(xpath ="//select[@id='langSelect']")
-    WebElement languageDropDown;
-    @FindBy(xpath = "//input[@formcontrolname='searchInput']")
-    WebElement searchInput;
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
+    @FindBy(xpath = "//select[@id='langSelect']")
+    WebElement languageDropdown;
     @FindBy(xpath = "//*[@id='contacts-list']")
     WebElement contactsList;
-    @FindBy(xpath ="//*[@class='list-group']")
-    List<WebElement> contactsRows;
+    @FindBy(xpath = "//*[@class='list-group']")
+    List<WebElement> contactRows;
+    @FindBy(xpath = "//*[@formcontrolname='searchInput']")
+    WebElement searchInput;
     @FindBy(xpath = "//*[@ng-reflect-router-link='/account']")
-    WebElement account;
+    WebElement accountButton;
     @FindBy(xpath = "//*[@src='/assets/icons/trash.svg']")
     WebElement deleteButton;
     @FindBy(xpath = "//*[@type='warning']")
     WebElement noResultsMessage;
-    @FindBy(xpath = "//*[@text()='Logout']")
+    @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
 
     public void waitForLoading(){
@@ -41,7 +41,7 @@ public class ContactsPage extends BasePage{
         getWait().forVisibility(contactsButton);
         getWait().forVisibility(addContactButton);
         getWait().forVisibility(contactsList);
-        getWait().forAllVisibility(contactsRows);
+        getWait().forAllVisibility(contactRows);
         getWait().forClickable(addContactButton);
         getWait().forClickable(contactsButton);
     }
@@ -60,20 +60,17 @@ public class ContactsPage extends BasePage{
     }
 
     public void selectLanguage(String language){
-        getSelect(languageDropDown).selectByVisibleText(language);
+        getSelect(languageDropdown).selectByVisibleText(language);
     }
 
     public String getLanguage(){
-        return getSelect(languageDropDown).getFirstSelectedOption().getText();
+        return getSelect(languageDropdown).getFirstSelectedOption().getText();
     }
-
-
 
     public DeleteContactDialog openDeleteDialog(){
         getWait().forClickable(deleteButton);
         deleteButton.click();
         return new DeleteContactDialog(driver);
-
     }
 
     public void filterByContact(String contactValue){
@@ -85,5 +82,11 @@ public class ContactsPage extends BasePage{
         return isElementDisplayed(noResultsMessage);
     }
 
+    public void takeScreenshotHeader(){
+        takeAndCompareScreenshot("header", header);
     }
 
+    public void takeScreenshotNoResultMessage(){
+        takeAndCompareScreenshot("contactsPageNoResultMessage", noResultsMessage);
+    }
+}

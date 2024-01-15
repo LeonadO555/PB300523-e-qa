@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddPhoneDialog extends PhonesPage {
-    public AddPhoneDialog(WebDriver driver) {
+public class EditPhoneForm extends PhonesPage {
+    public EditPhoneForm(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@for='cc-select']")
     WebElement countryCodeLabel;
 
@@ -44,15 +45,9 @@ public class AddPhoneDialog extends PhonesPage {
         setInput(phoneNumberInput, phoneNumber);
     }
 
-    public void savePhone() {
-       try {
-           getWait().forClickable(saveButton);
-           saveButton.click();
-           getWait().forInvisibility(countryCodeLabel);
-       } catch (StaleElementReferenceException e) { //отображается старый элемент
-            e.printStackTrace();
-       }
-
-
+    public void saveChange() throws InterruptedException {
+        saveButton.click();
+        getWait().forInvisibility(saveButton);
     }
-}
+    }
+

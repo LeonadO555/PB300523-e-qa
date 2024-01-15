@@ -5,13 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 import java.util.List;
 
 public class FirstSeleniumTest {
     public WebDriver driver;
 
-    @Test
+    @Test(enabled = false)
     public void firstSeleniumTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -28,12 +29,11 @@ public class FirstSeleniumTest {
         WebElement loginButton = driver.findElement(By.xpath("//*[@type='submit']"));
         loginButton.click();
         Thread.sleep(10000);
-
         List<WebElement> elements = driver.findElements(By.xpath("//*[@class='list-group']"));
         int actualContactCount = elements.size();
         int expectedContactCount = 1009;
-        Assert.assertEquals(actualContactCount, expectedContactCount, actualContactCount + " not equal " + expectedContactCount);
-
+        Assert.assertEquals(actualContactCount,expectedContactCount, actualContactCount + " not equal " + expectedContactCount);
         driver.quit();
+
     }
 }

@@ -4,13 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.io.IOException;
+
 public class LoginPage extends BasePage{
-    //important constructor!
+    // important constructor!!!
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    //Describe locator
+    // Describe locator
     @FindBy(xpath = "//*[@name='email']")
     WebElement emailInput;
 
@@ -26,13 +28,14 @@ public class LoginPage extends BasePage{
         getWait().forVisibility(loginButton);
     }
 
-    //Describe methods
-    public void login(String email, String password){
+    public void takeLoginPageScreenshot(String actualScreenshotName){
+        takeAndCompareScreenshot(actualScreenshotName, null);
+    }
+
+    // Describe methods
+    public void login(String email, String password) {
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         loginButton.click();
     }
-
-
 }
-

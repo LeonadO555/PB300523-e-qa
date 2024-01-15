@@ -10,8 +10,10 @@ public class TestBase {
     public void setupTest(){
         app.init();
     }
+
     @AfterMethod
     public void tearDown(){
         app.stop();
     }
+
 }

@@ -1,11 +1,13 @@
 package e2e.pages;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 public class EditContactForm extends ContactInfoPage {
+
     public EditContactForm(WebDriver driver) {
         super(driver);
     }
@@ -14,7 +16,6 @@ public class EditContactForm extends ContactInfoPage {
     WebElement cancelButton;
     @FindBy(xpath = "//button[@class='btn btn-primary submit-btn-ec']")
     WebElement saveButton;
-
     @FindBy(xpath = "//input[@name='input-ec-firstName']")
     WebElement firstNameInput;
     @FindBy(xpath = "//input[@name='input-ec-lastName']")
@@ -42,9 +43,8 @@ public class EditContactForm extends ContactInfoPage {
         setInput(descriptionInput, description);
     }
 
-    public void saveChanges(){
+    public void saveChanges() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
     }
-
 }
