@@ -28,6 +28,8 @@ public class ContactApiTest {
     }
     @Test
     public void userCanWorkWithContactViaApiTest(){
+
+        //Create Contact
         contactApi = new ContactApi();
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt( "id");
@@ -37,6 +39,7 @@ public class ContactApiTest {
         contactApi.editContact(200, contactId);
         checkContactData(contactId,contactApi.rndDataForEditContact(contactId));
 
+        //Delete Contact
         contactApi.deleteContact(200, contactId);
         JsonPath actualDeletedObject = contactApi.getContact(500, contactId).jsonPath();
         String errorMessage = actualDeletedObject.getString("message");
