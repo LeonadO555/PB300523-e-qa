@@ -41,6 +41,4 @@ public class EmailDto {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
-
-
 }

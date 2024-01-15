@@ -48,5 +48,4 @@ public class Locators {
     WebElement elementVariantPlaceholderTwo = driver.findElement(By.cssSelector("[placeholder='Password']"));
 
     //Open menu
-
 }
