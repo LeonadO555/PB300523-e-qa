@@ -9,6 +9,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ApplicationManager {
     public WebDriver driver;
@@ -18,10 +20,14 @@ public class ApplicationManager {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("latest");
-            capabilities.setCapability("enableVNC", true);
+
+            Map<String, Object> selenoidOptions = new HashMap<>();
+            selenoidOptions.put("enableVNC", true);
+
+            capabilities.setCapability("selenoid:options", selenoidOptions);
 
             driver = new RemoteWebDriver(
-                URI.create("http://host.docker.internal:4444/wd/hub").toURL(),
+                URI.create("http://165.227.145.48:4444/wd/hub").toURL(),
                 capabilities
             );
         } else {
