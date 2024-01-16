@@ -16,6 +16,8 @@ public class ApplicationManager {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-debugging-port=9222");
         options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
         driver.get("http://phonebook.telran-edu.de:8080/");
