@@ -6,13 +6,16 @@ import intagration.schemas.ContactDto;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase {
+
+    public ContactApi(String token){
+        super(token);
+    }
     Response response;
     ContactDto dto;
     Faker faker = new Faker();
     String firstName = faker.internet().uuid();
     String lastName = faker.internet().uuid();
     String description = faker.lorem().sentence();
-
     String editFirstName = faker.internet().uuid();
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();

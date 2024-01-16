@@ -55,7 +55,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
         // Add contact
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen(); // только для диалога
-        addContactDialog.setAddContactForm(firstName, lastName, description);
+        //addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
         // open Phone Tab
