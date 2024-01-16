@@ -3,10 +3,13 @@ package integration.contact;
 import com.github.javafaker.Faker;
 import integration.ApiBase;
 import integration.schemas.ContactDto;
-import io.opentelemetry.semconv.trace.attributes.SemanticAttributes;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase {
+
+    public ContactApi(String token){
+        super(token);
+    }
     Response response;
     ContactDto dto;
     Faker faker = new Faker();
@@ -17,7 +20,7 @@ public class ContactApi extends ApiBase {
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();
 
-    private ContactDto rndDataForCreateContact() {
+    public ContactDto rndDataForCreatedContact() {
         dto = new ContactDto();
         dto.setFirstName(firstName);
         dto.setLastName(lastName);
@@ -25,7 +28,7 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    private ContactDto rndDataForEditContact(int id){
+    public ContactDto rndDataForEditContact(int id){
         dto = new ContactDto();
         dto.setId(id);
         dto.setFirstName(editFirstName);
@@ -34,21 +37,26 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    private Response createContact(int code) {
+    public Response createContact(int code) {
         String endpoint = "/api/contact";
-        Object body = rndDataForCreateContact();
+        Object body = rndDataForCreatedContact();
         response = postRequest(endpoint, code, body);
         response.as(ContactDto.class);
         return response;
     }
-    private void editContact(int code, int id){
+    public void editContact(int code, int id){
         String endpoint = "/api/contact";
         Object body = rndDataForEditContact(id);
         putRequest(endpoint,code,body);
     }
-    private Response deleteContact(int code, int id){
+    public Response deleteContact(int code, int id){
         String endpoint = "/api/contact/{id}";
         response = deleteRequest(endpoint,code,id);
+        return response;
+    }
+    public Response getContact(int code, int id){
+        String endpoint = "/api/contact/{id}";
+        response = getRequestWithParam(endpoint,code, "id", id);
         return response;
     }
 }
