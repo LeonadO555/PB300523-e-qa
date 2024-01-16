@@ -1,14 +1,14 @@
 package e2e;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
 public class ApplicationManager {
-    public WebDriver driver;
+    public RemoteWebDriver driver;
 
     protected void init(){
         WebDriverManager.chromedriver().setup();
