@@ -21,7 +21,7 @@ public class ApplicationManager {
             capabilities.setCapability("enableVNC", true);
 
             driver = new RemoteWebDriver(
-                URI.create("http://localhost:4444/wd/hub").toURL(),
+                URI.create("http://host.docker.internal:4444/wd/hub").toURL(),
                 capabilities
             );
         } else {
