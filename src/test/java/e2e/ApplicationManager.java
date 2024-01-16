@@ -14,6 +14,7 @@ public class ApplicationManager {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
+        options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
         driver.get("http://phonebook.telran-edu.de:8080/");
         driver.manage().window().maximize();
