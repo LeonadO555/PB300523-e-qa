@@ -28,3 +28,9 @@ task testSmoke(type: Test){
         suites 'src/test/resources/testngSmoke.xml'
     }
 }
+
+task testNoSmoke(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testngNoSmoke.xml'
+    }
+}
