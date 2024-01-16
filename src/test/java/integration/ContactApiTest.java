@@ -2,6 +2,7 @@ package integration;
 
 
 import integration.contact.ContactApi;
+import integration.schemas.ContactDto;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,6 +13,19 @@ import java.util.Map;
 public class ContactApiTest {
     ContactApi contactApi;
 
+    private void checkContactData(int contactId, ContactDto contactData){
+        JsonPath actualObject = contactApi.getContact(200, contactId).jsonPath();
+        LinkedHashMap<String, String> contactObjects = new LinkedHashMap<>();
+        contactObjects.put(actualObject.getString("firstName"),contactData.getFirstName());
+        contactObjects.put(actualObject.getString("lastName"),contactData.getLastName());
+        contactObjects.put(actualObject.getString("description"),contactData.getDescription());
+        for (Map.Entry<String, String> contactObject : contactObjects.entrySet()
+        ) {
+            String actualResult = contactObject.getKey();
+            String expectedResult = contactObject.getValue();
+            Assert.assertEquals(actualResult, expectedResult, actualResult+"  is not equals  " + expectedResult);
+        }
+    }
     @Test
     public void userCanWorkWithContactViaApiTest() {
 
@@ -19,30 +33,15 @@ public class ContactApiTest {
         contactApi = new ContactApi();
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
-        JsonPath actualObject = contactApi.getContact(200, contactId).jsonPath();
-        LinkedHashMap<String, String> contactObjects = new LinkedHashMap<>();
-        contactObjects.put(actualObject.getString("firstName"), contactApi.rndDataForCreateContact().getFirstName());
-        contactObjects.put(actualObject.getString("lastName"), contactApi.rndDataForCreateContact().getLastName());
-        contactObjects.put(actualObject.getString("description"), contactApi.rndDataForCreateContact().getDescription());
-        for (Map.Entry<String, String> contactObject : contactObjects.entrySet()
-        ) {
-            String actualResult = contactObject.getKey();
-            String expectedResult = contactObject.getValue();
-            Assert.assertEquals(actualResult, expectedResult, " Created contact is not equals getting contact");
-        }
+        checkContactData(contactId,contactApi.rndDataForCreateContact());
         //updated Contact
-        contactApi.editContact(200,contactId);
-        JsonPath actualEditObject = contactApi.getContact(200, contactId).jsonPath();
-        LinkedHashMap<String, String> editedContactObjects = new LinkedHashMap<>();
-        editedContactObjects.put(actualEditObject.getString("firstName"), contactApi.rndDataForEditContact(contactId).getFirstName());
-        editedContactObjects.put(actualEditObject.getString("lastName"), contactApi.rndDataForEditContact(contactId).getLastName());
-        editedContactObjects.put(actualEditObject.getString("description"), contactApi.rndDataForEditContact(contactId).getDescription());
-        for (Map.Entry<String, String> editContactObject : editedContactObjects.entrySet()
-        ) {
-            String actualResult = editContactObject.getKey();
-            String expectedResult = editContactObject.getValue();
-            Assert.assertEquals(actualResult, expectedResult, " Edited contact is not equals getting contact");
-        }
+        contactApi.editContact(200, contactId);
+        checkContactData(contactId,contactApi.rndDataForEditContact(contactId));
+        //delete Contact
+        contactApi.deleteContact(200, contactId);
+        JsonPath actualDeleteObject = contactApi.getContact(500, contactId).jsonPath();
+        String errorMessage = actualDeleteObject.getString("message");
+        Assert.assertEquals(errorMessage, "Error! This contact doesn't exist in our DB");
     }
 }
 

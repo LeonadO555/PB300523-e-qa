@@ -9,7 +9,7 @@ import io.restassured.specification.RequestSpecification;
 public class ApiBase {
     final String BASE_URL = "http://phonebook.telran-edu.de:8080/";
 
-    final String API_KEY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNTA4NzYwM30.bJCAwSbrOcMI5serP8oqEDwOaGFj9ThLtqodGQfw1BHahjnNtsD7NRRLPdP7xu6j2gMC9hnz1evKNXnuVQwXLQ";
+    final String API_KEY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MjEwNjk3ODI5Nn0.GM1wsoRV2QoAsD6wKmIk7N49DDpuCejK4BC9H9YItJvesH5vft8HO2uqTPnGQJwJ5oXKS2OILqP1yoanMnIMkA";
 
     RequestSpecification spec = new RequestSpecBuilder()
             .setBaseUri(BASE_URL)
