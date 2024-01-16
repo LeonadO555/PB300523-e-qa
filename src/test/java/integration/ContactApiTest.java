@@ -41,7 +41,7 @@ public class ContactApiTest {
         // put Access token to class with need token for requests
         contactApi = new ContactApi(token);
         JsonPath object = contactApi.createContact(201).jsonPath();
-        int contactId = object.getInt("id"); //   addressId = object.getInt[0]."id"
+        int contactId = object.getInt("id"); //   addressId = object.get("[0].id")
         checkContactData(contactId, contactApi.rndDataForCreatedContact());
 
         // update Contact
