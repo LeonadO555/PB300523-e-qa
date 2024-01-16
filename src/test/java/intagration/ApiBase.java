@@ -11,7 +11,6 @@ public class ApiBase {
     final  String BASE_URI = "http://phonebook.telran-edu.de:8080/";
 
     final String API_REY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNDkxNDAxNn0.JN-uZJD6kUbaNSl6uzQMqwfZ2p0mgdwW3POEn0gWC43jcju62tquz06sB5PAvouJJ_uCrg1QeqALjNUttVVfdQ";
-
     RequestSpecification spec = new RequestSpecBuilder()
             .setBaseUri(BASE_URI)
             .setContentType(ContentType.JSON)

@@ -15,7 +15,7 @@ public class ContactApi extends ApiBase {
     String editFirstName = faker.internet().uuid();
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();
-    private ContactDto rndDataForCreateContact() {
+    public ContactDto rndDataForCreateContact() {
         dto = new ContactDto();
         dto.setFirstName(firstName);
         dto.setLastName(lastName);
@@ -23,7 +23,7 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    private ContactDto rndDataForEditContact(int id){
+    public ContactDto rndDataForEditContact(int id){
         dto = new ContactDto();
         dto.setId(id);
         dto.setFirstName(editFirstName);
@@ -32,7 +32,7 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    private Response createContact(int code){
+    public Response createContact(int code){
         String endpoint = "/api/contact";
         Object body = rndDataForCreateContact();
         response = postRequest(endpoint, code, body);
@@ -40,15 +40,21 @@ public class ContactApi extends ApiBase {
         return response;
     }
 
-    private void editContact(int code, int id){
+    public void editContact(int code, int id){
         String endpoint = "/api/contact";
         Object body = rndDataForEditContact(id);
         putRequest(endpoint,code,body);
     }
 
-    private Response deleteContact(int code, int id){
+    public Response deleteContact(int code, int id){
         String endpoint = "/api/contact/{id}";
         response = deleteRequest(endpoint,code,id);
         return response;
+    }
+
+    public Response getContact(int code, int id ) {
+        String endpoint = "/api/contact/{id}";
+        response = getRequestWithParam(endpoint, code,"id", id);
+        return  response;
     }
 }
