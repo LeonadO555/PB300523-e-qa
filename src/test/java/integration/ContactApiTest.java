@@ -3,6 +3,7 @@ package integration;
 
 import integration.contact.ContactApi;
 import integration.schemas.ContactDto;
+import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 public class ContactApiTest {
     ContactApi contactApi;
+    UserApi userApi;
 
     private void checkContactData(int contactId, ContactDto contactData){
         JsonPath actualObject = contactApi.getContact(200, contactId).jsonPath();
@@ -28,9 +30,13 @@ public class ContactApiTest {
     }
     @Test
     public void userCanWorkWithContactViaApiTest() {
+        String email = "newtest@gmail.com";
+        String password = "newtest@gmail.com";
+        userApi = new UserApi();
+        String token = userApi.login(email,password,200);
 
         // Create Contact
-        contactApi = new ContactApi();
+        contactApi = new ContactApi(token);
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
         checkContactData(contactId,contactApi.rndDataForCreateContact());
