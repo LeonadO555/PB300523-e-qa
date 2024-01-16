@@ -16,12 +16,12 @@ public class PhoneApiTest {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         userApi = new UserApi();
-        String token = userApi.login(email,password,200);
+        String token = userApi.login(email, password, 200);
         contactApi = new ContactApi(token);
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
-        phoneApi = new PhoneApi();
-       phoneApi.createNewPhone(200,contactId)
+        phoneApi = new PhoneApi(token);
+        phoneApi.createNewPhone(200, contactId);
 
     }
 }
