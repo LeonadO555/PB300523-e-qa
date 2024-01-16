@@ -1,4 +1,4 @@
-package e2e.Wait;
+package e2e.wait;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +33,7 @@ public class Wait{
         try {
             setWait().until(ExpectedConditions.visibilityOfAllElements(elements));
         } catch (TimeoutException e){
-            throw new TimeoutException(elements.size() + " is not visible more than " + TIMEOUT.toString());
+            throw new TimeoutException(elements.size() + " are not visible more than " + TIMEOUT.toString());
         }
     }
 
