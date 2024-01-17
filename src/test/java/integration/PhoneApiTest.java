@@ -5,6 +5,7 @@ import integration.phone.PhoneApi;
 import integration.schemas.PhoneDto;
 import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -22,7 +23,6 @@ public class PhoneApiTest {
         LinkedHashMap<String, String> phoneObjects = new LinkedHashMap<>();
         phoneObjects.put(actualObject.getString("countryCode"), phoneData.getCountryCode());
         phoneObjects.put(actualObject.getString("phoneNumber"), phoneData.getPhoneNumber());
-
 
         for (Map.Entry<String, String> phoneObject : phoneObjects.entrySet()) {
             String actualResult = phoneObject.getKey();
