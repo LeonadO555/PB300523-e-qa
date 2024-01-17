@@ -10,13 +10,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+
+
 public class PhoneDto {
+
     @JsonProperty("id")
     private int id;
+
     @JsonProperty ("countryCode")
     private String countryCode;
+
     @JsonProperty("phoneNumber")
     private  String phoneNumber;
+
     @JsonProperty("contactId")
     private int contactId;
 
@@ -51,5 +57,7 @@ public class PhoneDto {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
+
+
 }
 

@@ -5,7 +5,12 @@ import integration.ApiBase;
 import integration.schemas.PhoneDto;
 import io.restassured.response.Response;
 
+
 public class PhoneApi extends ApiBase {
+
+    public PhoneApi(String token){
+        super(token);
+    }
     PhoneDto phoneDto;
     Response response;
 
@@ -31,12 +36,11 @@ public class PhoneApi extends ApiBase {
         phoneDto.setContactId(contactId);
         return phoneDto;
     }
-    public Response createNewPhone(int code,int contactId){
+    public void createNewPhone(int code,int contactId){
         String endPoint = "/api/phone";
         Object body = rndForCreatedNewPhone(contactId);
         response = postRequest(endPoint,code,body);
-        response.as(PhoneDto.class);
-        return response;
+
     }
     public void editNewPhone(int code,int contactId,int id){
         String endPoint = "/api/phone";
