@@ -40,7 +40,7 @@ public class ContactApi extends ApiBase {
         response.as(ContactDto.class);
         return response;
     }
-    public   void editContact(int code,int id){
+    public void editContact(int code,int id){
         String endpoint = "/api/contact";
         Object body = rndDataForEditContact(id);
         putRequest(endpoint,code,body);
