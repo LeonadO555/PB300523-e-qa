@@ -6,6 +6,10 @@ import intagration.shemas.ContactDto;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase {
+
+    public ContactApi(String token){
+        super(token);
+    }
     Response response;
     ContactDto dto;
     Faker faker = new Faker();

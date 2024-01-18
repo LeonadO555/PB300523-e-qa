@@ -10,12 +10,23 @@ public class ApiBase {
 
     final  String BASE_URI = "http://phonebook.telran-edu.de:8080/";
 
-    final String API_REY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNDkxNDAxNn0.JN-uZJD6kUbaNSl6uzQMqwfZ2p0mgdwW3POEn0gWC43jcju62tquz06sB5PAvouJJ_uCrg1QeqALjNUttVVfdQ";
-    RequestSpecification spec = new RequestSpecBuilder()
-            .setBaseUri(BASE_URI)
-            .setContentType(ContentType.JSON)
-            .addHeader("Access Token",API_REY)
-            .build();
+    private final RequestSpecification spec;
+
+    public ApiBase(){
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .build();
+    }
+
+    public ApiBase(String token) {
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .addHeader("Access-Token",token)
+                .build();
+    }
+
 
     protected Response getRequest(String endpoint, int code) {
         Response response = RestAssured.given()
@@ -59,6 +70,7 @@ public class ApiBase {
     protected Response putRequest(String endpoint, int code, Object body) {
         Response response = RestAssured.given()
                 .spec(spec)
+                .body(body)
                 .when()
                 .log().all()
                 .put(endpoint)

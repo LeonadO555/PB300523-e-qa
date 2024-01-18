@@ -2,6 +2,7 @@ package intagration;
 
 import intagration.contact.ContactApi;
 import intagration.shemas.ContactDto;
+import intagration.user.UserApi;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,6 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ContactApiTest {
+
+    UserApi userApi;
     ContactApi contactApi;
 
     private void checkContactData(int contactId, ContactDto contactData){
@@ -28,8 +31,14 @@ public class ContactApiTest {
     @Test
     //create contact
     public void userCanWorkWithContactViaApiTest(){
-        contactApi = new ContactApi();
-        JsonPath object = contactApi.createContact(200).jsonPath();
+        String email = "newtest@gmail.com";
+        String password ="newtest@gmail.com";
+
+        userApi = new UserApi();
+        String token = userApi.login(email,password,200);
+
+        contactApi = new ContactApi(token);
+        JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
         checkContactData(contactId, contactApi.rndDataForCreateContact());
         //update
@@ -41,6 +50,6 @@ public class ContactApiTest {
         contactApi.deleteContact(200,contactId);
         JsonPath actualDeletedObject = contactApi.getContact(500,contactId).jsonPath();
         String errorMessage = actualDeletedObject.getString("message");
-        Assert.assertEquals(errorMessage,"Error! this contact doesn't exist in our DB");
+        Assert.assertEquals(errorMessage,"Error! This contact doesn't exist in our DB");
     }
 }
