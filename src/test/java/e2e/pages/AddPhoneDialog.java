@@ -49,10 +49,8 @@ public class AddPhoneDialog extends PhonesPage {
            getWait().forClickable(saveButton);
            saveButton.click();
            getWait().forInvisibility(countryCodeLabel);
-       } catch (StaleElementReferenceException e) { //отображается старый элемент
+       } catch (StaleElementReferenceException e) {
             e.printStackTrace();
        }
-
-
     }
 }
