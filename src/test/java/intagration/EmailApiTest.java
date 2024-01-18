@@ -25,8 +25,12 @@ public class EmailApiTest {
         int contactId = object.getInt( "id");
 
         //create email
+        emailApi = new EmailApi(token);
         emailApi.createEmail(201, contactId);
-        emailApi.getAllEmails(200,contactId);
+
+        JsonPath emailObject = emailApi.getAllEmails(200, contactId).jsonPath();
+        int emailId = emailObject.getInt("[0].id");
+        emailApi.editNewEmail(200, contactId, emailId);
 
     }
 
