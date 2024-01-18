@@ -45,8 +45,8 @@ public class PhoneApi extends ApiBase {
     public void editNewPhone(int code,int contactId,int id){
         String endPoint = "/api/phone";
         Object body = rndForEditNewPhone(id,contactId);
-        response = postRequest(endPoint,code,body);
-        postRequest(endPoint,code,body);
+        putRequest(endPoint,code,body);
+
     }
 
     public Response deletePhone(int code,int id){

@@ -43,11 +43,11 @@ public class PhoneApiTest {
         phoneApi = new PhoneApi(token);
         phoneApi.createNewPhone(201, contactId);
         JsonPath phoneObject = phoneApi.getAllPhones(200, contactId).jsonPath();
-        int phoneId = phoneObject.getInt("id[0]");
+        int phoneId = phoneObject.getInt("[0].id");
         checkPhoneData(phoneId, phoneApi.rndForCreatedNewPhone(contactId));
 
 
-        phoneApi.editNewPhone(201, contactId, phoneId);
+        phoneApi.editNewPhone(200, contactId, phoneId);
         checkPhoneData(phoneId,phoneApi.rndForEditNewPhone(phoneId,contactId));
 
         phoneApi.deletePhone(200, phoneId);
