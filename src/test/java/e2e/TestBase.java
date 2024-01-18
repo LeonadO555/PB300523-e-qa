@@ -8,7 +8,7 @@ public class TestBase {
 
     @BeforeMethod
     public void setAppTest() {
-        app.init();
+        app.init(false);
     }
 
     @AfterMethod
