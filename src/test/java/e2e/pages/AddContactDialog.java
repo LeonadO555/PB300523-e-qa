@@ -53,7 +53,7 @@ public class AddContactDialog extends ContactsPage{
     public void setDescription(String description){
         setInput(descriptionInput, description);
     }
-    public void setAddContactFrom(String firstName, String lastName, String description){
+    public void setAddContactForm(String firstName, String lastName, String description){
         setFirstNameInput(firstName);
         setLastNameInput(lastName);
         setDescription(description);
