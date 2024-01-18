@@ -23,6 +23,7 @@ public class ContactDto {
 
     @JsonProperty("description")
     private String description;
+
     public int getId() {
         return id;
     }

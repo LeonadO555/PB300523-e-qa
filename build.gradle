@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.10.0'
 }
 
 group = 'org.example'
@@ -9,7 +10,13 @@ repositories {
     mavenCentral()
 }
 
+allure {
+    autoconfigure = true
+    version = '2.10.0'
+}
+
 dependencies {
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.10.0'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.14.1'
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.6.2'
     implementation group: 'org.testng', name: 'testng', version: '7.8.0'
@@ -21,6 +28,7 @@ dependencies {
 
 test {
     useTestNG()
+    systemProperty 'allure.results.directory', 'build/allure-result'
 }
 
 task testSmoke(type: Test){
@@ -28,4 +36,12 @@ task testSmoke(type: Test){
         suites 'src/test/resources/testngSmoke.xml'
     //    suites 'src/test/resources/testngNoSmoke.xml'
     }
+    systemProperty 'allure.results.directory', 'build/allure-result'
+}
+task testNoSmoke(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testngSmoke.xml'
+        //    suites 'src/test/resources/testngNoSmoke.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-result'
 }

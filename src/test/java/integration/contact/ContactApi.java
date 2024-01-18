@@ -7,6 +7,10 @@ import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase {
 
+    public ContactApi(String token){
+        super(token);
+    }
+
     Response response;
     ContactDto dto;
     Faker faker = new Faker();
@@ -60,7 +64,7 @@ public class ContactApi extends ApiBase {
 
     public Response getContact(int code, int id){
         String endpoint = "/api/contact/{id}";
-        response = getRequestWithParam(endpoint,code,"id", id);
+        response = getRequestWithParam(endpoint,code,"id", id); //"contactID"
         return response;
     }
 }

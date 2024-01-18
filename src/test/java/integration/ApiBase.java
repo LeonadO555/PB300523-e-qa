@@ -1,22 +1,33 @@
 package integration;
 
+import com.beust.ah.A;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+// два шифта "поиск"
+// control shift f "поиск"
 
 public class ApiBase {
 
     final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
-    final String API_KEY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNTQwNzk4MH0.0_bKD0N4ftpa6whjxrJbWc_7O6Ypf7tnhezdoI4VeSDK9WR9AXmImutkcaIW0RAuQp5LDDlmFl6BsEggpa2rrA";
+    private final RequestSpecification spec;
 
-    RequestSpecification spec = new RequestSpecBuilder()
-            .setBaseUri(BASE_URI)
-            .setContentType(ContentType.JSON)
-            .addHeader("Access-Token", API_KEY)
-            .build();
+    public ApiBase(){
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .build();
+    }
+    public ApiBase(String token){
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .addHeader("Access-Token", token)
+                .build();
+    }
 
     protected Response getRequest(String endpoint, int code){
         Response response = RestAssured.given()
@@ -45,7 +56,7 @@ public class ApiBase {
 
     protected Response postRequest(String endpoint, int code, Object body){
         Response response = RestAssured.given()
-                .spec(spec)//метод,спецификация входная
+                .spec(spec)//метод, спецификация входная
                 .body(body)//
                 .when()// kogda
                 .log().all()
