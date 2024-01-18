@@ -6,9 +6,10 @@ import integration.schemas.PhoneDto;
 import io.restassured.response.Response;
 
 public class PhoneApi extends ApiBase {
-    public PhoneApi(String token){
+    public PhoneApi(String token) {
         super(token);
     }
+
     PhoneDto phoneDto;
     Response response;
 
@@ -19,14 +20,15 @@ public class PhoneApi extends ApiBase {
     String editCountryCode = "+48";
     String editPhoneNumber = "3473733339238";
 
-    public PhoneDto rndForCreatedNewPhone(int contactId){
+    public PhoneDto rndForCreatedNewPhone(int contactId) {
         phoneDto = new PhoneDto();
         phoneDto.setCountryCode(countryCode);
         phoneDto.setPhoneNumber(phoneNumber);
         phoneDto.setContactId(contactId);
         return phoneDto;
     }
-    public PhoneDto rndForEditNewPhone(int id,int contactId){
+
+    public PhoneDto rndForEditNewPhone(int id, int contactId) {
         phoneDto = new PhoneDto();
         phoneDto.setId(id);
         phoneDto.setCountryCode(editCountryCode);
@@ -34,34 +36,34 @@ public class PhoneApi extends ApiBase {
         phoneDto.setContactId(contactId);
         return phoneDto;
     }
-    public Response createNewPhone(int code,int contactId){
+
+    public void createNewPhone(int code, int contactId) {
         String endPoint = "/api/phone";
         Object body = rndForCreatedNewPhone(contactId);
-        response = postRequest(endPoint,code,body);
-        response.as(PhoneDto.class);
-        return response;
+        response = postRequest(endPoint, code, body);
     }
-    public void editNewPhone(int code,int contactId,int id){
+
+    public void editNewPhone(int code, int contactId, int id) {
         String endPoint = "/api/phone";
-        Object body = rndForEditNewPhone(id,contactId);
-        response = postRequest(endPoint,code,body);
-        postRequest(endPoint,code,body);
+        Object body = rndForEditNewPhone(id, contactId);
+        putRequest(endPoint, code, body);
     }
 
-    public Response deletePhone(int code,int id){
+    public Response deletePhone(int code, int id) {
         String endPoint = "/api/phone/{id}";
-        response = deleteRequest(endPoint,code,id);
-        return  response;
-    }
-    public Response getAllPhones(int code,int contactId){
-        String endpoint = "/api/phone/{contactId}/all";
-        response = getRequestWithParam(endpoint,code,"contactId",contactId);
-        return response;
-    }
-    public Response getPhone(int code,int id){
-        String endpoint = "/api/phone/{id}";
-        response = getRequestWithParam(endpoint,code,"id",id);
+        response = deleteRequest(endPoint, code, id);
         return response;
     }
 
+    public Response getAllPhones(int code, int contactId) {
+        String endpoint = "/api/phone/{contactId}/all";
+        response = getRequestWithParam(endpoint, code, "contactId", contactId);
+        return response;
+    }
+
+    public Response getPhone(int code, int id) {
+        String endpoint = "/api/phone/{id}";
+        response = getRequestWithParam(endpoint, code, "id", id);
+        return response;
+    }
 }
