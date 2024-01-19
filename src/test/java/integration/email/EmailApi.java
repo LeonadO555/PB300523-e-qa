@@ -35,12 +35,12 @@ public class EmailApi extends ApiBase {
         return emailDto;
     }
 
-    public Response createEmail(int code,int contactId){
+        public void createEmail(int code,int contactId){
         String endpoint = "/api/email";
         Object body = rndDataForCreateEmail(contactId);
         response = postRequest(endpoint,code,body);
-        return response;
-    }
+
+        }
 
     public void editEmail(int id,int code, int contactId){
         String endpoint = "/api/email";

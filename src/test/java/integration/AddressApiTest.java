@@ -3,8 +3,6 @@ package integration;
 import integration.address.AddressApi;
 import integration.contact.ContactApi;
 import integration.schemas.AddressDto;
-import integration.schemas.ContactDto;
-import integration.schemas.PhoneDto;
 import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
@@ -52,6 +50,7 @@ public class AddressApiTest {
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
 
+        // create Address
         addressApi = new AddressApi(token);// put Access token to class which need token for requests
         addressApi.createAddress(201,contactId);
 
@@ -59,11 +58,11 @@ public class AddressApiTest {
             int addressId = addressArrayObjects.getInt( "[0].id");//"[0].id"
             checkAddressData(addressId,addressApi.rndDataForCreateAddress(addressId));
 
-            // update Contacta
+            // update Address
             addressApi.editAddress(200,addressId,contactId);
             checkAddressData(addressId,addressApi.rndDataForEditAddress(addressId,contactId));
 
-            // delete Contact
+            // delete Address
         addressApi.deleteAddress(200, addressId);
 
             JsonPath actualDeletedObject = addressApi.getAddress(500, addressId).jsonPath();

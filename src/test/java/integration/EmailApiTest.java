@@ -52,6 +52,7 @@ public class EmailApiTest {
 
         emailApi = new EmailApi(token); // put Access token to class which need token for requests
         emailApi.createEmail(400,contactId);
+
         JsonPath emailArrayObject = emailApi.getAllEmail(200,contactId).jsonPath();
         int emailId = emailArrayObject.getInt( "[0].id");//"[0].id"
         checkEmailData(emailId,emailApi.rndDataForCreateEmail(emailId));

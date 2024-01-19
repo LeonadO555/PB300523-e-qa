@@ -46,13 +46,13 @@ public class PhoneApiTest {
 
         phoneApi = new PhoneApi(token); // put Access token to class which need token for requests
         phoneApi.createPhone(201, contactId);
-        JsonPath phoneObject = phoneApi.getAllPhones(200, contactId).jsonPath();
-        int phoneId = phoneObject.getInt("[0].id");
+        JsonPath phoneArrayObject = phoneApi.getAllPhones(200, contactId).jsonPath();
+        int phoneId = phoneArrayObject.getInt("[0].id");
         checkPhoneData(phoneId, phoneApi.rndForCreatedPhone(phoneId));
 
 
-        phoneApi.editPhone(500, contactId,phoneId);
-        //checkPhoneData(phoneId,phoneApi.rndForEditPhone(contactId,phoneId));
+        phoneApi.editPhone(200,phoneId,contactId);
+        checkPhoneData(phoneId,phoneApi.rndForEditPhone(phoneId,contactId));
 
         phoneApi.deletePhone(200, phoneId);
 
