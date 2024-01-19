@@ -12,10 +12,14 @@ public class EmailApi extends ApiBase {
     }
     EmailDto emailDto;
     Response response;
-    Faker faker = new Faker();
-    String email = faker.internet().uuid();
 
-    String editEmail = faker.internet().uuid();
+    //Faker faker = new Faker();
+    //String email = faker.internet().uuid();
+    //String editEmail = faker.internet().uuid();
+
+    String email = "georgiyManolov@gmail.com";
+    String editEmail = "georgiy.Manolov@gmail.com";
+
 
 
     public EmailDto rndDataForCreateEmail(int contactId){
