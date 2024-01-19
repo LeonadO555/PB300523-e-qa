@@ -24,20 +24,17 @@ public class EmailApiTest {
         LinkedHashMap<String,String> emailObjects = new LinkedHashMap<>();
         emailObjects.put(actualObjects.getString("email"),emailData.getEmail());
 
-
         for (Map.Entry<String,String> emailObject:emailObjects.entrySet()){
             String actualResult = emailObject.getKey();
             String expectedResult =emailObject.getValue();
             Assert.assertEquals(actualResult,expectedResult, actualResult + " is not equals " + expectedResult);
         }
     }
-
-
     @Test
     public void userCanWorkWithEmailViaApiTest(){
 
-    String email = "newtest@gmail.com";
-    String password = "newtest@gmail.com";
+        String email = "newtest@gmail.com";
+        String password = "newtest@gmail.com";
 
         // login as user and get Access token from Response Header
         userApi = new UserApi();
@@ -46,22 +43,20 @@ public class EmailApiTest {
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
 
+        // create email
         emailApi = new EmailApi(token);
         emailApi.createEmail(201,contactId);
 
-        JsonPath emailArrayObject = emailApi.getAllEmails(200,contactId).jsonPath();
-        int emailId = emailArrayObject.getInt( "[0].id");//"[0].id"
+        JsonPath emailArrayObjects = emailApi.getAllEmail(200,contactId).jsonPath();
+        int emailId = emailArrayObjects.getInt( "[0].id");//"[0].id"
         checkEmailData(emailId,emailApi.rndDataForCreateEmail(emailId));
-
 
         // update Contact
         emailApi.editEmail(200,emailId,contactId);
         checkEmailData(emailId,emailApi.rndDataForEditEmail(emailId,contactId));
 
         // delete Contact
-
-        emailApi.deleteEmail(200, contactId);
-
+        emailApi.deleteEmail(200,contactId);
         JsonPath actualDeletedObject = emailApi.getEmail(500, emailId).jsonPath();
         String errorMessage = actualDeletedObject.getString("message");
         Assert.assertEquals(errorMessage,"Error! This contact doesn't exist in our DB");

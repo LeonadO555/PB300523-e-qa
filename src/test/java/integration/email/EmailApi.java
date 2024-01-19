@@ -56,9 +56,9 @@ public class EmailApi extends ApiBase {
         return response;
     }
 
-    public Response getAllEmails(int code, int contactId){
+    public Response getAllEmail(int code, int contactId){
         String endpoint = "/api/email/{contactId}/all";
-        response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactID"
+        response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactId"
         return response;
     }
 

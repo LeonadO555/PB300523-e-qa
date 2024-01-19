@@ -29,7 +29,6 @@ public class PhoneApiTest {
             Assert.assertEquals(actualResult, expectedResult, actualResult + " is not equals " + expectedResult);
         }
     }
-
     @Test
     public void userCanWorkWithPhoneViaApiTest() {
 
@@ -43,6 +42,7 @@ public class PhoneApiTest {
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
 
+        // create phone
         phoneApi = new PhoneApi(token); // put Access token to class which need token for requests
         phoneApi.createPhone(201, contactId);
 
@@ -50,16 +50,15 @@ public class PhoneApiTest {
         int phoneId = phoneArrayObject.getInt("[0].id");
         checkPhoneData(phoneId, phoneApi.rndForCreatedPhone(phoneId));
 
-
+        // edit phone
         phoneApi.editPhone(200,phoneId,contactId);
         checkPhoneData(phoneId,phoneApi.rndForEditPhone(phoneId,contactId));
 
+        // delete phone
         phoneApi.deletePhone(200, phoneId);
 
         JsonPath actualDeleteObject = phoneApi.getPhone(500, phoneId).jsonPath();
         String errorMessage = actualDeleteObject.getString("message");
         Assert.assertEquals(errorMessage, "Error! This phone number doesn't exist in our DB");
-
-
     }
 }
