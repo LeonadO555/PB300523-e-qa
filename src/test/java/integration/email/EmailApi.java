@@ -3,7 +3,6 @@ package integration.email;
 import com.github.javafaker.Faker;
 import integration.ApiBase;
 import integration.schemas.EmailDto;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 public class EmailApi extends ApiBase {
@@ -11,9 +10,8 @@ public class EmailApi extends ApiBase {
     public EmailApi(String token){
         super(token);
     }
-
-    Response response;
     EmailDto emailDto;
+    Response response;
     Faker faker = new Faker();
     String email = faker.internet().uuid();
 
@@ -39,10 +37,9 @@ public class EmailApi extends ApiBase {
         String endpoint = "/api/email";
         Object body = rndDataForCreateEmail(contactId);
         response = postRequest(endpoint,code,body);
+    }
 
-        }
-
-    public void editEmail(int id,int code, int contactId){
+    public void editEmail(int code,int id, int contactId){
         String endpoint = "/api/email";
         Object body = rndDataForEditEmail(id,contactId);
         putRequest(endpoint,code,body);
@@ -55,7 +52,7 @@ public class EmailApi extends ApiBase {
         return response;
     }
 
-    public Response getAllEmail(int code, int contactId){
+    public Response getAllEmails(int code, int contactId){
         String endpoint = "/api/email/{contactId}/all";
         response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactID"
         return response;

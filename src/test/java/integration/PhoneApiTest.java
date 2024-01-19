@@ -5,7 +5,6 @@ import integration.phone.PhoneApi;
 import integration.schemas.PhoneDto;
 import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -46,6 +45,7 @@ public class PhoneApiTest {
 
         phoneApi = new PhoneApi(token); // put Access token to class which need token for requests
         phoneApi.createPhone(201, contactId);
+
         JsonPath phoneArrayObject = phoneApi.getAllPhones(200, contactId).jsonPath();
         int phoneId = phoneArrayObject.getInt("[0].id");
         checkPhoneData(phoneId, phoneApi.rndForCreatedPhone(phoneId));

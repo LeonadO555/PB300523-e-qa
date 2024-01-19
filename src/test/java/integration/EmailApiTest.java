@@ -3,7 +3,6 @@ package integration;
 
 import integration.contact.ContactApi;
 import integration.email.EmailApi;
-import integration.schemas.AddressDto;
 import integration.schemas.EmailDto;
 import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
@@ -16,10 +15,7 @@ import java.util.Map;
 public class EmailApiTest {
 
     UserApi userApi;
-
     ContactApi contactApi;
-
-
     EmailApi emailApi;
 
     private void checkEmailData(int emailId, EmailDto emailData){
@@ -50,10 +46,10 @@ public class EmailApiTest {
         JsonPath object = contactApi.createContact(201).jsonPath();
         int contactId = object.getInt("id");
 
-        emailApi = new EmailApi(token); // put Access token to class which need token for requests
-        emailApi.createEmail(400,contactId);
+        emailApi = new EmailApi(token);
+        emailApi.createEmail(201,contactId);
 
-        JsonPath emailArrayObject = emailApi.getAllEmail(200,contactId).jsonPath();
+        JsonPath emailArrayObject = emailApi.getAllEmails(200,contactId).jsonPath();
         int emailId = emailArrayObject.getInt( "[0].id");//"[0].id"
         checkEmailData(emailId,emailApi.rndDataForCreateEmail(emailId));
 
