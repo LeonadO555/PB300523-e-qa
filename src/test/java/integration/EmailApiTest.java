@@ -56,9 +56,9 @@ public class EmailApiTest {
         checkEmailData(emailId,emailApi.rndDataForEditEmail(emailId,contactId));
 
         // delete Contact
-        emailApi.deleteEmail(200,contactId);
+        emailApi.deleteEmail(200,emailId);
         JsonPath actualDeletedObject = emailApi.getEmail(500, emailId).jsonPath();
         String errorMessage = actualDeletedObject.getString("message");
-        Assert.assertEquals(errorMessage,"Error! This contact doesn't exist in our DB");
+        Assert.assertEquals(errorMessage,"Error! This email doesn't exist in our DB");
     }
 }
