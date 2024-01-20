@@ -5,8 +5,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import java.awt.*;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +56,9 @@ public class BasePage {
     }
 
     private double calculateMaxDifferentPercentRation(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
+        Dimension windowSize = driver.manage().window().getSize();
+        int width = windowSize.width;
+        int height = windowSize.height;
 
         return  0.01 * width * height;
     }
