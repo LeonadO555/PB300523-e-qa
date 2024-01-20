@@ -10,14 +10,8 @@ public class EditPhoneForm extends PhonesPage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@for='cc-select']")
-    WebElement countryCodeLabel;
-
     @FindBy(xpath = "//*[@id='cc-select']")
     WebElement countryCodeDropDown;
-
-    @FindBy(xpath = "//*[@for='selected-cc']")
-    WebElement phoneNumberField;
 
     @FindBy(xpath = "//*[@id='selected-cc']")
     WebElement phoneNumberInput;
@@ -26,9 +20,7 @@ public class EditPhoneForm extends PhonesPage {
     WebElement saveButton;
 
     public void waitForOpen() {
-        getWait().forVisibility(countryCodeLabel);
         getWait().forVisibility(countryCodeDropDown);
-        getWait().forVisibility(phoneNumberField);
         getWait().forVisibility(phoneNumberInput);
         getWait().forVisibility(saveButton);
     }
@@ -45,7 +37,7 @@ public class EditPhoneForm extends PhonesPage {
         setInput(phoneNumberInput, phoneNumber);
     }
 
-    public void saveChange() throws InterruptedException {
+    public void saveChange() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
     }

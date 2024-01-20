@@ -29,19 +29,16 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     }
 
     @Test
-    public void userCanAddPhoneNumber() throws InterruptedException {
+    public void userCanAddPhoneNumber(){
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
-        String country = "Albania";
+        String country = "Albania (+355)";
+        String number = "1293843764";
 
         String firstName = faker.internet().uuid(); // faker генерирует рандомные данные через генератор uuid
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence(); // рандомный текст
-
-        String editFirstName = faker.internet().uuid();
-        String editLastName = faker.internet().uuid();
-        String editDescription = faker.lorem().sentence();
 
         // login as user
         loginPage = new LoginPage(app.driver);
@@ -55,6 +52,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         Assert.assertEquals(contactsPage.getLanguage(), language);
 
         // Add contact
+        addContactDialog = new AddContactDialog(app.driver);
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen(); // только для диалога
         addContactDialog.setAddContactForm(firstName, lastName, description);
@@ -73,13 +71,12 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         //fill addPhoneDialog
         addPhoneDialog = new AddPhoneDialog(app.driver);
         addPhoneDialog.waitForOpen();
-        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
-        addPhoneDialog.setPhoneNumberInput("12345678911");
+        addPhoneDialog.selectCountryCode(country);
+        addPhoneDialog.setPhoneNumberInput(number);
         addPhoneDialog.savePhone();
 
 
         // check created phone
-        phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
         checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
 
@@ -88,15 +85,16 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         editPhoneForm = phonesPage.openEditPhoneForm();
         editPhoneForm.waitForOpen();
         editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
-        editPhoneForm.setPhoneNumberInput("11987654321");
+        editPhoneForm.setPhoneNumberInput(number);
         editPhoneForm.saveChange();
         phonesPage.waitForLoading();
+        checkPhoneData(phonesPage,phonesPage.getCountry(),phonesPage.getPhoneNumber());
 
         //
         phonesPage.deletePhone();
 
         // open contact page
-        contactInfoPage.openContactsPage();
+        phonesPage.openContactInfoPage();
         contactsPage.waitForLoading();
 
         // filter by contact name

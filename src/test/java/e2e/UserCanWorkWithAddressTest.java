@@ -83,10 +83,10 @@ public class UserCanWorkWithAddressTest extends TestBase {
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage, firstName, lastName, description);
+        contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
 
         //addAddress
         addressesInfoPage = new AddressesInfoPage(app.driver);
-        addressesInfoPage.openTab(ContactInfoTabs.ADDRESSES);
         addressesInfoPage.clickOnAddressButton();
         addressesInfoPage.waitForLoading();
         addAddressDialog = new AddAddressDialog(app.driver);
