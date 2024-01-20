@@ -37,7 +37,6 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//*[@ng-reflect-router-link='/account']")
     WebElement accountButton;
 
-
     @FindBy(xpath = "//*[@src='/assets/icons/trash.svg']")
     WebElement deleteButton;
 
@@ -56,42 +55,31 @@ public class ContactsPage extends BasePage {
         getWait().forClickable(addContactButton);
         getWait().forClickable(contactsButton);
     }
-
-
     public void openContactsPage(){
         contactsButton.click();
     }
-
     public int getContactCount(){
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
-
     public AddContactDialog openAddContactDialog(){
         addContactButton.click();
         return new AddContactDialog(driver);
     }
-
     public AddEmailDialog openAddEmailDialog(){
         addContactButton.click();
         return new AddEmailDialog(driver);
     }
-
-    //
-
     public void selectLanguage(String language){
         getSelect(languageDropdown).selectByVisibleText(language);
-
     }
     public String getLanguage(){
         return getSelect(languageDropdown).getFirstSelectedOption().getText();
     }
-
     public DeleteContactDialog openDeleteDialog(){
         getWait().forClickable(deleteButton);
         deleteButton.click();
         return new DeleteContactDialog(driver);
     }
-
     public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);
     }

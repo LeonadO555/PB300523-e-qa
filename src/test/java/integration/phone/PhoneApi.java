@@ -5,8 +5,8 @@ import integration.ApiBase;
 import integration.schemas.PhoneDto;
 import io.restassured.response.Response;
 
-
 public class PhoneApi extends ApiBase {
+
 
     public PhoneApi(String token){
         super(token);
@@ -17,10 +17,8 @@ public class PhoneApi extends ApiBase {
     Faker faker = new Faker();
     String countryCode = faker.internet().uuid();
     String phoneNumber = faker.internet().uuid();
-
     String editCountryCode = faker.internet().uuid();
     String editPhoneNumber = faker.internet().uuid();
-
 
     public PhoneDto rndForCreatedPhone(int contactId){
         phoneDto = new PhoneDto();
@@ -41,14 +39,12 @@ public class PhoneApi extends ApiBase {
         String endpoint = "/api/phone";
         Object body = rndForCreatedPhone(contactId);
         response = postRequest(endpoint,code,body);
-
     }
     public void editPhone(int code,int id,int contactId){
         String endpoint = "/api/phone";
         Object body = rndForEditPhone(id,contactId);
         putRequest(endpoint,code,body);
     }
-
     public Response deletePhone(int code,int id){
         String endpoint = "/api/phone/{id}";
         response = deleteRequest(endpoint,code,id);
@@ -64,5 +60,4 @@ public class PhoneApi extends ApiBase {
         response = getRequestWithParam(endpoint,code,"id",id);
         return response;
     }
-
 }

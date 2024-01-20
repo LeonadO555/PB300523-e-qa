@@ -35,5 +35,4 @@ public class FirstSeleniumTest {
         Assert.assertEquals(actualContactCount,expectedContactCount,actualContactCount + " not equal " + expectedContactCount);
         driver.quit();
     }
-
 }

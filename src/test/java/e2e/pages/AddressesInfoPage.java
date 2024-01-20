@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddressesInfoPage extends ContactInfoPage {
-
-
     public AddressesInfoPage(WebDriver driver) {
         super(driver);
     }
@@ -31,13 +29,10 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement editButton;
     @FindBy(xpath = "//*[@class='dropdown-item btn-address-remove']")
     WebElement removeButton;
-
-
     public void waitForLoading() {
         getWait().forVisibility(searchAddressInput);
         getWait().forVisibility(addAddressButton);
     }
-
     public String getCountry() {
         return countryField.getText();
     }
@@ -64,17 +59,13 @@ public class AddressesInfoPage extends ContactInfoPage {
         editButton.click();
         return new EditAddressDialog(driver);
     }
-
     public void filterByPostCode(String postCodeValue) {
         searchAddressInput.sendKeys(postCodeValue);
     }
-
     public void deleteAddress() {
         optionDropDown.click();
         getWait().forVisibility(removeButton);
         removeButton.click();
-
     }
-
 }
 

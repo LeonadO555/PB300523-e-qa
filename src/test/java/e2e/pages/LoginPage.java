@@ -15,13 +15,10 @@ public class LoginPage extends BasePage{
     // Describe locator
     @FindBy(xpath = "//*[@name='email']")
     WebElement emailInput;
-
     @FindBy(xpath = "//*[@name='password']")
     WebElement passwordInput;
-
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
-
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);

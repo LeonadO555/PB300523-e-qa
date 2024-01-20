@@ -28,7 +28,6 @@ public class EditAddressDialog extends AddressesInfoPage {
         getWait().forVisibility(saveButton);
         getWait().forClickable(saveButton);
     }
-
     public void selectCountry(String country) {
         getSelect(countryDropDown).selectByVisibleText(country);
     }
@@ -44,10 +43,8 @@ public class EditAddressDialog extends AddressesInfoPage {
     public void setStreetInput(String street) {
         setInput(streetInput, street);
     }
-
     public void saveChanges() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
     }
-
 }

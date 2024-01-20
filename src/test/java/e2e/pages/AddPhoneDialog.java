@@ -29,7 +29,6 @@ public class AddPhoneDialog extends PhoneInfoPage {
         getWait().forVisibility(phoneInputField);
         getWait().forVisibility(saveButton);
         getWait().forVisibility(closeWindowsButton);
-
     }
     public void selectCodeCountry(String code){
         getSelect(countryCodeDropdown).selectByVisibleText(code);

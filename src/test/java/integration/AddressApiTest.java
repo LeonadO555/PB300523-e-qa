@@ -14,14 +14,8 @@ import java.util.Map;
 public class AddressApiTest {
 
     UserApi userApi;
-
     ContactApi contactApi;
-
     AddressApi addressApi;
-
-
-
-
     private void checkAddressData(int addressId, AddressDto addressData){
 
         JsonPath actualObjects = addressApi.getAddress(200, addressId).jsonPath();
@@ -54,19 +48,19 @@ public class AddressApiTest {
         addressApi = new AddressApi(token);// put Access token to class which need token for requests
         addressApi.createAddress(201,contactId);
 
-            JsonPath addressArrayObjects = addressApi.getAllAddress(200,contactId).jsonPath();
-            int addressId = addressArrayObjects.getInt( "[0].id");//"[0].id"
-            checkAddressData(addressId,addressApi.rndDataForCreateAddress(addressId));
+        JsonPath addressArrayObjects = addressApi.getAllAddress(200,contactId).jsonPath();
+        int addressId = addressArrayObjects.getInt( "[0].id");//"[0].id"
+        checkAddressData(addressId,addressApi.rndDataForCreateAddress(addressId));
 
-            // update Address
-            addressApi.editAddress(200,addressId,contactId);
-            checkAddressData(addressId,addressApi.rndDataForEditAddress(addressId,contactId));
+        // update Address
+        addressApi.editAddress(200,addressId,contactId);
+        checkAddressData(addressId,addressApi.rndDataForEditAddress(addressId,contactId));
 
-            // delete Address
+        // delete Address
         addressApi.deleteAddress(200, addressId);
 
-            JsonPath actualDeletedObject = addressApi.getAddress(500, addressId).jsonPath();
-            String errorMessage = actualDeletedObject.getString("message");
+        JsonPath actualDeletedObject = addressApi.getAddress(500, addressId).jsonPath();
+        String errorMessage = actualDeletedObject.getString("message");
         Assert.assertEquals(errorMessage,"Error! This address doesn't exist in our DB");
     }
 }

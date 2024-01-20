@@ -51,11 +51,11 @@ public class EmailApiTest {
         int emailId = emailArrayObjects.getInt( "[0].id");//"[0].id"
         checkEmailData(emailId,emailApi.rndDataForCreateEmail(emailId));
 
-        // update Contact
+        // update email
         emailApi.editEmail(200,emailId,contactId);
         checkEmailData(emailId,emailApi.rndDataForEditEmail(emailId,contactId));
 
-        // delete Contact
+        // delete email
         emailApi.deleteEmail(200,emailId);
         JsonPath actualDeletedObject = emailApi.getEmail(500, emailId).jsonPath();
         String errorMessage = actualDeletedObject.getString("message");

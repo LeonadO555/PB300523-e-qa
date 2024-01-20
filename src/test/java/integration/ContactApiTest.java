@@ -13,9 +13,7 @@ import java.util.Map;
 public class ContactApiTest {
 
     UserApi userApi;
-
     ContactApi contactApi;
-
     private void checkContactData(int contactId, ContactDto contactData){
 
         JsonPath actualObjects = contactApi.getContact(200, contactId).jsonPath();

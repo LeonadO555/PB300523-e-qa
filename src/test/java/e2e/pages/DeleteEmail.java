@@ -17,11 +17,9 @@ public class DeleteEmail extends EmailInfoPage {
 
     @FindBy(xpath = "//*[@class='dropdown-item btn-email-remove']")
     WebElement removeEmailButton;
-
     public void waitForOpen(){
         getWait().forVisibility(dialog);
         getWait().forVisibility(optionDropDown);
         getWait().forVisibility(removeEmailButton);
     }
-
 }

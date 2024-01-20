@@ -1,6 +1,5 @@
 package integration.email;
 
-import com.github.javafaker.Faker;
 import integration.ApiBase;
 import integration.schemas.EmailDto;
 import io.restassured.response.Response;
@@ -12,15 +11,8 @@ public class EmailApi extends ApiBase {
     }
     EmailDto emailDto;
     Response response;
-
-    //Faker faker = new Faker();
-    //String email = faker.internet().uuid();
-    //String editEmail = faker.internet().uuid();
-
     String email = "georgiyManolov@gmail.com";
     String editEmail = "georgiy.Manolov@gmail.com";
-
-
 
     public EmailDto rndDataForCreateEmail(int contactId){
         emailDto = new EmailDto();
@@ -28,7 +20,6 @@ public class EmailApi extends ApiBase {
         emailDto.setContactId(contactId);
         return emailDto;
     }
-
     public EmailDto rndDataForEditEmail(int id,int contactId){
         emailDto = new EmailDto();
         emailDto.setId(id);
@@ -36,32 +27,26 @@ public class EmailApi extends ApiBase {
         emailDto.setContactId(contactId);
         return emailDto;
     }
-
-        public void createEmail(int code,int contactId){
+    public void createEmail(int code,int contactId){
         String endpoint = "/api/email";
         Object body = rndDataForCreateEmail(contactId);
         response = postRequest(endpoint,code,body);
     }
-
     public void editEmail(int code,int id, int contactId){
         String endpoint = "/api/email";
         Object body = rndDataForEditEmail(id,contactId);
         putRequest(endpoint,code,body);
-
     }
-
     public Response deleteEmail(int code, int id){
         String endpoint = "/api/email/{id}";
         response = deleteRequest(endpoint,code,id);
         return response;
     }
-
     public Response getAllEmail(int code, int contactId){
         String endpoint = "/api/email/{contactId}/all";
         response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactId"
         return response;
     }
-
     public Response getEmail(int code,int id){
         String endpoint = "/api/email/{id}";
         response = getRequestWithParam(endpoint,code,"id",id);

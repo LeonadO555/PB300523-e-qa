@@ -27,7 +27,6 @@ public class UserCanWorkWithAddressTest extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
-
     private void checkAddressData(AddressesInfoPage page, String country, String city, String postCode, String street) {
         String actualCountryName = page.getCountry();
         String actualCityName = page.getCity();
@@ -37,9 +36,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
         Assert.assertEquals(actualCityName, city, actualCityName + "is not equal " + city);
         Assert.assertEquals(actualPostCode, postCode, actualPostCode + "is not equal " + postCode);
         Assert.assertEquals(actualStreetName, street, actualStreetName + "is not equal " + street);
-
     }
-
     @Test
     public void userCanWorkWithContactTest() throws InterruptedException {
         String email = "newTest@gmail.com";
@@ -123,7 +120,5 @@ public class UserCanWorkWithAddressTest extends TestBase {
         //remove Address
         addressesInfoPage.deleteAddress();
         addressesInfoPage.waitForLoading();
-
     }
-
 }

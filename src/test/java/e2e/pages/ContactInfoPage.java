@@ -27,14 +27,10 @@ public class ContactInfoPage extends ContactsPage{
         getWait().forVisibility(editButton);
         getWait().forClickable(editButton);
     }
-
     public void openTab(ContactInfoTabs tab){
 
         driver.findElement(By.xpath("//*[@id='ngb-nav-"+tab.value+"']")).click();
-
     }
-
-
     public String getFirstName(){
         return firstNameField.getText();
     }
@@ -46,13 +42,10 @@ public class ContactInfoPage extends ContactsPage{
     public String getDescription(){
         return descriptionField.getText();
     }
-
     public EditContactForm openEditContactForm(){
         editButton.click();
         Assert.assertFalse(isElementDisplayed(firstNameField), "Edit contact form was not opened");
         return new EditContactForm(driver);
     }
-
-
 }
 

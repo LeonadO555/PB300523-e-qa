@@ -27,7 +27,6 @@ public class EditContactForm extends ContactInfoPage{
         getWait().forVisibility(saveButton);
         getWait().forClickable(saveButton);
     }
-
     public void setFirstNameInput(String firstName){
         setInput(firstNameInput,firstName);
     }

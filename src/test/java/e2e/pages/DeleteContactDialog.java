@@ -22,18 +22,12 @@ public class DeleteContactDialog extends ContactsPage{
         getWait().forVisibility(confirmDeletionCheckbox);
         getWait().forVisibility(removeContactButton);
     }
-
     public void setConfirmDeletion(){
         confirmDeletionCheckbox.click();
     }
-
     public void removeContact(){
         getWait().forClickable(removeContactButton);
         removeContactButton.click();
         getWait().forInvisibility(dialog);
     }
-
-
-
-
 }

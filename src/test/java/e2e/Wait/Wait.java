@@ -36,9 +36,6 @@ public class Wait {
             throw new TimeoutException(elements.size() + " are not visible more than " + TIMEOUT.toString());
         }
     }
-
-
-
     public void forInvisibility(WebElement element){
         try {
             setWait().until(ExpectedConditions.invisibilityOf(element));
@@ -46,7 +43,6 @@ public class Wait {
             throw new TimeoutException(element.getAccessibleName() + "is visible more than " + TIMEOUT.toString());
         }
     }
-
     public void forClickable(WebElement element){
         try {
             setWait().until(ExpectedConditions.elementToBeClickable(element));

@@ -3,7 +3,6 @@ package e2e.pages;
 import org.openqa.selenium.WebDriver;
 
 public class DeleteAddress extends AddressesInfoPage {
-
     public DeleteAddress(WebDriver driver) {
         super(driver);
     }
@@ -14,6 +13,4 @@ public class DeleteAddress extends AddressesInfoPage {
         removeButton.click();
         getWait().forInvisibility(removeButton);
     }
-
-
 }

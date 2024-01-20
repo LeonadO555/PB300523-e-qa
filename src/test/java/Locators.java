@@ -36,9 +36,5 @@ public class Locators {
     WebElement elementVariantNameOne1 = driver.findElement(By.xpath("//*[@name=`password`]"));
     WebElement elementVariantNameTwo2 = driver.findElement(By.cssSelector("[name=`password`]"));
     WebElement elementVariantNameThree3 = driver.findElement(By.name("password"));
-
-
-
-
 }
 

@@ -25,9 +25,7 @@ public class Locator {
     WebElement elementVariantClassFive = driver.findElement(By.className("form-control mb-2 rounded-pill ng-untouched ng-pristine ng-invalid"));
 
 
-
-
-//Мое решение < Авто тест >
+    //Мое решение < Авто тест >
     WebElement elementVariantPasswordOne = driver.findElement(By.xpath("//*[@formcontrolname='password']"));
     WebElement elementVariantPasswordTwo = driver.findElement(By.cssSelector("[formcontrolname='password]"));
 
@@ -39,6 +37,4 @@ public class Locator {
     WebElement elementVariantName1One = driver.findElement(By.xpath("//*[@name='password']"));
     WebElement elementVariantName2Two = driver.findElement(By.cssSelector("[name='password']"));
     WebElement elementVariantName3Three = driver.findElement(By.name("password"));
-
-
-    }
+}

@@ -26,7 +26,6 @@ public class AddAddressDialog extends AddressesInfoPage{
         getWait().forVisibility(postCodeInput);
         getWait().forVisibility(streetInput);
         getWait().forVisibility(saveButton);
-
     }
     public void selectCountry(String country){
         getSelect(countryDropdown).selectByVisibleText(country);

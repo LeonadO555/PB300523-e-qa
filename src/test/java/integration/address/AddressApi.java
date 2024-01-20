@@ -19,9 +19,6 @@ public class AddressApi extends ApiBase {
     String street = faker.internet().uuid();
     String zip = faker.internet().uuid();
 
-
-
-
     String editCity = faker.internet().uuid();
     String editCountry = faker.internet().uuid();
     String editStreet = faker.internet().uuid();
@@ -36,8 +33,6 @@ public class AddressApi extends ApiBase {
         addressDto.setContactId(contactId);
         return addressDto;
     }
-
-
     public AddressDto rndDataForEditAddress(int id,int contactId){
         addressDto = new AddressDto();
         addressDto.setId(id);
@@ -48,36 +43,28 @@ public class AddressApi extends ApiBase {
         addressDto.setContactId(contactId);
         return addressDto;
     }
-
-        public void createAddress(int code, int contactId){
-            String endpoint = "/api/address";
-            Object body = rndDataForCreateAddress(contactId);
-            response = postRequest(endpoint,code,body);
-        }
-
-        public void editAddress(int code,int id,int contactId){
-            String endpoint = "/api/address";
-            Object body = rndDataForEditAddress(id,contactId);
-            putRequest(endpoint,code,body);
-
-
-        }
-
-        public Response deleteAddress(int code, int id){
-            String endpoint = "/api/address/{id}";
-            response = deleteRequest(endpoint,code,id);
-            return response;
-        }
-
-        public Response getAllAddress(int code, int contactId){
-            String endpoint = "/api/address/{contactId}/all";
-            response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactID"
-            return response;
-        }
-    public Response getAddress(int code,int id){
+    public void createAddress(int code, int contactId){
+        String endpoint = "/api/address";
+        Object body = rndDataForCreateAddress(contactId);
+        response = postRequest(endpoint,code,body);
+    }
+    public void editAddress(int code,int id,int contactId){
+        String endpoint = "/api/address";
+        Object body = rndDataForEditAddress(id,contactId);
+        putRequest(endpoint,code,body);
+    }
+    public Response deleteAddress(int code, int id){
+        String endpoint = "/api/address/{id}";
+        response = deleteRequest(endpoint,code,id);
+        return response;
+    }
+    public Response getAllAddress(int code, int contactId){
+        String endpoint = "/api/address/{contactId}/all";
+        response = getRequestWithParam(endpoint,code,"contactId", contactId); //"contactID"
+        return response;
+    }public Response getAddress(int code,int id){
         String endpoint = "/api/address/{id}";
         response = getRequestWithParam(endpoint,code,"id",id);
         return response;
     }
-
 }
