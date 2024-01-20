@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.10.0'
 }
 
 group = 'org.example'
@@ -9,7 +10,13 @@ repositories {
     mavenCentral()
 }
 
+allure {
+    autoconfigure = true
+    version = '2.10.0'
+}
+
 dependencies {
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.10.0'
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.15.0'
@@ -21,16 +28,19 @@ dependencies {
 
 test {
     useTestNG()
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }
 
 task testSmoke(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngSmoke.xml'
     }
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }
 
 task testNoSmoke(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngNoSmoke.xml'
     }
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }

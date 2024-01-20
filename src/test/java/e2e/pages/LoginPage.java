@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.io.IOException;
-
 public class LoginPage extends BasePage{
     // important constructor!!!
     public LoginPage(WebDriver driver) {
@@ -21,7 +19,6 @@ public class LoginPage extends BasePage{
 
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
-
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);

@@ -14,22 +14,25 @@ import java.util.Map;
 
 public class ApplicationManager {
     public WebDriver driver;
-
-    protected void init(boolean useSelenoid) throws MalformedURLException {
+    protected void init(boolean useSelenoid) {
         if (useSelenoid) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("120.0");
 
             Map<String, Object> selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC", true);
+            selenoidOptions.put("enableVNC", false);
 
             capabilities.setCapability("selenoid:options", selenoidOptions);
+            try {
+                driver = new RemoteWebDriver(
+                        URI.create("http://165.227.145.48:4444/wd/hub").toURL(),
+                        capabilities
+                );
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
-            driver = new RemoteWebDriver(
-                URI.create("http://165.227.145.48:4444/wd/hub").toURL(),
-                capabilities
-            );
         } else {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
@@ -40,7 +43,7 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    protected void stop(){
+    protected void stop() {
         driver.quit();
     }
 }

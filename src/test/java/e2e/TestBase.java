@@ -9,7 +9,7 @@ public class TestBase {
     protected static ApplicationManager app = new ApplicationManager();
 
     @BeforeMethod
-    public void setupTest() throws MalformedURLException {
+    public void setupTest() {
         app.init(true);
     }
 
