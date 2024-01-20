@@ -10,9 +10,8 @@ public class AddContactDialog extends ContactsPage{
     public AddContactDialog(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(xpath = "//*[@role='dialog']")
-    WebElement dialog;
+    @FindBy(xpath = "//*[text()='Add contact']")
+    WebElement addDialog;
 
     @FindBy(xpath = "//*[@id='form-name']")
     WebElement firstNameInput;
@@ -36,7 +35,7 @@ public class AddContactDialog extends ContactsPage{
     WebElement errorMessage;
 
     public void waitForOpen(){
-        getWait().forVisibility(dialog);
+        getWait().forVisibility(addDialog);
         getWait().forVisibility(firstNameInput);
         getWait().forVisibility(lastNameInput);
         getWait().forVisibility(descriptionInput);
@@ -64,9 +63,10 @@ public class AddContactDialog extends ContactsPage{
         try {
             getWait().forClickable(saveButton);
             saveButton.click();
-            getWait().forInvisibility(dialog);
+            getWait().forInvisibility(addDialog);
         }catch (StaleElementReferenceException e){
             e.printStackTrace();
         }
     }
+
 }

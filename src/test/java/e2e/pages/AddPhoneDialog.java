@@ -9,6 +9,7 @@ public class AddPhoneDialog extends PhonesPage {
     public AddPhoneDialog(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@for='cc-select']")
     WebElement countryCodeLabel;
 
@@ -23,6 +24,8 @@ public class AddPhoneDialog extends PhonesPage {
 
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
+    @FindBy(xpath = "//*[@ng-reflect-type='info']")
+    WebElement info;
 
     public void waitForOpen() {
         getWait().forVisibility(countryCodeLabel);
@@ -45,14 +48,18 @@ public class AddPhoneDialog extends PhonesPage {
     }
 
     public void savePhone() {
-       try {
-           getWait().forClickable(saveButton);
-           saveButton.click();
-           getWait().forInvisibility(countryCodeLabel);
-       } catch (StaleElementReferenceException e) { //отображается старый элемент
+        try {
+            getWait().forClickable(saveButton);
+            saveButton.click();
+            getWait().forInvisibility(countryCodeLabel);
+        } catch (StaleElementReferenceException e) { //отображается старый элемент
             e.printStackTrace();
-       }
-
+        }
+    }
+    public void selectNull(String number){
+        phoneNumberInput.sendKeys(number);
+        saveButton.click();
+        getWait().forVisibility(info);
 
     }
 }

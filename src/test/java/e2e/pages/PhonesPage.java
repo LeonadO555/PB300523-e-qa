@@ -30,51 +30,47 @@ public class PhonesPage extends ContactInfoPage {
 
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
     WebElement removePhoneButton;
+    @FindBy(xpath = "//*[text()='Contacts']")
+    WebElement contactsButton;
 
 
     public void waitForLoading() {
-        getWait().forVisibility(searchInput);
-        getWait().forVisibility(addPhoneButton);
+        getWait().forVisibility(countryCodeField);
+        getWait().forVisibility(phoneNumberField);
 
     }
-    public void openPhoneButton() throws InterruptedException {
+
+    public void openPhoneButton() {
         addPhoneButton.click();
-        getWait().forVisibility(addPhoneButton);}
+        getWait().forVisibility(addPhoneButton);
+    }
 
     public String getCountry() {
         return countryCodeField.getText();
     }
-    public  String getPhoneNumber(){
+
+    public String getPhoneNumber() {
         return phoneNumberField.getText();
     }
-//    public void selectEditButton(String edit){
-//        getSelect(editDeleteDropdown).selectByVisibleText(edit);
-//    }
-//    public String getEditButton() {
-//        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
-//    }
 
-    public void openEditDeleteDropdown() {
-        dropdown.click();
-        getWait().forVisibility(dropdown);}
-
-    public void clickEditButton()throws InterruptedException{
-        editButton.click();
-        getWait().forVisibility(editButton);
-    }
-    public EditPhoneForm openEditPhoneForm(){
+    public EditPhoneForm openEditPhoneForm() {
         dropdown.click();
         getWait().forVisibility(editButton);
         editButton.click();
         return new EditPhoneForm(driver);
     }
-    public void deletePhone(){
+
+    public void deletePhone() {
         dropdown.click();
         getWait().forVisibility(removePhoneButton);
         removePhoneButton.click();
     }
-
+    public ContactInfoPage openContactInfoPage(){
+        contactsButton.click();
+        return new ContactInfoPage(driver);
     }
+
+}
 
 
 
