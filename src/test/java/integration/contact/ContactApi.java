@@ -6,6 +6,10 @@ import integration.schemas.ContactDto;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase { // всегда экстендится от апи бэйз
+
+    public ContactApi(String token){
+        super(token); // нужен для доставки токено на нижние уровни , базовые классы.
+    }
    //
     Response response;
     ContactDto dto;

@@ -22,14 +22,32 @@ import java.util.Map;
 public class ApiBase {
 
     final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
+    private final RequestSpecification spec; // в случае если передаем токен или не передаем в апибэйс будет записываться с переменной и отрабатывает соотв. конструктор
 
-    final String API_KEY = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNTkzNDE2OX0.2tjyPnAdfJZVRF1xZBXHuLOQhIlg2RqomGEtmbOjbzbv-5d5jt7rhOjprnDE_r7xZqZwtPDWUWuBKTduFLBjrg";
-// билдтся базовая спецификация для всех, кот хранит авторизацию
-    RequestSpecification spec = new  RequestSpecBuilder()
-               .setBaseUri(BASE_URI)
-               .setContentType(ContentType.JSON)
-               .addHeader("Access-Token", API_KEY)
-               .build(); // базовая спецификация запросов: гет, пут...
+
+    // create constructor -- name of class
+    public ApiBase(){ // without token
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .build(); // базовая спецификация запросов: гет, пут...
+
+    }
+    public ApiBase(String token){ // with token
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .addHeader("Access-Token", token)
+                .build();
+    }
+
+//
+//    // билдтся базовая спецификация для всех, кот хранит авторизацию
+//    RequestSpecification spec = new  RequestSpecBuilder()
+//            .setBaseUri(BASE_URI)
+//            .setContentType(ContentType.JSON)
+//            .addHeader("Access-Token", API_KEY)
+//            .build(); // базовая спецификация запросов: гет, пут...
 
     protected Response getRequest(String endpoint, int code){
         // говорим классу Assured применяй
