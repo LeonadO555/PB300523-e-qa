@@ -18,7 +18,6 @@ public class EditEmailDialog extends EmailInfoPage {
     WebElement saveButton;
     @FindBy(xpath = "//*[@aria-label='Close']")
     WebElement closeWindowsButton;
-
     public void waitForOpen() {
         getWait().forVisibility(emailInputField);
         getWait().forVisibility(saveButton);

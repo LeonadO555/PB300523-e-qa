@@ -1,10 +1,9 @@
 package e2e;
 
-import e2e.pages.BasePage;
+
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {

@@ -36,7 +36,6 @@ public class UserCanWorkWithPhoneTest extends TestBase {
             Assert.assertEquals(actualCountryCode,code,actualCountryCode+ "is not equal " + code);
             Assert.assertEquals(actualPhoneNumber,number,actualPhoneNumber+ "is not equal " + number);
     }
-
     @Test
     public void userCanWorkWithPhoneTest(){
         String email = "newTest@gmail.com";

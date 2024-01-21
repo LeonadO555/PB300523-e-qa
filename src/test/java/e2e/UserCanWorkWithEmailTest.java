@@ -47,7 +47,6 @@ public class UserCanWorkWithEmailTest extends TestBase {
 
         String editExpectedEmail = "new.manolov@gmail.com";
 
-
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();

@@ -107,6 +107,5 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
-
     }
 }
