@@ -1,6 +1,6 @@
 package e2e.pages;
 
-import e2e.Wait.Wait;
+import e2e.wait.Wait;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
