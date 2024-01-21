@@ -10,16 +10,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-
 public class EmailDto {
     @JsonProperty("id")
-    private  int id;
+    private int id;
 
     @JsonProperty("email")
-    private  String firstName;
+    private String email;
 
     @JsonProperty("contactId")
-    private  int contactId;
+    private int contactId;
 
     public int getId() {
         return id;
@@ -29,12 +28,12 @@ public class EmailDto {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getContactId() {
@@ -44,8 +43,4 @@ public class EmailDto {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
-
-
-
-
-    }
+}
