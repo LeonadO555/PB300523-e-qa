@@ -11,14 +11,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class ContactDto {
+
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("firstName")
-    private String  firstName;
+    private String firstName;
+
     @JsonProperty("lastName")
-    private String  lastName;
+    private String lastName;
+
     @JsonProperty("description")
-    private String  description;
+    private String description;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -43,4 +55,5 @@ public class ContactDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
