@@ -61,4 +61,9 @@ public class EmailApi extends ApiBase {
         return response;
     }
 
+    public Response deleteEmail(int code, int id) {
+        String endpoint = "/api/email/{id}";
+        response = deleteRequest(endpoint, code, id);
+        return response;
+    }
 }
