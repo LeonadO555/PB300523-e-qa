@@ -29,6 +29,7 @@ test {
     useTestNG()
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
+
 task testSmoke(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngSmoke.xml'
