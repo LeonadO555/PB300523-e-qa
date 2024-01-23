@@ -5,8 +5,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import java.awt.*;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,39 +15,39 @@ import java.nio.file.StandardCopyOption;
 public class BasePage {
     public WebDriver driver;
 
-    public BasePage(WebDriver driver){
+    public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public Wait getWait(){
+    public Wait getWait() {
         return new Wait(driver);
     }
 
-    public Select getSelect(WebElement element){
+    public Select getSelect(WebElement element) {
         return new Select(element);
     }
 
     protected boolean isElementDisplayed(WebElement element) {
         try {
             return element.isDisplayed();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    protected void setInput(WebElement input,String value){
+    protected void setInput(WebElement input, String value) {
         input.click();
         input.clear();
         input.sendKeys(value);
     }
 
-    private File takeScreenshot(WebElement element){
+    private File takeScreenshot(WebElement element) {
         File tmp;
-        if (element == null){
+        if (element == null) {
             tmp = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             System.out.println("Take screenshot page");
-        }else {
+        } else {
             tmp = element.getScreenshotAs(OutputType.FILE);
             System.out.println("Take screenshot element");
         }
@@ -57,12 +55,12 @@ public class BasePage {
         return tmp;
     }
 
-    private double calculateMaxDifferentPercentRation(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
+    private double calculateMaxDifferentPercentRation() {
+        Dimension windowSize = driver.manage().window().getSize();
+        int width = windowSize.width;
+        int height = windowSize.height;
 
-        return  0.01 * width * height;
+        return 0.01 * width * height;
     }
 
     private Process setCompareCommandToTerminal(String refImgFilePath, String tmpFilePath) throws IOException {
@@ -73,15 +71,15 @@ public class BasePage {
 
     private double getDifferenceFromLogs(BufferedReader reader) throws IOException {
         String line;
-        double difference= 0;
-        while ((line=reader.readLine()) != null){
+        double difference = 0;
+        while ((line = reader.readLine()) != null) {
             difference = Integer.parseInt(line.trim());
         }
-        return  difference;
+        return difference;
     }
 
 
-    protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element){
+    protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element) {
         String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
         String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";
         File tmp = takeScreenshot(element);
@@ -104,7 +102,7 @@ public class BasePage {
             }
 
             Files.deleteIfExists(new File(tmpFilePath).toPath());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
