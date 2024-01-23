@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +23,7 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
 
-    @io.qameta.allure.Step("Wait for loading login page ")
+    @Step("Wait for loading login page ")
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);
@@ -33,6 +34,7 @@ public class LoginPage extends BasePage{
         takeAndCompareScreenshot(actualScreenshotName, null);
     }
 
+    @Step("Login as a user: {email}, {password}")
     // Describe methods
     public void login(String email, String password) {
         emailInput.sendKeys(email);

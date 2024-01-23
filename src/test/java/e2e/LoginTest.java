@@ -3,6 +3,7 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,7 +11,13 @@ public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
 
-    @Test
+    @Epic(value = "Login") //покрыли массивный тест из кучи тасков
+    @Feature(value = "User Login") // тестирование функционала
+    //@Story(value = "User can login with role admin") // название юзер стори-зеленый значек-описание, название, что долно быть реализовано
+    @Description(value = "User can login with role admin") // описание самого теста = стори
+    @Severity(SeverityLevel.BLOCKER)
+
+    @Test(description = "User can login")
     public void userCanLogin() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
