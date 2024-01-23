@@ -40,8 +40,7 @@ task testSmoke(type: Test){
 }
 task testNoSmoke(type: Test){
     useTestNG(){
-        suites 'src/test/resources/testngSmoke.xml'
-        //    suites 'src/test/resources/testngNoSmoke.xml'
+        suites 'src/test/resources/testngNoSmoke.xml'
     }
     systemProperty 'allure.results.directory', 'build/allure-result'
 }
