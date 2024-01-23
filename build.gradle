@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id'io.qameta.allure' version '2.9.6'
+    id "org.gradle.test-retry" version "1.5.3"
 }
 
 group = 'org.example'
@@ -27,6 +28,9 @@ dependencies {
 
 test {
     useTestNG()
+    retry {
+        maxRetries = 3
+    }
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
         exceptionFormat "full"
