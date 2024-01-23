@@ -77,7 +77,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         // check created phone
         phonesPage = new PhonesPage(app.driver);
-        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber() );
+        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
 
         // edit phone number
         editPhoneForm = phonesPage.openEditPhoneForm();
