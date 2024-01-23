@@ -58,9 +58,9 @@ public class BasePage {
     }
 
     private double calculateMaxDifferentPercentRation(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
+        org.openqa.selenium.Dimension windowSize = driver.manage().window().getSize();
+        int width = windowSize.width;
+        int height = windowSize.height;
 
         return  0.01 * width * height;
     }
@@ -80,7 +80,7 @@ public class BasePage {
         return  difference;
     }
 
-
+    @io.qameta.allure.Step("Take and compare screenshot {1}")
     protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element){
         String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
         String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";

@@ -22,6 +22,7 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
 
+    @io.qameta.allure.Step("Wait for loading login page ")
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);

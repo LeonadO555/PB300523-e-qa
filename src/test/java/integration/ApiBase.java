@@ -21,7 +21,9 @@ import java.util.Map;
 
 public class ApiBase {
 
-    final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
+    private final config.Config config = new config.Config();
+
+    final String BASE_URI = config.getProjectUrl();
     private final RequestSpecification spec; // в случае если передаем токен или не передаем в апибэйс будет записываться с переменной и отрабатывает соотв. конструктор
 
 
