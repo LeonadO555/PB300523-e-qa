@@ -3,21 +3,65 @@ package e2e;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ApplicationManager {
     public WebDriver driver;
 
-    protected void init(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("http://phonebook.telran-edu.de:8080/");
+   //protected void init() {
+   //    WebDriverManager.chromedriver().setup();
+   //    driver = new ChromeDriver();
+   //    driver.get("http://phonebook.telran-edu.de:8080/");
+   //    driver.manage().window().maximize();
+   //    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    //}
+
+
+    protected void init(boolean userSelenoid) {
+        if (userSelenoid) {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName("chrome");
+            capabilities.setVersion("120.0");
+
+            Map<String, Boolean> selenoidOption = new HashMap<>();
+            selenoidOption.put("enableVNC", true);
+
+            capabilities.setCapability("selenoid:options", selenoidOption);
+            try {
+                driver = new RemoteWebDriver(
+                        URI.create("http://165.227.145.48:4444/wd/hub").toURL(),
+                        capabilities
+                );
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+
+            }
+
+
+        } else {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
+        driver.get("http://phonebook.telrant-edu.de:8080/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    protected void stop(){
+    protected void stop() {
         driver.quit();
     }
 }
+
+
+
+
+
+
