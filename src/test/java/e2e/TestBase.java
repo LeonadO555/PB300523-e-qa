@@ -10,7 +10,7 @@ public class TestBase {
 
     @BeforeMethod
     public void setupTest() {
-        app.init(true);
+        app.init();
     }
 
     @AfterMethod
