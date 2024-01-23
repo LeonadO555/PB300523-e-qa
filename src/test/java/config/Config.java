@@ -28,7 +28,7 @@ public class Config {
     }
 
     public Integer getWindowWight(){
-        return Integer.parseInt(properties.getProperty("window.wight"));
+        return Integer.parseInt(properties.getProperty("window.width"));
     }
 
     public Integer getWindowHeight(){
