@@ -3,10 +3,7 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,7 +18,9 @@ public class LoginTest extends TestBase {
     @Feature(value= "User login")
     @Story(value = "User can login with role admin")
     @Description(value = "User can login")
-    @Test
+    @Severity(SeverityLevel.BLOCKER)
+
+    @Test(description = "User Can Login")
     public void userCanLogin() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
