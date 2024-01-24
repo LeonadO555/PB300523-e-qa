@@ -55,11 +55,11 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         //logged as user
         loginPage=new LoginPage(app.driver);
-        //loginPage.waitForLoading();
+        loginPage.waitForLoading();
         loginPage.login(email,password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
-        //contactsPage.waitForLoading();
+        contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
         Assert.assertEquals(actualLanguage,language);
