@@ -3,7 +3,7 @@
 <suite name="testSmoke" verbose="1">
     <test name="NoSmokeTest">
         <classes>
-            <class name="FirstSeleniumTest"/>
+            <class name="userCanLogin"/>
         </classes>
     </test>
 </suite>
