@@ -17,11 +17,11 @@ public class Config {
     }
 
     public String getProjectUrl() {
-        return properties.getProperty("project.ult");
+        return properties.getProperty("project.url");
     }
 
     public String getSelenoidUrl() {
-        return properties.getProperty("selenoid.ult");
+        return properties.getProperty("selenoid.url");
     }
 
     public Boolean SelenoidState() {
@@ -29,10 +29,10 @@ public class Config {
     }
 
     public Integer getWindowWight() {
-        return Integer.parseInt(properties.getProperty("window.wight"));
+        return Integer.parseInt(properties.getProperty("window.width"));
     }
 
     public Integer getWindowHeight() {
-        return Integer.parseInt(properties.getProperty("window.height"));
+        return Integer.parseInt(properties.getProperty("windows.height"));
     }
 }
