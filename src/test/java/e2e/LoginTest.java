@@ -4,11 +4,20 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
+
+    @Epic(value = "Login")
+    @Feature(value = "User login")
+    @Story(value = "User can login with role admin")
+    @Description(value = "User can login with role admin ")
 
     @Test
     public void userCanLogin(){

@@ -27,6 +27,7 @@ public class LoginPage extends BasePage{
         getWait().forVisibility(passwordInput);
         getWait().forVisibility(loginButton);
     }
+    @Step("Wait for loading login page")
     public void takeLoginPageScreenshot(String actualScreenshotName){
         takeAndCompareScreenshot(actualScreenshotName, null);
     }
