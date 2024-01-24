@@ -9,7 +9,7 @@ public class Config {
 
     public Config(){
         properties = new Properties();
-        try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.propererties")){
+        try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
             properties.load(input);
         }catch (IOException e){
             throw new RuntimeException("Failed to read config.properties", e);

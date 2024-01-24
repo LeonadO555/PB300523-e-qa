@@ -1,10 +1,11 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.io.IOException;
+
 
 public class LoginPage extends BasePage{
     //import constructor!!!
@@ -19,6 +20,8 @@ public class LoginPage extends BasePage{
     WebElement passwordInput;
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
+
+    @Step("Wait for loading login page")
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);
