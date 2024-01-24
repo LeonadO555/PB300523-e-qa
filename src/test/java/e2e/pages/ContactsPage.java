@@ -1,5 +1,7 @@
 package e2e.pages;
 
+import e2e.pages.AddContactDialog;
+import e2e.pages.AddEmailDialog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,31 +20,33 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']//*[@href='/']")
     WebElement contactsButton;
 
-    @FindBy(xpath = "//a[@href='/contacts']")
+    @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
 
     @FindBy(xpath = "//select[@id='langSelect']")
     WebElement languageDropdown;
+
     @FindBy(xpath = "//*[@id='contacts-list']")
     WebElement contactsList;
 
     @FindBy(xpath = "//*[@class='list-group']")
     List<WebElement> contactRows;
-
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
+
     @FindBy(xpath = "//*[@ng-reflect-router-link='/account']")
     WebElement accountButton;
 
-
     @FindBy(xpath = "//*[@src='/assets/icons/trash.svg']")
     WebElement deleteButton;
+
     @FindBy(xpath = "//*[@type='warning']")
-    WebElement noResultsMessage;
+    WebElement noResultMessage;
+
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
 
-    public void waitForLoading() {
+    public  void waitForLoading(){
         getWait().forVisibility(header);
         getWait().forVisibility(contactsButton);
         getWait().forVisibility(addContactButton);
@@ -51,51 +55,43 @@ public class ContactsPage extends BasePage {
         getWait().forClickable(addContactButton);
         getWait().forClickable(contactsButton);
     }
-
-    public void openContactsPage() {
+    public void openContactsPage(){
         contactsButton.click();
     }
-
-    public int getContactCount() {
+    public int getContactCount(){
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
-
-    public AddContactDialog openAddContactDialog() {
-
+    public AddContactDialog openAddContactDialog(){
         addContactButton.click();
         return new AddContactDialog(driver);
     }
-
-    public DeleteContactDialog openDeleteDialog() {
-        getWait().forClickable(deleteButton);
-        deleteButton.click();
-        return new DeleteContactDialog(driver);
+    public AddEmailDialog openAddEmailDialog(){
+        addContactButton.click();
+        return new AddEmailDialog(driver);
     }
-
-    public void filterByContact(String contactValue) {
-        searchInput.sendKeys(contactValue);
-    }
-
-    public boolean isNoResultMessageDisplayed() {
-        return isElementDisplayed(noResultsMessage);
-    }
-
-    public  void takeScreeshotHeader(){
-        takeAndCompareScreenshot("header", header);
-    }
-
-    public void  takeScreenShotNoResultMessage(){
-        takeAndCompareScreenshot("contactPageNoResultMessage", noResultsMessage);
-    }
-
-
     public void selectLanguage(String language){
         getSelect(languageDropdown).selectByVisibleText(language);
     }
     public String getLanguage(){
         return getSelect(languageDropdown).getFirstSelectedOption().getText();
     }
+    public DeleteContactDialog openDeleteDialog(){
+        getWait().forClickable(deleteButton);
+        deleteButton.click();
+        return new DeleteContactDialog(driver);
+    }
+    public void filterByContact(String contactValue){
+        searchInput.sendKeys(contactValue);
+    }
+    public boolean isNoResultMessageDisplayed(){
+        getWait().forVisibility(noResultMessage);
+        return isElementDisplayed(noResultMessage);
+    }
 
-    public void takeScreenshotNoResultMessage() {
+    public void takeScreenshotHeader(){
+        takeAndCompareScreenshot("header", header);
+    }
+    public void  takeScreenshotNoResultMessage(){
+        takeAndCompareScreenshot("contactsPageNoResultMessage", noResultMessage);
     }
 }

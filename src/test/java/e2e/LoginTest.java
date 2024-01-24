@@ -4,7 +4,6 @@ import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
 import io.qameta.allure.*;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
@@ -60,7 +59,7 @@ public class LoginTest extends TestBase {
         } else {
             contactsPage = new ContactsPage((app.driver));
             contactsPage.waitForLoading();
-            contactsPage.takeScreeshotHeader();
+            contactsPage.takeScreenshotHeader();
         }
     }
 

@@ -1,8 +1,9 @@
 package e2e;
 
 import com.github.javafaker.Faker;
-import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import e2e.pages.AddContactDialog;
+import e2e.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,70 +11,68 @@ public class UserCanWorkWithContactTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
+
     ContactInfoPage contactInfoPage;
     EditContactForm editContactForm;
     DeleteContactDialog deleteContactDialog;
-    AddressesInfoPage addressesInfoPage;
-    AddAddressDialog addAddressDialog;
-    Faker faker = new Faker();
-    private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
-        String actualFirstName=page.getFirstName();
-        String actualLastName=page.getLastName();
-        String actualDescription=page.getDescription();
-        Assert.assertEquals(actualFirstName,firsName,actualFirstName+ "is not equal "+firsName);
-        Assert.assertEquals(actualLastName,lastName,actualLastName+ "is not equal "+lastName);
-        Assert.assertEquals(actualDescription,description,actualDescription+ "is not equal "+description);
-    }
-    private void checkAddressData(AddressesInfoPage page,String country,String city,String postCode,String street){
-        String actualCountryName = page.getCountry();
-        String actualCityName = page.getCity();
-        String actualPostCode = page.getPostCode();
-        String actualStreetName = page.getStreet();
-        Assert.assertEquals(actualCountryName,country,actualCountryName+ "is not equal "+country);
-        Assert.assertEquals(actualCityName,city,actualCityName+ "is not equal "+city);
-        Assert.assertEquals(actualPostCode,postCode,actualPostCode+ "is not equal "+postCode);
-        Assert.assertEquals(actualStreetName,street,actualStreetName+ "is not equal "+street);
 
+    Faker faker = new Faker();
+
+    private void checkContactData(ContactInfoPage page, String firstName, String lastName, String description) {
+        String actualFirstName = page.getFirstName();
+        String actualLastName = page.getLastName();
+        String actualDescription = page.getDescription();
+        Assert.assertEquals(actualFirstName, firstName, actualFirstName + " is not equal " + firstName);
+        Assert.assertEquals(actualLastName, lastName, actualLastName + " is not equal " + lastName);
+        Assert.assertEquals(actualDescription, description, actualDescription + " is not equal " + description);
     }
-    @Test
-    public void userCanWorkWithContactTest() throws InterruptedException {
-        String email = "newTest@gmail.com";
+
+    @Test(dataProvider = "newContact", dataProviderClass = DataProviders.class)
+    public void userCanWorkWithContactTest(String firstName, String lastName, String description) {
+        String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
-        String country = "Germany";
-        String city = "Berlin";
-        String postCode = "19455";
-        String street = "Dresdner st 8";
 
-        String firstName = faker.internet().uuid();
-        String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence();
+
+        // String firstName =faker.internet().uuid();
+        // String lastName =faker.internet().uuid();
+        // String description =faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
         String editDescription = faker.lorem().sentence();
 
-        //logged as user
-        loginPage=new LoginPage(app.driver);
-        //loginPage.waitForLoading();
-        loginPage.login(email,password);
+        // login as user " войти как пользователь "
+        loginPage = new LoginPage(app.driver);
+        loginPage.getWait();
+        loginPage.login(email, password);
 
-        //check that user was logged
-        contactsPage = new ContactsPage((app.driver));
+
+        // Check that user was logged
+
+
+        contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
+        contactsPage.selectLanguage(language);
+        Assert.assertEquals(contactsPage.getLanguage(), language);
 
-        //add contact
+
+        // add contact " добавить контакт "
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
-        //Check created contact
+
+        // check created contact " Создать новый контакт "
+
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage, firstName, lastName, description);
+        //contactInfoPage.openTab(ContactInfoTabs.EMAILS);
 
-        // edit contact
+
+        // edit contact " изменить контакт "
         editContactForm = contactInfoPage.openEditContactForm();
         editContactForm.waitForOpen();
         editContactForm.setFirstNameInput(editFirstName);
@@ -81,20 +80,19 @@ public class UserCanWorkWithContactTest extends TestBase {
         editContactForm.setDescriptionInput(editDescription);
         editContactForm.saveChanges();
 
-        // check edited contact
-        checkContactData(contactInfoPage, editFirstName, editLastName, editDescription);
+
+        //check edited contact
         contactInfoPage.waitForLoading();
+        checkContactData(contactInfoPage, editFirstName, editLastName, editDescription);
 
-
-        // open contacts page
+        //open contacts page
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
-
-        // filter by contact name
+        //filter by contact name
         contactsPage.filterByContact(editFirstName);
         contactsPage.waitForLoading();
 
-        // check rows count after filter by contact
+        //check row
         int actualContactCountRow = contactsPage.getContactCount();
         Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
 
@@ -105,8 +103,8 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.removeContact();
 
         //check that contact was deleted
-        //contactsPage.waitForLoading();
+
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
-        contactsPage.takeScreenShotNoResultMessage();
+        contactsPage.takeScreenshotNoResultMessage();
     }
 }

@@ -14,8 +14,12 @@ public class UserCanWorkWithEmailTest extends TestBase {
     ContactInfoPage contactInfoPage;
     EmailInfoPage emailInfoPage;
     AddEmailDialog addEmailDialog;
+
     EditEmailDialog editEmailDialog;
+
     DeleteContactDialog deleteContactDialog;
+
+
 
     Faker faker = new Faker();
 
@@ -41,8 +45,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
         String language = "English";
         String expectedEmail = "newhrest@gmail.com";
 
-        String editExpectedEmail = "new.pislaru@gmail.com";
-
+        String editExpectedEmail = "new.manolov@gmail.com";
 
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
@@ -52,20 +55,18 @@ public class UserCanWorkWithEmailTest extends TestBase {
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email, password);
-
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
         Assert.assertEquals(actualLanguage, language);
-
         //add contact
+
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firsName, lastName, description);
         addContactDialog.saveContact();
-
         //check  create contact
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -87,46 +88,44 @@ public class UserCanWorkWithEmailTest extends TestBase {
         checkEmailData(emailInfoPage, expectedEmail);
 
         // edit email dialog
+
         editEmailDialog = emailInfoPage.openEditEmailDialog();
         editEmailDialog.waitForOpen();
         editEmailDialog.setEditEmail(editExpectedEmail);
         editEmailDialog.saveEmailChanges();
         emailInfoPage.waitForLoading();
 
-        //check edited dialog
-        checkEmailData(emailInfoPage, editExpectedEmail);
+        //check edited email
+        checkEmailData(emailInfoPage,editExpectedEmail);
         emailInfoPage.waitForLoading();
 
         //check search form
         emailInfoPage.filterByEmail(editExpectedEmail);
         emailInfoPage.waitForLoading();
 
-
         //delete email
         emailInfoPage.deleteEmail();
 
-        // open contacts page
+        //open contacts page
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
-
-        // filter by contact name (firstName)
+        //filter by contact name
         contactsPage.filterByContact(firsName);
         contactsPage.waitForLoading();
 
-        //check rows count after filter by contact name
+        //check row
         int actualContactCountRow = contactsPage.getContactCount();
         Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
 
-        // delete contact
+        //delete contact
         deleteContactDialog = contactsPage.openDeleteDialog();
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
 
-        // check that deleted contact was deleted
+        //check that contact was deleted
+
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
     }
-
-
 }
