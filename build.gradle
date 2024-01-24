@@ -34,14 +34,12 @@ test {
 task testSmoke(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngSmoke.xml'
-    //    suites 'src/test/resources/testngNoSmoke.xml'
     }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
-//task testNoSmoke(type: Test){
-//    useTestNG(){
-    //    suites 'src/test/resources/testngSmoke.xml'
-        //    suites 'src/test/resources/testngNoSmoke.xml'
-   // }
-   // systemProperty 'allure.results.directory', 'build/allure-result'
-//}
+task testNoSmoke(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testngNoSmoke.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}

@@ -1,6 +1,7 @@
 package integration;
 
-import com.beust.ah.A;
+
+import config.Config;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -12,7 +13,9 @@ import io.restassured.specification.RequestSpecification;
 
 public class ApiBase {
 
-    final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
+    private final Config config = new Config();
+
+    final String BASE_URI = config.getProjectUrl();
     private final RequestSpecification spec;
 
     public ApiBase(){
