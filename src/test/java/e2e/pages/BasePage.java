@@ -1,13 +1,10 @@
 package e2e.pages;
 
 import e2e.wait.Wait;
-import io.qameta.allure.Step;
 import org.openqa.selenium.*;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -81,7 +78,7 @@ public class BasePage {
         return  difference;
     }
 
-    @Step("Take and compare screenshot {1}")
+
     protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element){
         String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
         String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";

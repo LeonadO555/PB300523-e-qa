@@ -1,6 +1,5 @@
 package intagration;
 
-import config.Config;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -9,17 +8,21 @@ import io.restassured.specification.RequestSpecification;
 
 public class ApiBase {
 
-    private final Config config = new Config();
-
-    final String BASE_URI = config.getProjectUrl();
-
-    final String API_KEY="eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImV4cCI6MTcwNTA4NzYwM30.bJCAwSbrOcMI5serP8oqEDwOaGFj9ThLtqodGQfw1BHahjnNtsD7NRRLPdP7xu6j2gMC9hnz1evKNXnuVQwXLQ";
-
-    RequestSpecification spec = new RequestSpecBuilder()
+    final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
+    private final RequestSpecification spec;
+    public ApiBase() {
+        this.spec = new RequestSpecBuilder()
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .build();
+    }
+    public ApiBase(String token)  {
+        this.spec = new RequestSpecBuilder()
             .setBaseUri(BASE_URI)
             .setContentType(ContentType.JSON)
-            .addHeader("Access-Token",API_KEY)
+            .addHeader("Access-Token",token)
             .build();
+    }
 
     protected Response getRequest(String endpoint, int code){
         Response response = RestAssured.given()

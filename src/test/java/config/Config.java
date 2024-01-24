@@ -9,7 +9,7 @@ public class Config {
 
     public Config(){
         properties = new Properties();
-        try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
+        try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(input);
         }catch (IOException e){
             throw new RuntimeException("Failed to read config.properties", e);
@@ -24,15 +24,15 @@ public class Config {
         return properties.getProperty("selenoid.url");
     }
 
-    public boolean getSelenoidState(){
+    public Boolean getSelenoidState(){
         return Boolean.parseBoolean(properties.getProperty("selenoid.state"));
     }
 
-    public int getWindowWight(){
+    public Integer getWindowWight(){
         return Integer.parseInt(properties.getProperty("window.width"));
     }
 
-    public int getWindowHeight(){
+    public Integer getWindowHeight(){
         return Integer.parseInt(properties.getProperty("window.height"));
     }
 }

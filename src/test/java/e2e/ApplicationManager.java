@@ -2,7 +2,6 @@ package e2e;
 
 import config.Config;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,17 +10,16 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApplicationManager {
     private final Config config = new Config();
-    public WebDriver driver;
 
-    protected void init(){
-        if(config.getSelenoidState()){
+    public WebDriver driver;
+    protected void init() {
+        if (config.getSelenoidState()) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("120.0");
@@ -30,22 +28,25 @@ public class ApplicationManager {
             selenoidOptions.put("enableVNC", false);
 
             capabilities.setCapability("selenoid:options", selenoidOptions);
-            try{
+            try {
                 driver = new RemoteWebDriver(
                         URI.create(config.getSelenoidUrl()).toURL(),
-                        capabilities);
-            }catch (MalformedURLException e){
+                        capabilities
+                );
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-    }else {
+
+        } else {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
+
         driver.get(config.getProjectUrl());
         driver.manage().window().setSize(new Dimension(config.getWindowWight(), config.getWindowHeight()));
-        }
+    }
 
-    protected void stop(){
+    protected void stop() {
         driver.quit();
     }
 }
