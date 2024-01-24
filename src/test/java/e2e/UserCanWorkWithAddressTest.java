@@ -38,7 +38,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
         Assert.assertEquals(actualStreetName, street, actualStreetName + "is not equal " + street);
     }
     @Test
-    public void userCanWorkWithContactTest() {
+    public void userCanWorkWithContactTest() throws InterruptedException {
         String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
