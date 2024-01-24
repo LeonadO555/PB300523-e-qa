@@ -3,7 +3,7 @@
 <suite name="testNoSmoke" verbose="1">
     <test name="NoSmokeTest">
         <classes>
-            <class name="FirstSeleniumTest"/>
+            <class name="e2e.LoginTest"/>
         </classes>
     </test>
 </suite>

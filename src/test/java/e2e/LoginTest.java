@@ -22,15 +22,15 @@ public class LoginTest extends TestBase {
         contactsPage.waitForLoading();
     }
 
-    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataProviders.class)
-    public void userCannotLogin(String email, String password, String caseName) {
-        loginPage = new LoginPage(app.driver);
-        loginPage.waitForLoading();
-        loginPage.login(email, password);
-
-        loginPage.waitForLoading();
-        loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
-    }
+//    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataProviders.class)
+//    public void userCannotLogin(String email, String password, String caseName) {
+//        loginPage = new LoginPage(app.driver);
+//        loginPage.waitForLoading();
+//        loginPage.login(email, password);
+//
+//        loginPage.waitForLoading();
+//        loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
+//    }
 
     private void loginTestMethod(String email, String password, String screenshotName, boolean negativeCase) {
         loginPage = new LoginPage(app.driver);

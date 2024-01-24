@@ -34,7 +34,7 @@ public class LoginPage extends BasePage{
     }
 
     // Describe methods
-    @Step("Login as usere:{email},{password}")
+    @Step("Login as user:{email},{password}")
     public void login(String email, String password) {
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
