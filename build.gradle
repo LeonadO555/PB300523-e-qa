@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.10.0'
+    id "org.gradle.test-retry" version "1.5.3"
 }
 
 group = 'org.example'
@@ -28,7 +29,7 @@ dependencies {
 
 test {
     useTestNG()
-    systemProperty 'allure.results.directory', 'build/allure-result'
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }
 
 task testSmoke(type: Test){
@@ -38,9 +39,9 @@ task testSmoke(type: Test){
     }
     systemProperty 'allure.results.directory', 'build/allure-result'
 }
-task testNoSmoke(type: Test){
-    useTestNG(){
-        suites 'src/test/resources/testngNoSmoke.xml'
-    }
-    systemProperty 'allure.results.directory', 'build/allure-result'
-}
+//task testNoSmoke(type: Test){
+    //useTestNG(){
+      //  suites 'src/test/resources/testngNoSmoke.xml'
+    //}
+    //systemProperty 'allure.results.directory', 'build/allure-result'
+//}
