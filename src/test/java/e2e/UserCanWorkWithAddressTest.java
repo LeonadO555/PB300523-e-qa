@@ -27,6 +27,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
+
     private void checkAddressData(AddressesInfoPage page, String country, String city, String postCode, String street) {
         String actualCountryName = page.getCountry();
         String actualCityName = page.getCity();
@@ -36,10 +37,12 @@ public class UserCanWorkWithAddressTest extends TestBase {
         Assert.assertEquals(actualCityName, city, actualCityName + "is not equal " + city);
         Assert.assertEquals(actualPostCode, postCode, actualPostCode + "is not equal " + postCode);
         Assert.assertEquals(actualStreetName, street, actualStreetName + "is not equal " + street);
+
     }
+
     @Test
     public void userCanWorkWithContactTest() throws InterruptedException {
-        String email = "newtest@gmail.com";
+        String email = "newTest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
         String country = "Germany";
@@ -53,40 +56,39 @@ public class UserCanWorkWithAddressTest extends TestBase {
         String editStreet = "Gdetotam 10";
 
 
-        String firsName = faker.internet().uuid();
+        String firstName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();
 
-        String editFirstName = faker.internet().uuid();
-        String editLastName = faker.internet().uuid();
-        String editDescription = faker.lorem().sentence();
 
         //logged as user
         loginPage = new LoginPage(app.driver);
-        //loginPage.waitForLoading();
+        loginPage.waitForLoading();
         loginPage.login(email, password);
+
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
-        //contactsPage.waitForLoading();
+        contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
         Assert.assertEquals(actualLanguage, language);
-        //add contact
 
+        //add contact
         addContactDialog = contactsPage.openAddContactDialog();
-        //addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firsName, lastName, description);
+        addContactDialog.waitForOpen();
+        addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
+
         //check  create contact
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage, firsName, lastName, description);
+        checkContactData(contactInfoPage, firstName, lastName, description);
 
         //addAddress
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.openTab(ContactInfoTabs.ADDRESSES);
         addressesInfoPage.clickOnAddressButton();
-        //adressesInfoPage.waitForLoading();
+        addressesInfoPage.waitForLoading();
         addAddressDialog = new AddAddressDialog(app.driver);
         addAddressDialog.selectCountry(country);
         addAddressDialog.setCity(city);
@@ -119,6 +121,27 @@ public class UserCanWorkWithAddressTest extends TestBase {
 
         //remove Address
         addressesInfoPage.deleteAddress();
-        addressesInfoPage.waitForLoading();
+
+        // open contacts page
+        contactInfoPage.openContactsPage();
+        contactsPage.waitForLoading();
+
+        // filter by contact name (firstName)
+        contactsPage.filterByContact(firstName);
+        contactsPage.waitForLoading();
+
+        //check rows count after filter by contact name
+        int actualContactCountRow = contactsPage.getContactCount();
+        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
+
+        // delete contact
+        deleteContactDialog = contactsPage.openDeleteDialog();
+        deleteContactDialog.waitForOpen();
+        deleteContactDialog.setConfirmDeletion();
+        deleteContactDialog.removeContact();
+
+        // check that deleted contact was deleted
+        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        contactsPage.takeScreenshotNoResultMessage();
     }
 }
