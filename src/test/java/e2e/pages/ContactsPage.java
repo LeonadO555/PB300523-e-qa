@@ -93,7 +93,8 @@ public class ContactsPage extends BasePage {
     public void takeScreenshotHeader(){
         takeAndCompareScreenshot("header", header);
     }
-    @Step("contactsPageNoResultMessage")
+
+    //@Step("contactsPageNoResultMessage")
     public void  takeScreenshotNoResultMessage(){
         takeAndCompareScreenshot("contactsPageNoResultMessage", noResultMessage);
     }
