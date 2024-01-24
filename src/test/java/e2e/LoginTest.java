@@ -45,6 +45,22 @@ public class LoginTest extends TestBase {
         }
     }
     @Test
+    public void userCanLoginWithValidData() {
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", null, false);
+    }
+    @Test
+    public void userCanLoginWithInvalidEmail() {
+        loginTestMethod("newtestgmail.com", "newtest@gmail.com", "login_invalid_email", true);
+    }
+    @Test
+    public void userCanLoginWithInvalidPassword() {
+        loginTestMethod("newtest@gmail.com", "newtestgmail.com", "login_invalid_password", true);
+    }
+    @Test
+    public void userCanLoginWithInvalidEmailAndPassword() {
+        loginTestMethod("newtestgmail.com", "newtestgmail.com", "login_invalid_email_and_password", true);
+    }
+    @Test
     public void userCannotLoginWithInvalidPassword(){
         String email = "newtest@gmail.com";
         String password = "invalid@gmail.com";
@@ -70,5 +86,6 @@ public class LoginTest extends TestBase {
         loginPage.login(email,password);
         loginPage.waitForLoading();
     }
+
 }
 
