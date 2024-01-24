@@ -39,7 +39,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
     }
     @Test
     public void userCanWorkWithContactTest() throws InterruptedException {
-        String email = "newTest@gmail.com";
+        String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
         String country = "Germany";
