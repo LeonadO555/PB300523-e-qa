@@ -34,7 +34,7 @@ public class LoginPage extends BasePage{
         takeAndCompareScreenshot(actualScreenshotName, null);
     }
 
-    // Describe methods
+
     public void login(String email, String password) {
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
