@@ -44,7 +44,7 @@ public class UserCanWorkWithContactTest extends TestBase {
 
         // login as user " войти как пользователь "
         loginPage=new LoginPage(app.driver);
-        loginPage.getWait();
+        loginPage.waitForLoading();
         loginPage.login(email,password);
 
 
