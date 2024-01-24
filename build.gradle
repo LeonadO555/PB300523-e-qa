@@ -27,12 +27,20 @@ dependencies {
 
 test {
     useTestNG()
+    testLogging{
+        events "passed","skipped","standardOut","standardError"
+        exceptionFormat "full"
+    }
     systemProperty'allure.result.directory','bild/allure-result'
 }
 
 task testSmoke(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngSmoke.xml'
+    }
+    testLogging{
+        events "passed","skipped","standardOut","standardError"
+        exceptionFormat "full"
     }
     systemProperty'allure.result.directory','bild/allure-result'
 }
