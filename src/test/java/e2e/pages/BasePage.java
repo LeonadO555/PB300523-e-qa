@@ -2,11 +2,11 @@ package e2e.pages;
 
 import e2e.wait.Wait;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.awt.*;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -52,9 +52,9 @@ public class BasePage {
         return tmp;
     }
     private double calculateMaxDifferentPercentRation(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
+        Dimension windowsSize = driver.manage().window().getSize();
+        int width = windowsSize.width;
+        int height = windowsSize.height;
 
         return  0.01 * width * height;
     }
