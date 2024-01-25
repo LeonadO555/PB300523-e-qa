@@ -23,7 +23,7 @@ public class LoginTest extends TestBase {
 
         contactsPage = new ContactsPage(app.driver);
 
-        Assert.assertTrue(contactsPage.confirmLogin(),"User is not logged");
+        contactsPage.waitForLoading();
     }
 
     @Test
@@ -33,9 +33,6 @@ public class LoginTest extends TestBase {
 
         loginPage = new LoginPage(app.driver);
         loginPage.login(email,password);
-
-        contactsPage = new ContactsPage(app.driver);
-
-        Assert.assertFalse(contactsPage.confirmLogin(),"User is not logged");
+        loginPage.waitForLogin();
     }
 }

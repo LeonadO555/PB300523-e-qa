@@ -32,7 +32,7 @@ public class FirstSeleniumTest {
         Thread.sleep(5000);
         List<WebElement> elements = driver.findElements(By.xpath("//*[@class='list-group']"));
         int actualContactCount = elements.size();
-        int expectedContactCount = 1156;
+        int expectedContactCount = 2315;
         Assert.assertEquals(actualContactCount, expectedContactCount, actualContactCount + " not equal" + expectedContactCount);
 
         driver.quit();

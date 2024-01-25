@@ -1,5 +1,7 @@
 package e2e.pages;
 
+import e2e.enums.ContactInfoTabs;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,10 +12,6 @@ public class ContactInfoPage extends ContactsPage {
     public ContactInfoPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(xpath = "//class[@name='btn btn-secondary cansel-btn-ec']")
-    WebElement canselButton;
-    @FindBy(xpath = "//class[@name='btn btn-secondary submit-btn-ec']")
-    WebElement saveButton;
     @FindBy(xpath = "//div[@id='contact-first-name']")
     WebElement firstNameField;
     @FindBy(xpath = "//div[@id='contact-last-name']")
@@ -22,6 +20,19 @@ public class ContactInfoPage extends ContactsPage {
     WebElement descriptionField;
     @FindBy(xpath = "//button[@id='btn-edit-contact']")
     WebElement editButton;
+
+    public void waitForLoading(){
+        getWait().forInvisibility(firstNameField);
+        getWait().forInvisibility(lastNameField);
+        getWait().forInvisibility(descriptionField);
+        getWait().forInvisibility(firstNameField);
+        getWait().forInvisibility(editButton);
+        getWait().forClickable(editButton);
+    }
+
+    public void openTab(ContactInfoTabs tab){
+        driver.findElement(By.xpath("//*[@id='ngb-nav-"+tab.value+"']")).click();
+    }
 
     public String getFirstName(){
         return firstNameField.getText();
@@ -34,26 +45,8 @@ public class ContactInfoPage extends ContactsPage {
     }
     public EditContactForm openEditContactForm(){
         editButton.click();
-        Assert.assertFalse(isElementDisplayed(firstNameField));;
+        Assert.assertFalse(isElementDisplayed(firstNameField), "Edit contact form was not displayed");
         return new EditContactForm(driver);
-    }
-
-
-    }
-    class EditContactForm extends ContactInfoPage{
-
-        public EditContactForm(WebDriver driver) {
-            super(driver);
-        }
-        @FindBy(xpath = "//input[@name='input-ec-firstName']")
-        WebElement firstNameInput;
-        @FindBy(xpath = "//input[@name='input-ec-lastName']")
-        WebElement lastNameInput;
-        @FindBy(xpath = "//input[@name='input-ec-description']")
-        WebElement descriptionInput;
-
-        public void setFirstNameInput(String firstName){
-            setInput(firstNameInput, firstName);
     }
 
     }

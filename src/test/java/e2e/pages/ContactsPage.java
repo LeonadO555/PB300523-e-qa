@@ -12,35 +12,67 @@ public class ContactsPage extends BasePage {
     public ContactsPage(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//div[@class='collapse navbar-collapse']")
+    public WebElement header;
+    @FindBy(xpath = "//div[@class='collapse navbar-collapse']//*[@href='/']")
+    WebElement contactsButton;
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
-    @FindBy(xpath = "//div[@class='collapse navbar-collapse']\"")
-    WebElement header;
     @FindBy(xpath = "//select[@id='langSelect']")
     WebElement LanguageDropdown;
     @FindBy(xpath = "//*[@id='contacts-list']")
     WebElement contactsList;
+    @FindBy(xpath = "//div[@id='contacts-list']//*[@class='list-group']")
+    List<WebElement> contactsRows;
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
     @FindBy(xpath = "//*[@ng-reflect-router-link='/account']")
     WebElement accountButton;
     @FindBy(xpath = "//*[@src='/assets/icons/trash.svg']")
     WebElement deleteButton;
+    @FindBy(xpath = "//*[@type='warning']")
+    WebElement noResultsMessage;
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
 
-    public boolean confirmLogin() {return header.isDisplayed();}
+    public void waitForLoading(){
+        getWait().forVisibility(header);
+        getWait().forVisibility(contactsButton);
+        getWait().forVisibility(addContactButton);
+        getWait().forVisibility(contactsList);
+        getWait().forAllVisibility(contactsRows);
+        getWait().forClickable(addContactButton);
+        getWait().forClickable(contactsButton);
+    }
+
+
+    public void openContactsPage(){
+        contactsButton.click();
+
+    }
+
+    public int getContactCount(){
+        return contactsList.findElements(By.xpath("//div[@id='contacts-list']//*[@class='list-group']")).size();
+
+    }
+
     public AddContactDialog openAddContactDialog(){
         addContactButton.click();
         return new AddContactDialog(driver);
     }
-    public void openDeleteDialog(){
+    public DeleteContactDialog openDeleteDialog(){
+        getWait().forClickable(deleteButton);
         deleteButton.click();
-
+        return new DeleteContactDialog(driver);
     }
 
 
-    public void setSearchInput(String contactValue){
+    public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);
     }
+
+public boolean isNoResultMessageDisplayed(){
+        return isElementDisplayed(noResultsMessage);
+}
 }

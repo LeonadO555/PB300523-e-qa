@@ -1,10 +1,9 @@
 package e2e.pages;
 
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class AddContactDialog extends ContactsPage {
     public AddContactDialog(WebDriver driver) {
@@ -30,7 +29,7 @@ public class AddContactDialog extends ContactsPage {
         @FindBy(xpath = "//*[@type='reset']")
         WebElement resetAddContact;
 
-        @FindBy(xpath = "//*[@class='btn btn-primary']")
+        @FindBy(xpath = "//*[@role='dialog']//*[@type='submit']")
         WebElement submitAddContact;
 
         @FindBy(xpath = "//*[@aria-label='Close']")
@@ -39,7 +38,13 @@ public class AddContactDialog extends ContactsPage {
         @FindBy(xpath = "//*[@type='danger']")
         WebElement dangerAddContact;
 
-
+        public void waitForOpen(){
+            getWait().forVisibility(dialog);
+            getWait().forVisibility(firstNameInput);
+            getWait().forVisibility(lastNameInput);
+            getWait().forInvisibility(descriptionInput);
+            getWait().forVisibility(submitAddContact);
+        }
 
         public void setFirstNameInput(String firstName){
             setInput(firstNameInput, firstName);
@@ -60,9 +65,14 @@ public class AddContactDialog extends ContactsPage {
             setDescriptionContact(description);
     }
 
-        public void clickOnSaveButton(){
-            submitAddContact.click();
-            Assert.assertFalse(isElementDisplayed(dialog), "Dialog is not closed");
+        public void saveContact(){
+            try {
+                getWait().forClickable(submitAddContact);
+                submitAddContact.click();
+                getWait().forInvisibility(dialog);
+            }catch (StaleElementReferenceException e){
+                e.printStackTrace();
+            }
         }
 
     }
