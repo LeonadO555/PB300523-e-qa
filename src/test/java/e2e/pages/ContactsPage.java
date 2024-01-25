@@ -1,8 +1,6 @@
 package e2e.pages;
 
 
-
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,6 +30,7 @@ public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//*[@class='list-group']")
     List<WebElement> contactRows;
+
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
 
@@ -81,7 +80,6 @@ public class ContactsPage extends BasePage {
         deleteButton.click();
         return new DeleteContactDialog(driver);
     }
-
     public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);
     }
@@ -90,11 +88,10 @@ public class ContactsPage extends BasePage {
         return isElementDisplayed(noResultMessage);
     }
 
-    public void takeScreenshotHeader(){
+    /*public void takeScreenshotHeader(){
         takeAndCompareScreenshot("header", header);
-    }
+    }*/
 
-    //@Step("contactsPageNoResultMessage")
     public void  takeScreenshotNoResultMessage(){
         takeAndCompareScreenshot("contactsPageNoResultMessage", noResultMessage);
     }

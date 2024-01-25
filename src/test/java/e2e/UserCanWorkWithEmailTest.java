@@ -47,6 +47,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
 
         String editExpectedEmail = "new.manolov@gmail.com";
 
+
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();
@@ -55,6 +56,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email, password);
+
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();

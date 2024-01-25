@@ -60,15 +60,3 @@ task testNoSmoke(type: Test){
     }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
-/*task testSmoke1(type: Test){
-    useTestNG(){
-        testLogging {
-            events "passed", "skipped", "failed", "standardOut", "standardError"
-            exceptionFormat "full"
-        }
-        suites 'src/test/resources/testngSmoke1.xml'
-    }
-    systemProperty 'allure.results.directory', 'build/allure-results'
-}
-
- */
