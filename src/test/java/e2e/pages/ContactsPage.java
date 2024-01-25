@@ -1,11 +1,11 @@
 package e2e.pages;
 
-
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -16,39 +16,28 @@ public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']")
     public WebElement header;
-
     @FindBy(xpath = "//div[@class='collapse navbar-collapse']//*[@href='/']")
     WebElement contactsButton;
-
     @FindBy(xpath = "//*[@href='/contacts']")
     WebElement addContactButton;
-
     @FindBy(xpath = "//select[@id='langSelect']")
     WebElement languageDropdown;
-
     @FindBy(xpath = "//*[@id='contacts-list']")
     WebElement contactsList;
-
     @FindBy(xpath = "//*[@class='list-group']")
     List<WebElement> contactRows;
-
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
-
     @FindBy(xpath = "//*[@ng-reflect-router-link='/account']")
     WebElement accountButton;
-
     @FindBy(xpath = "//*[@src='/assets/icons/trash.svg']")
     WebElement deleteButton;
-
     @FindBy(xpath = "//*[@type='warning']")
-    WebElement noResultMessage;
-
+    WebElement noResultsMessage;
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
-
-    //@Step
-    public  void waitForLoading(){
+    @Step
+    public void waitForLoading(){
         getWait().forVisibility(header);
         getWait().forVisibility(contactsButton);
         getWait().forVisibility(addContactButton);
@@ -57,21 +46,20 @@ public class ContactsPage extends BasePage {
         getWait().forClickable(addContactButton);
         getWait().forClickable(contactsButton);
     }
+    @Step
     public void openContactsPage(){
         contactsButton.click();
     }
+    @Step
     public int getContactCount(){
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
+    @Step
     public AddContactDialog openAddContactDialog(){
         addContactButton.click();
         return new AddContactDialog(driver);
     }
-    public AddEmailDialog openAddEmailDialog(){
-        addContactButton.click();
-        return new AddEmailDialog(driver);
-    }
-    @Step("Select Language: {Language}")
+    @Step("Select language: {language}")
     public void selectLanguage(String language){
         getSelect(languageDropdown).selectByVisibleText(language);
     }
@@ -79,6 +67,7 @@ public class ContactsPage extends BasePage {
     public String getLanguage(){
         return getSelect(languageDropdown).getFirstSelectedOption().getText();
     }
+
     @Step
     public DeleteContactDialog openDeleteDialog(){
         getWait().forClickable(deleteButton);
@@ -89,9 +78,11 @@ public class ContactsPage extends BasePage {
     public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);
     }
+
+    @Step("Check displayed is no result message")
     public boolean isNoResultMessageDisplayed(){
-        getWait().forVisibility(noResultMessage);
-        return isElementDisplayed(noResultMessage);
+        getWait().forVisibility(noResultsMessage);
+        return isElementDisplayed(noResultsMessage);
     }
     @Step
     public void takeScreenshotHeader(){
@@ -99,7 +90,7 @@ public class ContactsPage extends BasePage {
     }
 
     @Step
-    public void  takeScreenshotNoResultMessage(){
-        takeAndCompareScreenshot("contactsPageNoResultMessage", noResultMessage);
+    public void takeScreenshotNoResultMessage(){
+        takeAndCompareScreenshot("contactsPageNoResultMessage", noResultsMessage);
     }
 }

@@ -5,69 +5,93 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PhonesPage extends ContactInfoPage{
+public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[id='items-table-phone']")
+    @FindBy(xpath = "//*[@id='items-table-phone']")
     WebElement table;
 
-    @FindBy(xpath = "//*[@id='search']")
+    @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
-    @FindBy(xpath = "//*[@id='btn-add-phone']")
 
+    @FindBy(xpath = "//*[@id='btn-add-phone']")
     WebElement addPhoneButton;
-    @FindBy(xpath = "//*[@class='custom-select']")
+
+    @FindBy(xpath = "//*[@class='row-table-cc']")
     WebElement countryCodeField;
-    @FindBy(xpath = "//*[@id='selected-cc']")
-    WebElement phoneInputField;
-    @FindBy(xpath = "//*[@class='dropdown-toggle btn btn-outline-light btn-block']")
-    WebElement optionDropDown;
+
+    @FindBy(xpath = "//*[@class='row-table-pn']")
+    WebElement phoneNumberField;
+
+    @FindBy(xpath = "//*[@class='nav-item ml-auto dropdown']")
+    WebElement dropdown;
+
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-edit']")
-    WebElement editPhoneButton;
+    WebElement editButton;
+
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
     WebElement removePhoneButton;
-    public void waitForLoading(){
+
+    @Step
+    public void waitForLoading() {
         getWait().forVisibility(searchInput);
-        getWait().forClickable(addPhoneButton);
+        getWait().forVisibility(addPhoneButton);
         getWait().forVisibility(table);
     }
+
     @Step
-    public void clickOnAddPhoneButton(){
+    public void openPhoneButton() {
         addPhoneButton.click();
+        getWait().forVisibility(addPhoneButton);
     }
+
     @Step
-    public EditPhoneDialog openEditPhoneDialog() {
-        optionDropDown.click();
-        getWait().forVisibility(editPhoneButton);
-        editPhoneButton.click();
-        return new EditPhoneDialog(driver);
-    }
-    @Step
-    public String getCountryCode(){
+    public String getCountry() {
         return countryCodeField.getText();
     }
 
     @Step
-    public String getPhoneNumber(){
-        return phoneInputField.getText();
+    public String getPhoneNumber() {
+        return phoneNumberField.getText();
     }
+
     @Step
-    public void filterByPhone(String phoneCheckValue){
-        searchInput.sendKeys(phoneCheckValue);
+    public void openEditDeleteDropdown() {
+        dropdown.click();
+        getWait().forVisibility(dropdown);
     }
+
+    @Step
+    public void clickEditButton() {
+        editButton.click();
+        getWait().forVisibility(editButton);
+    }
+
+    @Step
+    public EditPhoneDialog openEditPhoneForm() {
+        dropdown.click();
+        getWait().forVisibility(editButton);
+        editButton.click();
+        return new EditPhoneDialog(driver);
+    }
+
     @Step
     public void deletePhone() {
-        optionDropDown.click();
+        dropdown.click();
         getWait().forVisibility(removePhoneButton);
         removePhoneButton.click();
     }
 
     @Step
-    public void takePhonesPageScreenshot() {
+    public void takePhonesPageScreenshot(){
         takeAndCompareScreenshot("phonesPage", null);
     }
+
 }
+
+
+
 
 

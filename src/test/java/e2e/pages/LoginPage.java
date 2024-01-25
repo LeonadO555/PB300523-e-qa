@@ -5,10 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
-
 public class LoginPage extends BasePage{
-    //import constructor!!!
+    // important constructor!!!
     public LoginPage(WebDriver driver) {
         super(driver);
     }
@@ -16,25 +14,26 @@ public class LoginPage extends BasePage{
     // Describe locator
     @FindBy(xpath = "//*[@name='email']")
     WebElement emailInput;
+
     @FindBy(xpath = "//*[@name='password']")
     WebElement passwordInput;
+
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
 
-    @Step("Wait for loading login page")
+    @Step("Wait for loading Login page")
     public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);
         getWait().forVisibility(loginButton);
     }
-    @Step("Wait for loading login page")
+
     public void takeLoginPageScreenshot(String actualScreenshotName){
         takeAndCompareScreenshot(actualScreenshotName, null);
     }
 
-//Describe method
-    @Step("Login as user: {email},{password}")
-    public void login(String email,String password){
+    @Step("Login as user: {email}, {password}")
+    public void login(String email, String password) {
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         loginButton.click();
