@@ -41,7 +41,7 @@ public class ApplicationManager {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
-
+        //
         driver.get(config.getProjectUrl());
         driver.manage().window().setSize(new Dimension(config.getWindowWight(), config.getWindowHeight()));
     }

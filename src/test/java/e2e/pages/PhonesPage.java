@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +10,9 @@ public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//*[@'id = items-table-phone'")
+    WebElement table;
 
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
@@ -31,19 +35,21 @@ public class PhonesPage extends ContactInfoPage {
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
     WebElement removePhoneButton;
 
-
+    @Step
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forVisibility(addPhoneButton);
 
     }
-    public void openPhoneButton() throws InterruptedException {
+    @Step
+    public void openPhoneButton() {
         addPhoneButton.click();
         getWait().forVisibility(addPhoneButton);}
-
+    @Step
     public String getCountry() {
         return countryCodeField.getText();
     }
+    @Step
     public  String getPhoneNumber(){
         return phoneNumberField.getText();
     }
@@ -53,25 +59,31 @@ public class PhonesPage extends ContactInfoPage {
 //    public String getEditButton() {
 //        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
 //    }
-
+@Step
     public void openEditDeleteDropdown() {
         dropdown.click();
         getWait().forVisibility(dropdown);}
-
-    public void clickEditButton()throws InterruptedException{
+    @Step
+    public void clickEditButton(){
         editButton.click();
         getWait().forVisibility(editButton);
     }
+    @Step
     public EditPhoneForm openEditPhoneForm(){
         dropdown.click();
         getWait().forVisibility(editButton);
         editButton.click();
         return new EditPhoneForm(driver);
     }
+    @Step
     public void deletePhone(){
         dropdown.click();
         getWait().forVisibility(removePhoneButton);
         removePhoneButton.click();
+    }
+    @Step
+    public  void takePhonePageScreenshot(){
+        takeAndCompareScreenshot("Phone page", null);
     }
 
     }

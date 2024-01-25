@@ -3,6 +3,7 @@ package integration.contact;
 import com.github.javafaker.Faker;
 import integration.ApiBase;
 import integration.schemas.ContactDto;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase { // всегда экстендится от апи бэйз
@@ -21,6 +22,7 @@ public class ContactApi extends ApiBase { // всегда экстендится
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();
 
+    @Step("Generate request body for create contact")
     // method request body rnd
     public ContactDto rndDataForCreateContact(){
         dto = new ContactDto();
@@ -29,7 +31,7 @@ public class ContactApi extends ApiBase { // всегда экстендится
         dto.setDescription(description);
         return dto; // выводит обьект
     }
-
+    @Step("Generate request body for edit contact with id:{id}")
     // боди для пут rnd
     public   ContactDto rndDataForEditContact(int id){
         dto = new ContactDto();
@@ -40,6 +42,7 @@ public class ContactApi extends ApiBase { // всегда экстендится
         return dto;
 
     }
+    @Step("Login")
     // post
     public Response createContact(int code){
         String endpoint = "/api/contact";
@@ -49,19 +52,21 @@ public class ContactApi extends ApiBase { // всегда экстендится
         return response;
 
     }
+    @Step("Edit contact with id: {id}")
     // put
     public void editContact(int code, int id){
         String endpoint = "/api/contact";
         Object body = rndDataForEditContact(id);
         putRequest(endpoint, code, body);
     }
-
+    @Step("Delete contact with id: {id}")
     // delete
     public   Response deleteContact(int code, int id){
         String endpoint = "/api/contact/{id}";
         response = deleteRequest(endpoint, code, id);
         return response;
     }
+    @Step("Get contact with id: {id}")
     // get contact
     public Response getContact(int code,int id){
         String endpoint = "/api/contact/{id}";

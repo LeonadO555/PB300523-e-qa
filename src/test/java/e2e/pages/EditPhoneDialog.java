@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +18,7 @@ public class EditPhoneDialog extends PhoneInfoPage {
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
-
+    @Step("wait")
     public void waitForOpen() {
         getWait().forVisibility(countryCodeDropDown);
         getWait().forVisibility(phoneInputField);
@@ -25,15 +26,15 @@ public class EditPhoneDialog extends PhoneInfoPage {
         getWait().forClickable(saveButton);
 
     }
-
+    @Step
     public void selectCountryCode(String code){
         getSelect(countryCodeDropDown).selectByVisibleText(code);
     }
-
+    @Step
     public void setEditPhone(String number) {
         setInput(phoneInputField, number);
     }
-
+    @Step
     public void savePhoneChanges() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
