@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,7 @@ public class AddPhoneDialog extends PhonesPage {
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
+    @Step("Wait for open Add Contact Dialog")
     public void waitForOpen() {
         getWait().forVisibility(countryCodeLabel);
         getWait().forVisibility(countryCodeDropDown);
@@ -32,18 +34,20 @@ public class AddPhoneDialog extends PhonesPage {
         getWait().forVisibility(saveButton);
     }
 
+    @Step("Select country code: {country}")
     public void selectCountryCode(String country) {
         getSelect(countryCodeDropDown).selectByVisibleText(country);
     }
-
+    @Step
     public String getCountry() {
         return getSelect(countryCodeDropDown).getFirstSelectedOption().getText();
     }
-
+    @Step("Set phone number: {phoneNumber}")
     public void setPhoneNumberInput(String phoneNumber) {
         setInput(phoneNumberInput, phoneNumber);
     }
 
+    @Step
     public void savePhone() {
        try {
            getWait().forClickable(saveButton);
@@ -52,7 +56,5 @@ public class AddPhoneDialog extends PhonesPage {
        } catch (StaleElementReferenceException e) { //отображается старый элемент
             e.printStackTrace();
        }
-
-
     }
 }

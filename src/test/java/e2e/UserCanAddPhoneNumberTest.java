@@ -13,7 +13,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneForm;
     DeleteContactDialog deleteContactDialog;
 
     Faker faker = new Faker();
@@ -110,8 +110,9 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
-
-
     }
+
+
+
 
 }

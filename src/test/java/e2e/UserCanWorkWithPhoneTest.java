@@ -3,17 +3,23 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import intagration.contact.ContactApi;
+import intagration.user.UserApi;
+import io.qameta.allure.*;
+import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserCanWorkWithPhoneTest extends TestBase {
-    LoginPage loginPage;// пуустые переменные, туда будем записывать новые экземпляры класса
+    LoginPage loginPage;
+    UserApi userApi;
     ContactsPage contactsPage;
+    ContactApi contactApi;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneForm;
     DeleteContactDialog deleteContactDialog;
 
 
@@ -115,8 +121,60 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
+    }
 
+    @Epic(value = "Contact")
+    @Feature(value = "User can Add edit delete phone")
+    @Description(value = "User can Add edit delete phone for new contact")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Work with phone for new contact")
+    public void workWithPhoneForNewContact(){
+        String email = "newtest@gmail.com";
+        String password = "newtest@gmail.com";
 
+        userApi = new UserApi();
+        String token = userApi.login(email, password, 200);
+
+        contactApi = new ContactApi(token);
+        JsonPath json = contactApi.createContact(201).jsonPath();
+        int contactId = json.getInt("id");
+
+        loginPage = new LoginPage(app.driver);
+        loginPage.login(email,password);
+
+        contactsPage = new ContactsPage(app.driver);
+        contactsPage.waitForLoading();
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
+
+        contactInfoPage = new ContactInfoPage(app.driver);
+        contactInfoPage.waitForLoading();
+        contactInfoPage.openTab(ContactInfoTabs.PHONES);
+
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
+        phonesPage.takePhonesPageScreenshot();
+        phonesPage.openPhoneButton();
+
+        addPhoneDialog = new AddPhoneDialog(app.driver);
+        addPhoneDialog.waitForOpen();
+        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
+        addPhoneDialog.setPhoneNumberInput("12345678911");
+        addPhoneDialog.savePhone();
+
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
+        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
+
+        editPhoneForm = phonesPage.openEditPhoneForm();
+        editPhoneForm.waitForOpen();
+        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
+        editPhoneForm.setPhoneNumberInput("11987654321");
+        editPhoneForm.saveChange();
+        phonesPage.waitForLoading();
+
+        phonesPage.deletePhone();
+
+        contactApi.deleteContact(200,contactId);
     }
 
 }

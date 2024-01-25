@@ -1,14 +1,17 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//*[@id='items-table-phone']")
+    WebElement table;
 
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
@@ -31,50 +34,62 @@ public class PhonesPage extends ContactInfoPage {
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
     WebElement removePhoneButton;
 
-
+    @Step
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forVisibility(addPhoneButton);
-
+        getWait().forVisibility(table);
     }
-    public void openPhoneButton() throws InterruptedException {
-        addPhoneButton.click();
-        getWait().forVisibility(addPhoneButton);}
 
+    @Step
+    public void openPhoneButton() {
+        addPhoneButton.click();
+        getWait().forVisibility(addPhoneButton);
+    }
+
+    @Step
     public String getCountry() {
         return countryCodeField.getText();
     }
-    public  String getPhoneNumber(){
+
+    @Step
+    public String getPhoneNumber() {
         return phoneNumberField.getText();
     }
-//    public void selectEditButton(String edit){
-//        getSelect(editDeleteDropdown).selectByVisibleText(edit);
-//    }
-//    public String getEditButton() {
-//        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
-//    }
 
+    @Step
     public void openEditDeleteDropdown() {
         dropdown.click();
-        getWait().forVisibility(dropdown);}
+        getWait().forVisibility(dropdown);
+    }
 
-    public void clickEditButton()throws InterruptedException{
+    @Step
+    public void clickEditButton() {
         editButton.click();
         getWait().forVisibility(editButton);
     }
-    public EditPhoneForm openEditPhoneForm(){
+
+    @Step
+    public EditPhoneDialog openEditPhoneForm() {
         dropdown.click();
         getWait().forVisibility(editButton);
         editButton.click();
-        return new EditPhoneForm(driver);
+        return new EditPhoneDialog(driver);
     }
-    public void deletePhone(){
+
+    @Step
+    public void deletePhone() {
         dropdown.click();
         getWait().forVisibility(removePhoneButton);
         removePhoneButton.click();
     }
 
+    @Step
+    public void takePhonesPageScreenshot(){
+        takeAndCompareScreenshot("phonesPage", null);
     }
+
+}
 
 
 

@@ -3,14 +3,18 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
-import org.testng.Assert;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
 
-    @Test
+    @Epic(value = "Login")
+    @Feature(value = "User login")
+    @Description(value = "User can login with role admin")
+    @Severity(SeverityLevel.BLOCKER)
+    @Test(description = "User can login")
     public void userCanLogin() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
@@ -29,7 +33,7 @@ public class LoginTest extends TestBase {
         loginPage.login(email, password);
 
         loginPage.waitForLoading();
-//        loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
+        loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
     }
 
     private void loginTestMethod(String email, String password, String screenshotName, boolean negativeCase) {
@@ -38,11 +42,11 @@ public class LoginTest extends TestBase {
         loginPage.login(email, password);
         if (negativeCase) {
             loginPage.waitForLoading();
-//            loginPage.takeLoginPageScreenshot(screenshotName);
+            loginPage.takeLoginPageScreenshot(screenshotName);
         } else {
             contactsPage = new ContactsPage(app.driver);
             contactsPage.waitForLoading();
-//            contactsPage.takeScreenshotHeader();
+            contactsPage.takeScreenshotHeader();
         }
     }
 
