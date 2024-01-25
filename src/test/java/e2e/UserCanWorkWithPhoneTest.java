@@ -126,6 +126,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Epic(value = "Contact")
     @Feature(value = "User can Add edit delete phone")
     @Description(value = "User can Add edit delete phone for new contact")
+    @AllureId("1")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Work with phone for new contact")
     public void workWithPhoneForNewContact(){
