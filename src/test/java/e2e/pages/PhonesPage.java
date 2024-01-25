@@ -1,9 +1,9 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
@@ -31,43 +31,48 @@ public class PhonesPage extends ContactInfoPage {
     @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
     WebElement removePhoneButton;
 
-
+    @Step
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forVisibility(addPhoneButton);
-
     }
+
+    @Step
     public void openPhoneButton() throws InterruptedException {
         addPhoneButton.click();
-        getWait().forVisibility(addPhoneButton);}
+        getWait().forVisibility(addPhoneButton);
+    }
 
+    @Step
     public String getCountry() {
         return countryCodeField.getText();
     }
+
+    @Step
     public  String getPhoneNumber(){
         return phoneNumberField.getText();
     }
-//    public void selectEditButton(String edit){
-//        getSelect(editDeleteDropdown).selectByVisibleText(edit);
-//    }
-//    public String getEditButton() {
-//        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
-//    }
 
+    @Step
     public void openEditDeleteDropdown() {
         dropdown.click();
         getWait().forVisibility(dropdown);}
 
-    public void clickEditButton()throws InterruptedException{
+    @Step
+    public void clickEditButton(){
         editButton.click();
         getWait().forVisibility(editButton);
     }
-    public EditPhoneForm openEditPhoneForm(){
+
+    @Step
+    public EditPhoneDialog openEditPhoneForm(){
         dropdown.click();
         getWait().forVisibility(editButton);
         editButton.click();
-        return new EditPhoneForm(driver);
+        return new EditPhoneDialog(driver);
     }
+
+    @Step
     public void deletePhone(){
         dropdown.click();
         getWait().forVisibility(removePhoneButton);

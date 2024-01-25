@@ -3,41 +3,44 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
+import intagration.contact.ContactApi;
+import intagration.user.UserApi;
+import io.qameta.allure.*;
+import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserCanWorkWithPhoneTest extends TestBase {
-    LoginPage loginPage;// пуустые переменные, туда будем записывать новые экземпляры класса
+    LoginPage loginPage;
+    UserApi userApi;
     ContactsPage contactsPage;
+    ContactApi contactApi;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneDialog;
     DeleteContactDialog deleteContactDialog;
-
-
     Faker faker = new Faker();
 
     private void checkPhoneData(PhonesPage page, String country, String phoneNumber) {
         phonesPage = new PhonesPage(app.driver);
         String actualCountry = page.getCountry();
         String actualPhoneNumber = page.getPhoneNumber();
-        Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country); // актуальное с ожидаемым
-        Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber); // актуальное с ожидаемым
-
+        Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country);
+        Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber);
     }
 
     @Test
-    public void userCanAddPhoneNumber() throws InterruptedException {
+    public void userCanAddPhoneNumber(){
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
         String country = "Albania";
 
-        String firstName = faker.internet().uuid(); // faker генерирует рандомные данные через генератор uuid
+        String firstName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence(); // рандомный текст
+        String description = faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -56,7 +59,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         // Add contact
         addContactDialog = contactsPage.openAddContactDialog();
-        addContactDialog.waitForOpen(); // только для диалога
+        addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
@@ -66,33 +69,30 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
         // add phone number
-        phonesPage = new PhonesPage(app.driver);
-        //phonesPage.waitForLoading();
-        phonesPage.openPhoneButton();
+//        phonesPage = new PhonesPage(app.driver);
+//        //phonesPage.waitForLoading();
+//        phonesPage.openPhoneButton();
+//
+//        //fill addPhoneDialog
+//        addPhoneDialog = new AddPhoneDialog(app.driver);
+//        addPhoneDialog.waitForOpen();
+//        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
+//        addPhoneDialog.setPhoneNumberInput("12345678911");
+//        addPhoneDialog.savePhone();
+//
+//        // check created phone
+//        phonesPage = new PhonesPage(app.driver);
+//        phonesPage.waitForLoading();
+//        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
+//
+//        //
+//        editPhoneForm = phonesPage.openEditPhoneForm();
+//        editPhoneForm.waitForOpen();
+//        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
+//        editPhoneForm.setPhoneNumberInput("11987654321");
+//        editPhoneForm.saveChange();
+//        phonesPage.waitForLoading();
 
-        //fill addPhoneDialog
-        addPhoneDialog = new AddPhoneDialog(app.driver);
-        addPhoneDialog.waitForOpen();
-        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
-        addPhoneDialog.setPhoneNumberInput("12345678911");
-        addPhoneDialog.savePhone();
-
-
-        // check created phone
-        phonesPage = new PhonesPage(app.driver);
-        phonesPage.waitForLoading();
-        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
-
-
-        //
-        editPhoneForm = phonesPage.openEditPhoneForm();
-        editPhoneForm.waitForOpen();
-        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
-        editPhoneForm.setPhoneNumberInput("11987654321");
-        editPhoneForm.saveChange();
-        phonesPage.waitForLoading();
-
-        //
         phonesPage.deletePhone();
 
         // open contact page
@@ -101,7 +101,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         // filter by contact name
         contactsPage.filterByContact(firstName);
-        contactsPage.waitForLoading(); //дождаться момента по фильтрации
+        contactsPage.waitForLoading();
 
         // check rows count after filter by contact name
         int actualContactCountRow = contactsPage.getContactCount();
@@ -115,8 +115,58 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
+    }
 
+    @Epic(value = "Contact")
+    @Feature(value = "User can Add, edit, delete phone")
+    @Description(value = "User can Add, edit, delete phone for new contact")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Work with phone for new contact")
+    public void workWithPhoneForNewContact() throws InterruptedException {
+        String email = "newtest@gmail.com";
+        String password = "newtest@gmail.com";
 
+        userApi = new UserApi();
+        String token = userApi.login(email, password, 200);
+
+        contactApi = new ContactApi(token);
+        JsonPath json = contactApi.createContact(201).jsonPath();
+        int contactId = json.getInt("id");
+
+        loginPage = new LoginPage(app.driver);
+        loginPage.login(email, password);
+
+        contactsPage = new ContactsPage(app.driver);
+        contactsPage.waitForLoading();
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/" + contactId);
+
+        contactInfoPage = new ContactInfoPage(app.driver);
+        contactInfoPage.waitForLoading();
+        contactInfoPage.openTab(ContactInfoTabs.PHONES);
+
+        phonesPage = new PhonesPage(app.driver);
+        //phonesPage.waitForLoading();
+        phonesPage.openPhoneButton();
+
+        //fill addPhoneDialog
+        addPhoneDialog = new AddPhoneDialog(app.driver);
+        addPhoneDialog.waitForOpen();
+        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
+        addPhoneDialog.setPhoneNumberInput("12345678911");
+        addPhoneDialog.savePhone();
+
+        // check created phone
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
+        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
+
+        //
+        editPhoneDialog = phonesPage.openEditPhoneForm();
+        editPhoneDialog.waitForOpen();
+        editPhoneDialog.selectCountryCode(editPhoneDialog.getCountry());
+        editPhoneDialog.setPhoneNumberInput("11987654321");
+        editPhoneDialog.saveChange();
+        phonesPage.waitForLoading();
     }
 
 }

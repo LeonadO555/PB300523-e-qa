@@ -13,7 +13,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneDialog;
     DeleteContactDialog deleteContactDialog;
 
     Faker faker = new Faker();
@@ -54,7 +54,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         // Add contact
         addContactDialog = contactsPage.openAddContactDialog();
-        addContactDialog.waitForOpen(); // только для диалога
+        addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
@@ -80,11 +80,11 @@ public class UserCanAddPhoneNumberTest extends TestBase {
         checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber() );
 
         // edit phone number
-        editPhoneForm = phonesPage.openEditPhoneForm();
-        editPhoneForm.waitForOpen();
-        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
-        editPhoneForm.setPhoneNumberInput("22222222222");
-        editPhoneForm.saveChange();
+        editPhoneDialog = phonesPage.openEditPhoneForm();
+        editPhoneDialog.waitForOpen();
+        editPhoneDialog.selectCountryCode(editPhoneDialog.getCountry());
+        editPhoneDialog.setPhoneNumberInput("22222222222");
+        editPhoneDialog.saveChange();
         phonesPage.waitForLoading();
 
         //delete phone
@@ -110,8 +110,8 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
-
-
     }
+
+
 
 }
