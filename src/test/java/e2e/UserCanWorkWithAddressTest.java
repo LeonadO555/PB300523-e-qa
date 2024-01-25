@@ -11,8 +11,6 @@ public class UserCanWorkWithAddressTest extends TestBase {
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
-    EditContactForm editContactForm;
-    DeleteContactDialog deleteContactDialog;
     AddressesInfoPage addressesInfoPage;
     AddAddressDialog addAddressDialog;
     EditAddressDialog editAddressDialog;
@@ -52,31 +50,28 @@ public class UserCanWorkWithAddressTest extends TestBase {
         String editPostCode = "1990";
         String editStreet = "Gdetotam 10";
 
-
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
         String description = faker.lorem().sentence();
-
-        String editFirstName = faker.internet().uuid();
-        String editLastName = faker.internet().uuid();
-        String editDescription = faker.lorem().sentence();
 
         //logged as user
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email, password);
+
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
         Assert.assertEquals(actualLanguage, language);
-        //add contact
 
+        //add contact
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firsName, lastName, description);
         addContactDialog.saveContact();
+
         //check  create contact
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -86,7 +81,8 @@ public class UserCanWorkWithAddressTest extends TestBase {
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.openTab(ContactInfoTabs.ADDRESSES);
         addressesInfoPage.clickOnAddressButton();
-        //adressesInfoPage.waitForLoading();
+        //addressesInfoPage.waitForLoading();
+
         addAddressDialog = new AddAddressDialog(app.driver);
         addAddressDialog.selectCountry(country);
         addAddressDialog.setCity(city);
@@ -120,5 +116,9 @@ public class UserCanWorkWithAddressTest extends TestBase {
         //remove Address
         addressesInfoPage.deleteAddress();
         addressesInfoPage.waitForLoading();
+
+        //check that contact was deleted
+        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        contactsPage.takeScreenshotNoResultMessage();
     }
 }
