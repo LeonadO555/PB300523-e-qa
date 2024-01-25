@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "io.qameta.allure" version "2.9.6"
+    id "org.gradle.test-retry" version "1.5.3"
 }
 
 group = 'org.example'
@@ -28,19 +29,34 @@ dependencies {
 
 test {
     useTestNG()
+    retry{
+        maxRetries = 3
+    }
+    testLogging {
+        events "passed", "skipped", "failed", "standartOut", "standartError"
+        exceptionFormat "full"
+    }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
 
-task testSmoke(type: Test){
-    useTestNG(){
+task testSmoke(type: Test) {
+    useTestNG() {
         suites 'src/test/resources/testngSmoke.xml'
     }
-    systemProperty 'allure.results.directory', 'build/allure-results'
+    testLogging {
+        events "passed", "skipped", "failed", "standartOut", "standartError"
+        exceptionFormat "full"
+        systemProperty 'allure.results.directory', 'build/allure-results'
+    }
 }
 
-task testNoSmoke(type: Test){
-    useTestNG(){
+task testNoSmoke(type: Test) {
+    useTestNG() {
         suites 'src/test/resources/testngNoSmoke.xml'
     }
-    systemProperty 'allure.results.directory', 'build/allure-results'
+    testLogging {
+        events "passed", "skipped", "failed", "standartOut", "standartError"
+        exceptionFormat "full"
+        systemProperty 'allure.results.directory', 'build/allure-results'
+    }
 }
