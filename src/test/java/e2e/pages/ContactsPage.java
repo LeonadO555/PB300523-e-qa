@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,7 +37,8 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
 
-    public void waitForLoading(){
+    @Step
+    public void waitForLoading() {
         getWait().forVisibility(header);
         getWait().forVisibility(contactsButton);
         getWait().forVisibility(addContactButton);
@@ -46,47 +48,59 @@ public class ContactsPage extends BasePage {
         getWait().forClickable(contactsButton);
     }
 
-    public void openContactsPage(){
+    @Step
+
+    public void openContactsPage() {
         contactsButton.click();
     }
 
-    public int getContactCount(){
+    @Step
+
+    public int getContactCount() {
         return driver.findElements(By.xpath("//*[@id='contacts-list']//*[@class='list-group']")).size();
     }
 
-    public AddContactDialog openAddContactDialog(){
+    @Step
+    public AddContactDialog openAddContactDialog() {
         addContactButton.click();
         return new AddContactDialog(driver);
     }
 
-    public void selectLanguage(String language){
+    @Step
+    public void selectLanguage(String language) {
         getSelect(languageDropdown).selectByVisibleText(language);
     }
 
-    public String getLanguage(){
+    @Step
+    public String getLanguage() {
         return getSelect(languageDropdown).getFirstSelectedOption().getText();
     }
 
-    public DeleteContactDialog openDeleteDialog(){
+    @Step
+    public DeleteContactDialog openDeleteDialog() {
         getWait().forClickable(deleteButton);
         deleteButton.click();
         return new DeleteContactDialog(driver);
     }
 
-    public void filterByContact(String contactValue){
+    @Step("Filter by value :{contactValue}")
+    public void filterByContact(String contactValue) {
         searchInput.sendKeys(contactValue);
     }
 
-    public boolean isNoResultMessageDisplayed(){
+    @Step("Check displayed is no result message")
+    public boolean isNoResultMessageDisplayed() {
         getWait().forVisibility(noResultsMessage);
         return isElementDisplayed(noResultsMessage);
     }
 
-    public void takeScreenshotHeader(){
+    @Step
+    public void takeScreenshotHeader() {
         takeAndCompareScreenshot("header", header);
     }
 
-    public void takeScreenshotNoResultMessage(){
+    @Step
+    public void takeScreenshotNoResultMessage() {
         takeAndCompareScreenshot("contactsPageNoResultMessage", noResultsMessage);
     }
 }

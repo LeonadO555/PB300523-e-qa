@@ -3,13 +3,15 @@ package intagration.contact;
 import com.github.javafaker.Faker;
 import intagration.ApiBase;
 import intagration.shemas.ContactDto;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class ContactApi extends ApiBase {
 
-    public ContactApi(String token){
+    public ContactApi(String token) {
         super(token);
     }
+
     Response response;
     ContactDto dto;
     Faker faker = new Faker();
@@ -19,6 +21,8 @@ public class ContactApi extends ApiBase {
     String editFirstName = faker.internet().uuid();
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();
+
+    @Step("Generate request body for create contact ")
     public ContactDto rndDataForCreateContact() {
         dto = new ContactDto();
         dto.setFirstName(firstName);
@@ -27,7 +31,8 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    public ContactDto rndDataForEditContact(int id){
+    @Step("Generate request body for edit  contact with id: {id}")
+    public ContactDto rndDataForEditContact(int id) {
         dto = new ContactDto();
         dto.setId(id);
         dto.setFirstName(editFirstName);
@@ -36,7 +41,8 @@ public class ContactApi extends ApiBase {
         return dto;
     }
 
-    public Response createContact(int code){
+    @Step("Create contact")
+    public Response createContact(int code) {
         String endpoint = "/api/contact";
         Object body = rndDataForCreateContact();
         response = postRequest(endpoint, code, body);
@@ -44,21 +50,24 @@ public class ContactApi extends ApiBase {
         return response;
     }
 
-    public void editContact(int code, int id){
+    @Step("Edit  contact with id: {id}")
+    public void editContact(int code, int id) {
         String endpoint = "/api/contact";
         Object body = rndDataForEditContact(id);
-        putRequest(endpoint,code,body);
+        putRequest(endpoint, code, body);
     }
 
-    public Response deleteContact(int code, int id){
+    @Step("Delete  contact with id: {id}")
+    public Response deleteContact(int code, int id) {
         String endpoint = "/api/contact/{id}";
-        response = deleteRequest(endpoint,code,id);
+        response = deleteRequest(endpoint, code, id);
         return response;
     }
 
-    public Response getContact(int code, int id ) {
+    @Step("Get  contact with id: {id}")
+    public Response getContact(int code, int id) {
         String endpoint = "/api/contact/{id}";
-        response = getRequestWithParam(endpoint, code,"id", id);
-        return  response;
+        response = getRequestWithParam(endpoint, code, "id", id);
+        return response;
     }
 }

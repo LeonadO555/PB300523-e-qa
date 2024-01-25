@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +26,7 @@ public class EditPhoneForm extends PhonesPage {
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
+    @Step("wait for open edit phone")
     public void waitForOpen() {
         getWait().forVisibility(countryCodeLabel);
         getWait().forVisibility(countryCodeDropDown);
@@ -45,7 +47,7 @@ public class EditPhoneForm extends PhonesPage {
         setInput(phoneNumberInput, phoneNumber);
     }
 
-    public void saveChange() throws InterruptedException {
+    public void saveChange()  {
         saveButton.click();
         getWait().forInvisibility(saveButton);
     }

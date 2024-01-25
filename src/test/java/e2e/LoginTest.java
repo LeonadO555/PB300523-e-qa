@@ -60,7 +60,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void userCanLoginWithInvalidEmail() {
-        loginTestMethod("newtes@tgmail.com", "newtest@gmail.co", "login_invalid_email", true);
+        loginTestMethod("newtes@tgmaill.com", "newtest@gmail.com", "login_invalid_email", true);
     }
 
     @Test
@@ -70,6 +70,6 @@ public class LoginTest extends TestBase {
 
     @Test
     public void userCanLoginWithInvalidEmailAndPassword() {
-        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", "login_invalid_email_and_password", true);
+        loginTestMethod("newtest@gmailr.com", "newtest@gmailf.com", "login_invalid_email_and_password", true);
     }
 }

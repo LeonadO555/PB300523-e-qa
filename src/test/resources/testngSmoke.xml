@@ -5,7 +5,7 @@
         <classes>
             <class name="e2e.LoginTest">
                 <methods>
-                    <include name="userCanLogin"/>
+                    <include name="userCannotLogin"/>
                 </methods>
             </class>
             <class name="e2e.UserCanWorkWithContactTest"/>
