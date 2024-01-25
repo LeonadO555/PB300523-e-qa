@@ -3,13 +3,20 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
-
+    @Epic(value = "Login")
+    @Feature(value = "User login")
+    @Story(value = "User can login with role admin")
+    @Description(value = "User can login with role admin")
     @Test
     public void userCanLogin() {
         String email = "newtest@gmail.com";
@@ -53,16 +60,16 @@ public class LoginTest extends TestBase {
 
     @Test
     public void userCanLoginWithInvalidEmail() {
-        loginTestMethod("newtestgmail.com", "newtest@gmail.com", "login_invalid_email", true);
+        loginTestMethod("newtes@tgmail.com", "newtest@gmail.co", "login_invalid_email", true);
     }
 
     @Test
     public void userCanLoginWithInvalidPassword() {
-        loginTestMethod("newtest@gmail.com", "newtestgmail.com", "login_invalid_password", true);
+        loginTestMethod("newtest@gmail.com", "newtest@gmaill.com", "login_invalid_password", true);
     }
 
     @Test
     public void userCanLoginWithInvalidEmailAndPassword() {
-        loginTestMethod("newtestgmail.com", "newtestgmail.com", "login_invalid_email_and_password", true);
+        loginTestMethod("newtest@gmail.com", "newtest@gmail.com", "login_invalid_email_and_password", true);
     }
 }

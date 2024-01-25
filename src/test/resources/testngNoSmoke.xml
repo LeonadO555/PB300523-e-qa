@@ -2,8 +2,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="testNoSmoke" verbose="1">
     <test name="NoSmokeTest">
-        <classes>
-            <class name="FirstSeleniumTest"/>
-        </classes>
+
     </test>
 </suite>
