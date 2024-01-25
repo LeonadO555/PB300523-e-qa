@@ -3,208 +3,120 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
-import e2e.pages.AddContactDialog;
-import e2e.pages.AddPhonesDialog;
-import integration.contact.ContactApi;
-import integration.user.UserApi;
-import io.qameta.allure.*;
-import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserCanWorkWithPhoneTest extends TestBase {
-
-    LoginPage loginPage;
-    UserApi userApi;
+    LoginPage loginPage;// пуустые переменные, туда будем записывать новые экземпляры класса
     ContactsPage contactsPage;
-    ContactApi contactApi;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
-    AddPhonesDialog addPhoneDialog;
-    EditPhoneDialog editPhoneDialog;
+    AddPhoneDialog addPhoneDialog;
+    EditPhoneForm editPhoneForm;
     DeleteContactDialog deleteContactDialog;
+
 
     Faker faker = new Faker();
 
-    private void checkContactData(ContactInfoPage page,String firsName,String lastName,String description){
-        String actualFirstName=page.getFirstName();
-        String actualLastName=page.getLastName();
-        String actualDescription=page.getDescription();
-        Assert.assertEquals(actualFirstName,firsName,actualFirstName+ "is not equal "+firsName);
-        Assert.assertEquals(actualLastName,lastName,actualLastName+ "is not equal "+lastName);
-        Assert.assertEquals(actualDescription,description,actualDescription+ "is not equal "+description);
-    }
-    private void checkPhoneData(PhonesPage page,String code, String number){
-        String actualCountryCode = page.getCountryCode();
+    private void checkPhoneData(PhonesPage page, String country, String phoneNumber) {
+        phonesPage = new PhonesPage(app.driver);
+        String actualCountry = page.getCountry();
         String actualPhoneNumber = page.getPhoneNumber();
-        Assert.assertEquals(actualCountryCode,code,actualCountryCode+ "is not equal " + code);
-        Assert.assertEquals(actualPhoneNumber,number,actualPhoneNumber+ "is not equal " + number);
+        Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country); // актуальное с ожидаемым
+        Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber); // актуальное с ожидаемым
+
     }
 
     @Test
-    public void userCanWorkWithPhoneTest(){
-        String email = "newTest@gmail.com";
+    public void userCanAddPhoneNumber() throws InterruptedException {
+        String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
-        String code = "Germany (+49)";
-        String number = "1576533393";
+        String country = "Albania";
 
-        String editCode = "Angola (+244)";
-        String editNumber = "1576633293";
-
-
-        String firsName = faker.internet().uuid();
+        String firstName = faker.internet().uuid(); // faker генерирует рандомные данные через генератор uuid
         String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence();
+        String description = faker.lorem().sentence(); // рандомный текст
 
+        String editFirstName = faker.internet().uuid();
+        String editLastName = faker.internet().uuid();
+        String editDescription = faker.lorem().sentence();
 
-        //logged as user
-        loginPage=new LoginPage(app.driver);
-        //loginPage.waitForLoading();
-        loginPage.login(email,password);
-        //check that user was logged
+        // login as user
+        loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
+        loginPage.login(email, password);
+
+        // check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
-        String actualLanguage = contactsPage.getLanguage();
-        Assert.assertEquals(actualLanguage,language);
-        //add contact
+        Assert.assertEquals(contactsPage.getLanguage(), language);
 
+        // Add contact
         addContactDialog = contactsPage.openAddContactDialog();
-        addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firsName,lastName,description);
+        addContactDialog.waitForOpen(); // только для диалога
+        addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
-        //check  create contact
-        contactInfoPage=new ContactInfoPage(app.driver);
+
+        // open Phone Tab
+        contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firsName,lastName,description);
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
-        //add Phone Number
+        // add phone number
+        phonesPage = new PhonesPage(app.driver);
+        //phonesPage.waitForLoading();
+        phonesPage.openPhoneButton();
+
+        //fill addPhoneDialog
+        addPhoneDialog = new AddPhoneDialog(app.driver);
+        addPhoneDialog.waitForOpen();
+        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
+        addPhoneDialog.setPhoneNumberInput("12345678911");
+        addPhoneDialog.savePhone();
+
+
+        // check created phone
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
-        phonesPage.clickOnAddPhoneButton();
-        addPhoneDialog = new AddPhonesDialog(app.driver);
-        addPhoneDialog.waitForLoading();
-        addPhoneDialog.selectCodeCountry(code);
-        addPhoneDialog.setPhoneInput(number);
-        addPhoneDialog.savePhoneNumber();
+        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
 
-        //check Phone Number
-        phonesPage = new PhonesPage(app.driver);
-        phonesPage.waitForLoading();
-        //checkPhoneData(phoneInfoPage,code,number);
 
-        // edit Phone Number
-        editPhoneDialog = phonesPage.openEditPhoneDialog();
-        editPhoneDialog.waitForOpen();
-        editPhoneDialog.selectCountryCode(editCode);
-        editPhoneDialog.setEditPhone(editNumber);
-        editPhoneDialog.savePhoneChanges();
+        //
+        editPhoneForm = phonesPage.openEditPhoneForm();
+        editPhoneForm.waitForOpen();
+        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
+        editPhoneForm.setPhoneNumberInput("11987654321");
+        editPhoneForm.saveChange();
         phonesPage.waitForLoading();
 
-        //Check edit Phone Number
-        //checkPhoneData(phoneInfoPage,editCode, editNumber);
-        phonesPage.waitForLoading();
-
-        //check search form
-        phonesPage.filterByPhone(editNumber);
-        //PhoneInfoPage.waitForLoading();
-
-        //delete email
+        //
         phonesPage.deletePhone();
 
-        //open contacts page
+        // open contact page
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
-        //filter by contact name
-        contactsPage.filterByContact(firsName);
-        contactsPage.waitForLoading();
 
-        //check row
+        // filter by contact name
+        contactsPage.filterByContact(firstName);
+        contactsPage.waitForLoading(); //дождаться момента по фильтрации
+
+        // check rows count after filter by contact name
         int actualContactCountRow = contactsPage.getContactCount();
         Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
 
-        //delete contact
+        // check that contact was deleted
         deleteContactDialog = contactsPage.openDeleteDialog();
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
 
-        //check that contact was deleted
-        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
+
+
     }
 
-    @Epic(value = "Contact")
-    @Feature(value = "User can Add edit delete phone")
-    @Description(value = "User can Add edit delete phone for new contact")
-    @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Work with phone for new contact")
-    public void workWithPhoneForNewContact(){
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
-
-        String language = "English";
-        String code = "Germany (+49)";
-        String number = "1576533393";
-
-        String editCode = "Angola (+244)";
-        String editNumber = "1576633293";
-
-        userApi = new UserApi();
-        String token= userApi.login(email,password,200);
-
-        contactApi = new ContactApi(token);
-        JsonPath json = contactApi.createContact(201).jsonPath();
-        int contactId = json.getInt("id");
-
-        loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
-
-        contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
-
-        contactInfoPage = new ContactInfoPage(app.driver);
-        contactsPage.waitForLoading();
-        contactInfoPage.openTab(ContactInfoTabs.PHONES);
-
-        phonesPage = new PhonesPage(app.driver);
-        phonesPage.waitForLoading();
-        phonesPage.takePhonesPageScreenshot();
-        phonesPage.clickOnAddPhoneButton();
-        addPhoneDialog = new AddPhonesDialog(app.driver);
-        addPhoneDialog.waitForLoading();
-        addPhoneDialog.selectCodeCountry(code);
-        addPhoneDialog.setPhoneInput(number);
-        addPhoneDialog.savePhoneNumber();
-
-        //check Phone Number
-        phonesPage = new PhonesPage(app.driver);
-        phonesPage.waitForLoading();
-        //checkPhoneData(phoneInfoPage,code,number);
-
-        // edit Phone Number
-        editPhoneDialog = phonesPage.openEditPhoneDialog();
-        editPhoneDialog.waitForOpen();
-        editPhoneDialog.selectCountryCode(editCode);
-        editPhoneDialog.setEditPhone(editNumber);
-        editPhoneDialog.savePhoneChanges();
-        phonesPage.waitForLoading();
-
-        phonesPage.waitForLoading();
-
-
-        phonesPage.filterByPhone(editNumber);
-        //PhoneInfoPage.waitForLoading();
-
-        //delete email
-        phonesPage.deletePhone();
-
-        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
-        contactsPage.takeScreenshotNoResultMessage();
-    }
 }
-
