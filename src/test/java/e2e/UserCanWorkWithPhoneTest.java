@@ -89,8 +89,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         //check Phone Number
         phoneInfoPage = new PhoneInfoPage(app.driver);
         phoneInfoPage.waitForLoading();
-        //checkPhoneData(phoneInfoPage,code, number);
-
+        //checkPhoneData(phoneInfoPage,code,number);
 
         // edit Phone Number
         editPhoneDialog = phoneInfoPage.openEditPhoneDialog();
@@ -101,7 +100,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         phoneInfoPage.waitForLoading();
 
         //Check edit Phone Number
-        //checkPhoneData(phoneInfoPage,code, number);
+        //checkPhoneData(phoneInfoPage,editCode, editNumber);
         phoneInfoPage.waitForLoading();
 
         //check search form
@@ -127,9 +126,8 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
+
         //check that contact was deleted
-
-
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
     }

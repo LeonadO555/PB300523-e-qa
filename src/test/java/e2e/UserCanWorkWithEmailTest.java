@@ -14,12 +14,8 @@ public class UserCanWorkWithEmailTest extends TestBase {
     ContactInfoPage contactInfoPage;
     EmailInfoPage emailInfoPage;
     AddEmailDialog addEmailDialog;
-
     EditEmailDialog editEmailDialog;
-
     DeleteContactDialog deleteContactDialog;
-
-
 
     Faker faker = new Faker();
 
@@ -31,13 +27,10 @@ public class UserCanWorkWithEmailTest extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
-
     private void checkEmailData(EmailInfoPage page, String email) {
         String actualEmailName = page.getEmail();
         Assert.assertEquals(actualEmailName, email, actualEmailName + "is not equal " + email);
-
     }
-
     @Test
     public void userCanWorkWithEmailTest() {
         String email = "newTest@gmail.com";
@@ -46,7 +39,6 @@ public class UserCanWorkWithEmailTest extends TestBase {
         String expectedEmail = "newhrest@gmail.com";
 
         String editExpectedEmail = "new.manolov@gmail.com";
-
 
         String firsName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
@@ -63,12 +55,13 @@ public class UserCanWorkWithEmailTest extends TestBase {
         contactsPage.selectLanguage(language);
         String actualLanguage = contactsPage.getLanguage();
         Assert.assertEquals(actualLanguage, language);
-        //add contact
 
+        //add contact
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firsName, lastName, description);
         addContactDialog.saveContact();
+
         //check  create contact
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -90,7 +83,6 @@ public class UserCanWorkWithEmailTest extends TestBase {
         checkEmailData(emailInfoPage, expectedEmail);
 
         // edit email dialog
-
         editEmailDialog = emailInfoPage.openEditEmailDialog();
         editEmailDialog.waitForOpen();
         editEmailDialog.setEditEmail(editExpectedEmail);
@@ -126,7 +118,6 @@ public class UserCanWorkWithEmailTest extends TestBase {
         deleteContactDialog.removeContact();
 
         //check that contact was deleted
-
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
     }

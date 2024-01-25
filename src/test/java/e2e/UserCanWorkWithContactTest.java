@@ -11,7 +11,6 @@ public class UserCanWorkWithContactTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
-
     ContactInfoPage contactInfoPage;
     EditContactForm editContactForm;
     DeleteContactDialog deleteContactDialog;
@@ -26,17 +25,11 @@ public class UserCanWorkWithContactTest extends TestBase {
         Assert.assertEquals(actualLastName,lastName,actualLastName + " is not equal " + lastName);
         Assert.assertEquals(actualDescription,description,actualDescription + " is not equal " + description);
     }
-
     @Test(dataProvider = "newContact",dataProviderClass = DataProviders.class)
     public void userCanWorkWithContactTest(String firstName, String lastName, String description) {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
-
-
-        // String firstName =faker.internet().uuid();
-        // String lastName =faker.internet().uuid();
-        // String description =faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -47,15 +40,11 @@ public class UserCanWorkWithContactTest extends TestBase {
         loginPage.waitForLoading();
         loginPage.login(email,password);
 
-
-
         // Check that user was logged " Проверьте, что пользователь залогинился "
-
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
-
 
         // add contact " добавить контакт "
         addContactDialog = contactsPage.openAddContactDialog();
@@ -63,15 +52,10 @@ public class UserCanWorkWithContactTest extends TestBase {
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
 
-
-
         // check created contact " Создать новый контакт "
-
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,firstName,lastName,description);
-        //contactInfoPage.openTab(ContactInfoTabs.EMAILS);
-
 
         // edit contact " изменить контакт "
         editContactForm = contactInfoPage.openEditContactForm();
@@ -81,7 +65,6 @@ public class UserCanWorkWithContactTest extends TestBase {
         editContactForm.setDescriptionInput(editDescription);
         editContactForm.saveChanges();
 
-
         //check edited contact
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
@@ -89,6 +72,7 @@ public class UserCanWorkWithContactTest extends TestBase {
         //open contacts page
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
+
         //filter by contact name
         contactsPage.filterByContact(editFirstName);
         contactsPage.waitForLoading();
@@ -104,7 +88,6 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.removeContact();
 
         //check that contact was deleted
-
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
     }
