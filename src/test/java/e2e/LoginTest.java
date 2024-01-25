@@ -14,7 +14,7 @@ public class LoginTest extends TestBase {
     @Epic(value = "Login")
     @Feature(value = "User login")
     @Description(value = "User can login with role admin ")
-    @Severity(SeverityLevel.BLOCKER)
+    //@Severity(SeverityLevel.BLOCKER)
 
     @Test(description = "User can login")
     public void userCanLogin(){

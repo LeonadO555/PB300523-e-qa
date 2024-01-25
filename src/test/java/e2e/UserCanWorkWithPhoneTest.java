@@ -31,11 +31,12 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         Assert.assertEquals(actualDescription,description,actualDescription+ "is not equal "+description);
     }
     private void checkPhoneData(PhoneInfoPage page,String code, String number){
-            String actualCountryCode = page.getCountryCode();
-            String actualPhoneNumber = page.getPhoneNumber();
-            Assert.assertEquals(actualCountryCode,code,actualCountryCode+ "is not equal " + code);
-            Assert.assertEquals(actualPhoneNumber,number,actualPhoneNumber+ "is not equal " + number);
+        String actualCountryCode = page.getCountryCode();
+        String actualPhoneNumber = page.getPhoneNumber();
+        Assert.assertEquals(actualCountryCode,code,actualCountryCode+ "is not equal " + code);
+        Assert.assertEquals(actualPhoneNumber,number,actualPhoneNumber+ "is not equal " + number);
     }
+
     @Test
     public void userCanWorkWithPhoneTest(){
         String email = "newTest@gmail.com";
@@ -55,7 +56,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         //logged as user
         loginPage=new LoginPage(app.driver);
-        loginPage.waitForLoading();
+        //loginPage.waitForLoading();
         loginPage.login(email,password);
         //check that user was logged
         contactsPage = new ContactsPage(app.driver);
@@ -127,6 +128,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
         //check that contact was deleted
+
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
