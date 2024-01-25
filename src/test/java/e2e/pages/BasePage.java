@@ -1,6 +1,7 @@
 package e2e.pages;
 
 import e2e.wait.Wait;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
@@ -72,13 +73,19 @@ public class BasePage {
         }
         return difference;
     }
+    @Attachment(value ="Screenshot", type = "image/png")
+    public byte[] saveScreenshot(byte[]screenshot){
+        return screenshot;
+    }
 
     @Step("Take and compare screenshot name: {actualScreenshotName}")
     protected void takeAndCompareScreenshot(String actualScreenshotName, WebElement element) {
         String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
         String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";
         File tmp = takeScreenshot(element);
+
         try {
+            saveScreenshot(Files.readAllBytes(tmp.toPath()));
             Files.copy(tmp.toPath(), new File(tmpFilePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
             File referenceImageFile = new File(referenceImageFilePath);
         if (!referenceImageFile.exists()){
