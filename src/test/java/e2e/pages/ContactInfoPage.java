@@ -1,6 +1,7 @@
 package e2e.pages;
 
 import e2e.enums.ContactInfoTabs;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +22,7 @@ public class ContactInfoPage extends ContactsPage {
     @FindBy(xpath = "//button[@id='btn-edit-contact']")
     WebElement editButton;
 
-    public void waitForLoading(){
+    public void waitForLoading() {
         getWait().forVisibility(firstNameField);
         getWait().forVisibility(lastNameField);
         getWait().forVisibility(descriptionField);
@@ -29,22 +30,27 @@ public class ContactInfoPage extends ContactsPage {
         getWait().forClickable(editButton);
     }
 
-    public void openTab(ContactInfoTabs tab){
-        driver.findElement(By.xpath("//*[@id='ngb-nav-"+tab.value+"']")).click();
+    @Step("Open tab: {tab}")
+    public void openTab(ContactInfoTabs tab) {
+        driver.findElement(By.xpath("//*[@ng-reflect-_id='" + tab.value + "']")).click();
     }
 
+    @Step
     public String getFirstName() {
         return firstNameField.getText();
     }
 
+    @Step
     public String getLastName() {
         return lastNameField.getText();
     }
 
+    @Step
     public String getDescription() {
         return descriptionField.getText();
     }
 
+    @Step
     public EditContactForm openEditContactForm() {
         editButton.click();
         Assert.assertFalse(isElementDisplayed(firstNameField), "Edit contact form was not opened");

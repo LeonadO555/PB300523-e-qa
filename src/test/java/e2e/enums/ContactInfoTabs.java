@@ -4,13 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum ContactInfoTabs {
-    INFO("2"),
-    PHONES("3"),
-    EMAILS("4"),
-    ADDRESSES("5");
+    INFO("1"),
+    PHONES("2"),
+    EMAILS("3"),
+    ADDRESSES("4");
     public final String value;
 
-    ContactInfoTabs(String value){
+    ContactInfoTabs(String value) {
         this.value = value;
     }
 }

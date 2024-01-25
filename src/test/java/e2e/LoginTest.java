@@ -12,7 +12,6 @@ public class LoginTest extends TestBase {
 
     @Epic(value = "Login")
     @Feature(value = "User login")
-    @Story(value = "User can login with role admin")
     @Description(value = "User can login with role admin")
     @Severity(SeverityLevel.BLOCKER)
     @Test(description = "User can login")
