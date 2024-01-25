@@ -8,10 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-public class ContactInfoPage extends ContactsPage{
+public class ContactInfoPage extends ContactsPage {
     public ContactInfoPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//div[@id='contact-first-name']")
     WebElement firstNameField;
     @FindBy(xpath = "//div[@id='contact-last-name']")
@@ -29,26 +30,25 @@ public class ContactInfoPage extends ContactsPage{
         getWait().forVisibility(editButton);
         getWait().forClickable(editButton);
     }
+
     @Step("Open tab: {tab}")
     public void openTab(ContactInfoTabs tab){
-
         driver.findElement(By.xpath("//*[@ng-reflect-_id='"+tab.value+"']")).click();
     }
     @Step
-    public String getFirstName(){
+    public String getFirstName() {
         return firstNameField.getText();
     }
     @Step
-    public String getLastName(){
+    public String getLastName() {
         return lastNameField.getText();
     }
-
     @Step
-    public String getDescription(){
+    public String getDescription() {
         return descriptionField.getText();
     }
     @Step
-    public EditContactForm openEditContactForm(){
+    public EditContactForm openEditContactForm() {
         editButton.click();
         Assert.assertFalse(isElementDisplayed(firstNameField), "Edit contact form was not opened");
         return new EditContactForm(driver);
