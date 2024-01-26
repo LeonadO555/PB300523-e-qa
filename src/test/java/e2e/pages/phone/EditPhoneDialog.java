@@ -1,15 +1,16 @@
-package e2e.pages;
+package e2e.pages.phone;
 
+import e2e.pages.phone.PhonesPage;
 import io.qameta.allure.Step;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddPhoneDialog extends PhonesPage {
-    public AddPhoneDialog(WebDriver driver) {
+public class EditPhoneDialog extends PhonesPage {
+    public EditPhoneDialog(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@for='cc-select']")
     WebElement countryCodeLabel;
 
@@ -25,7 +26,7 @@ public class AddPhoneDialog extends PhonesPage {
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
-    @Step("Wait for open Add Contact Dialog")
+    @Step("Wait for open edit phone dialog")
     public void waitForOpen() {
         getWait().forVisibility(countryCodeLabel);
         getWait().forVisibility(countryCodeDropDown);
@@ -34,27 +35,24 @@ public class AddPhoneDialog extends PhonesPage {
         getWait().forVisibility(saveButton);
     }
 
-    @Step("Select country code: {country}")
+    @Step("Select country: {country}")
     public void selectCountryCode(String country) {
         getSelect(countryCodeDropDown).selectByVisibleText(country);
     }
+
     @Step
     public String getCountry() {
         return getSelect(countryCodeDropDown).getFirstSelectedOption().getText();
     }
-    @Step("Set phone number: {phoneNumber}")
+    @Step
     public void setPhoneNumberInput(String phoneNumber) {
         setInput(phoneNumberInput, phoneNumber);
     }
 
     @Step
-    public void savePhone() {
-       try {
-           getWait().forClickable(saveButton);
-           saveButton.click();
-           getWait().forInvisibility(countryCodeLabel);
-       } catch (StaleElementReferenceException e) { //отображается старый элемент
-            e.printStackTrace();
-       }
+    public void saveChange(){
+        saveButton.click();
+        getWait().forInvisibility(saveButton);
     }
-}
+    }
+

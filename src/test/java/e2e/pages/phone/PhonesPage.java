@@ -1,5 +1,6 @@
-package e2e.pages;
+package e2e.pages.phone;
 
+import e2e.pages.contact.ContactInfoPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

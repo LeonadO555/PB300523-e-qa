@@ -1,5 +1,7 @@
-package e2e.pages;
+package e2e.pages.email;
 
+import e2e.pages.contact.ContactInfoPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +23,8 @@ public class EmailInfoPage extends ContactInfoPage {
     WebElement editEmailButton;
     @FindBy(xpath = "//*[@class='dropdown-item btn-email-remove']")
     WebElement removeEmailButton;
+
+    @Step("Wait for loading email info page")
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forClickable(addEmailButton);
@@ -37,15 +41,18 @@ public class EmailInfoPage extends ContactInfoPage {
     public String getEmail() {
         return emailInputField.getText();
     }
-    public void tabDropDawn() {
-        optionDropDown.click();
-    }
+    @Step("Filter by email: {emailCheck}")
     public void filterByEmail(String emailCheck){
         searchInput.sendKeys(emailCheck);
     }
+    @Step("Delete email")
     public void deleteEmail() {
         optionDropDown.click();
         getWait().forVisibility(removeEmailButton);
         removeEmailButton.click();
+    }
+    @Step
+    public void takeEmailInfoPageScreenshot(){
+        takeAndCompareScreenshot("emailInfoPage", null);
     }
 }

@@ -2,7 +2,7 @@ package e2e;
 
 import com.github.javafaker.Faker;
 import e2e.pages.*;
-import e2e.pages.AddContactDialog;
+import e2e.pages.contact.*;
 import e2e.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.Test;

@@ -1,4 +1,4 @@
-package e2e.pages;
+package e2e.pages.contact;
 
 import e2e.enums.ContactInfoTabs;
 import io.qameta.allure.Step;

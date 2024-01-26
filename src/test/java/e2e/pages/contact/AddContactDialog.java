@@ -1,11 +1,11 @@
-package e2e.pages;
+package e2e.pages.contact;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddContactDialog extends ContactsPage{
+public class AddContactDialog extends ContactsPage {
 
     public AddContactDialog(WebDriver driver) {
         super(driver);

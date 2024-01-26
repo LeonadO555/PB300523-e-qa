@@ -1,10 +1,11 @@
-package e2e.pages;
+package e2e.pages.contact;
 
+import e2e.pages.contact.ContactInfoPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EditContactForm extends ContactInfoPage{
+public class EditContactForm extends ContactInfoPage {
     public EditContactForm(WebDriver driver) {
         super(driver);
     }

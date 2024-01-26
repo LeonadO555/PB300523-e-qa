@@ -1,16 +1,17 @@
-package e2e.pages;
+package e2e.pages.address;
 
+import e2e.pages.address.AddressesInfoPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddAddressDialog extends AddressesInfoPage{
-    public AddAddressDialog(WebDriver driver) {
+public class EditAddressDialog extends AddressesInfoPage {
+    public EditAddressDialog(WebDriver driver) {
         super(driver);
     }
 
     @FindBy(xpath = "//*[@id='cc-select']")
-    WebElement countryDropdown;
+    WebElement countryDropDown;
     @FindBy(xpath = "//*[@id='input-city']")
     WebElement cityInput;
     @FindBy(xpath = "//*[@id='input-zip']")
@@ -21,25 +22,30 @@ public class AddAddressDialog extends AddressesInfoPage{
     WebElement saveButton;
 
     public void waitForOpen() {
-        getWait().forVisibility(countryDropdown);
+        getWait().forVisibility(countryDropDown);
         getWait().forVisibility(cityInput);
         getWait().forVisibility(postCodeInput);
         getWait().forVisibility(streetInput);
         getWait().forVisibility(saveButton);
+        getWait().forClickable(saveButton);
     }
-    public void selectCountry(String country){
-        getSelect(countryDropdown).selectByVisibleText(country);
+    public void selectCountry(String country) {
+        getSelect(countryDropDown).selectByVisibleText(country);
     }
-    public void setCity(String city){
-        cityInput.sendKeys(city);
+
+    public void setCityInput(String city) {
+        setInput(cityInput, city);
     }
-    public void setPostCode(String postCode){
-        postCodeInput.sendKeys(postCode);
+
+    public void setPostCodeInput(String postCode) {
+        setInput(postCodeInput, postCode);
     }
-    public void setStreet(String street){
-        streetInput.sendKeys(street);
+
+    public void setStreetInput(String street) {
+        setInput(streetInput, street);
     }
-    public void addressAddSaveButtonClick(){
+    public void saveChanges() {
         saveButton.click();
+        getWait().forInvisibility(saveButton);
     }
 }
