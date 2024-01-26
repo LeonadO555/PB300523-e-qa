@@ -121,7 +121,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         contactsPage.takeScreenshotNoResultMessage();
     }
     @Epic(value = "Contact")
-    @Feature(value= "User can aa,edit,delete,phone")
+    @Feature(value= "User can add,edit,delete,phone")
     @Description(value = "User can aa,edit,delete,phone for new contact")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Work with phone for new contact")
@@ -140,7 +140,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
-        app.driver.get("http://phonebook.telran-edu.de:8080/" + contactId);
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/" + contactId);
 
         contactInfoPage = new ContactInfoPage(app.driver);
         //contactInfoPage.waitForLoading();

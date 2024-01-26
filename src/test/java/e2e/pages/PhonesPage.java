@@ -32,11 +32,14 @@ public class PhonesPage extends ContactInfoPage {
     WebElement removePhoneButton;
     @FindBy(xpath = "//*[text()='Contacts']")
     WebElement contactsButton;
+    @FindBy(xpath = "//*[@id='items-table-phone']")
+    WebElement table;
 
     @Step
     public void waitForLoading() {
-        getWait().forVisibility(countryCodeField);
-        getWait().forVisibility(phoneNumberField);
+        getWait().forVisibility(searchInput);
+        getWait().forVisibility(addPhoneButton);
+        getWait().forVisibility(table);
 
     }
     @Step
