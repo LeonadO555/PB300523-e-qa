@@ -1,5 +1,7 @@
-package e2e.pages;
+package e2e.pages.address;
 
+import e2e.pages.contact.ContactInfoPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,6 +68,10 @@ public class AddressesInfoPage extends ContactInfoPage {
         optionDropDown.click();
         getWait().forVisibility(removeButton);
         removeButton.click();
+    }
+    @Step
+    public void takeAddressInfoPageScreenshot(){
+        takeAndCompareScreenshot("addressInfoPage", null);
     }
 }
 

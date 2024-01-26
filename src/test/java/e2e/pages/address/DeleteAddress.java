@@ -1,5 +1,6 @@
-package e2e.pages;
+package e2e.pages.address;
 
+import e2e.pages.address.AddressesInfoPage;
 import org.openqa.selenium.WebDriver;
 
 public class DeleteAddress extends AddressesInfoPage {

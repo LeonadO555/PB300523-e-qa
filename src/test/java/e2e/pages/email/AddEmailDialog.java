@@ -1,5 +1,6 @@
-package e2e.pages;
+package e2e.pages.email;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,12 +17,15 @@ public class AddEmailDialog extends EmailInfoPage {
     WebElement saveButton;
     @FindBy(xpath = "//*[@aria-label='Close']")
     WebElement closeWindowsButton;
+
+    @Step("Wait for open Add Email Dialog")
     public void waitForOpen() {
         getWait().forVisibility(dialog);
         getWait().forVisibility(emailFieldInput);
         getWait().forClickable(saveButton);
         getWait().forClickable(closeWindowsButton);
     }
+    @Step("Set email input: {email}")
     public void setEmailInput(String email) {
         emailFieldInput.sendKeys(email);
     }

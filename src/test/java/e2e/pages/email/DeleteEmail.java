@@ -1,5 +1,6 @@
-package e2e.pages;
+package e2e.pages.email;
 
+import e2e.pages.email.EmailInfoPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

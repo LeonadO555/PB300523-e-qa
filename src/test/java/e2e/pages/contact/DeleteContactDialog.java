@@ -1,11 +1,11 @@
-package e2e.pages;
+package e2e.pages.contact;
 
+import e2e.pages.contact.ContactsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
-public class DeleteContactDialog extends ContactsPage{
+public class DeleteContactDialog extends ContactsPage {
     public DeleteContactDialog(WebDriver driver) {
         super(driver);
     }

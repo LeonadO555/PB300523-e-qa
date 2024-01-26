@@ -1,7 +1,7 @@
 package e2e;
 
 
-import e2e.pages.ContactsPage;
+import e2e.pages.contact.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
 import io.qameta.allure.*;

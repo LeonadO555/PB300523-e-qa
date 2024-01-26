@@ -4,6 +4,13 @@ import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
 
+import e2e.pages.contact.AddContactDialog;
+import e2e.pages.contact.ContactInfoPage;
+import e2e.pages.contact.ContactsPage;
+import e2e.pages.contact.DeleteContactDialog;
+import e2e.pages.phone.AddPhoneDialog;
+import e2e.pages.phone.EditPhoneDialog;
+import e2e.pages.phone.PhonesPage;
 import integration.contact.ContactApi;
 import integration.user.UserApi;
 import io.qameta.allure.*;
@@ -26,6 +33,15 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
     Faker faker = new Faker();
 
+    private void checkContactData(ContactInfoPage page, String firsName, String lastName, String description) {
+        String actualFirstName = page.getFirstName();
+        String actualLastName = page.getLastName();
+        String actualDescription = page.getDescription();
+        Assert.assertEquals(actualFirstName, firsName, actualFirstName + "is not equal " + firsName);
+        Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
+        Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
+    }
+
     private void checkPhoneData(PhonesPage page, String country, String phoneNumber) {
         phonesPage = new PhonesPage(app.driver);
         String actualCountry = page.getCountry();
@@ -36,7 +52,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     }
 
     @Test
-    public void userCanAddPhoneNumber() throws InterruptedException {
+    public void userCanAddPhoneNumber() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
@@ -66,6 +82,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         // open Phone Tab
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
+        checkContactData(contactInfoPage, firstName, lastName, description);
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
         // add phone number
