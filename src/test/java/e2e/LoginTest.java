@@ -19,7 +19,6 @@ public class LoginTest extends TestBase {
     @Story(value = "User can login with role admin")
     @Description(value = "User can login")
     @Severity(SeverityLevel.BLOCKER)
-
     @Test(description = "User Can Login")
     public void userCanLogin() {
         String email = "newtest@gmail.com";
