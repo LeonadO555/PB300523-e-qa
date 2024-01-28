@@ -18,6 +18,11 @@
                     <include name="workWithAddressForNewContact"/>
                 </methods>
             </class>
+            <class name="e2e.UserCanWorkWithContactTest">
+                <methods>
+                    <include name="workWithNewContact"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
