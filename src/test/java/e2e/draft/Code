@@ -1,0 +1,11 @@
+terminal
+
+test gradle:
+
+./gradlew clean test
+
+
+allure :
+
+allure serve build/allure-results
+
