@@ -103,6 +103,7 @@ public class UserCanWorkWithAddressTest extends TestBase {
         addAddressDialog.addressAddSaveButtonClick();
 
         //check created Addresses
+
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
         checkAddressData(addressesInfoPage, country, city, postCode, street);
