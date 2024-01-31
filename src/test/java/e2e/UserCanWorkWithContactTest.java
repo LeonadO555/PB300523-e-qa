@@ -34,8 +34,8 @@ public class UserCanWorkWithContactTest extends TestBase{
         String editDescription = faker.lorem().sentence();
 
         loginPage = new LoginPage(app.driver);
-        loginPage.waitForLogin();
         loginPage.login(email, password);
+        loginPage.waitForLogin();
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();

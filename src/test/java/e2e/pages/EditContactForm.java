@@ -43,9 +43,9 @@ public class EditContactForm extends ContactInfoPage{
             setInput(descriptionInput, description);
     }
 
-    public void saveChanges() throws InterruptedException {
+    public void saveChanges() {
+            getWait().forClickable(saveButton);
             saveButton.click();
-            Thread.sleep(200);
-            Assert.assertFalse(isElementDisplayed(descriptionInput), "Edit contact form was opened");
+            getWait().forInvisibility(saveButton);
     }
     }

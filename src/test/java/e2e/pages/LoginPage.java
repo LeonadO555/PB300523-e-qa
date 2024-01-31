@@ -34,8 +34,6 @@ public class LoginPage extends BasePage{
 
         passwordInput.sendKeys(password);
 
-        getWait().forClickable(loginButton);
-
         loginButton.click();
 
     }
