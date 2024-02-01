@@ -9,7 +9,8 @@ public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
-
+    @FindBy(xpath = "//*[@id='items-table-phone']")
+    WebElement table;
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
     WebElement searchInput;
 
@@ -35,6 +36,7 @@ public class PhonesPage extends ContactInfoPage {
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forVisibility(addPhoneButton);
+        getWait().forVisibility(table);
     }
 
     @Step
@@ -77,6 +79,11 @@ public class PhonesPage extends ContactInfoPage {
         dropdown.click();
         getWait().forVisibility(removePhoneButton);
         removePhoneButton.click();
+    }
+
+    @Step
+    public void takePhonesPageScreenshot(){
+        takeAndCompareScreenshot("phonesPage", null);
     }
 
     }

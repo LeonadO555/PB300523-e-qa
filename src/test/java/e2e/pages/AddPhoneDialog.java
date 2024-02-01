@@ -38,12 +38,10 @@ public class AddPhoneDialog extends PhonesPage {
     public void selectCountryCode(String country) {
         getSelect(countryCodeDropDown).selectByVisibleText(country);
     }
-
     @Step
     public String getCountry() {
         return getSelect(countryCodeDropDown).getFirstSelectedOption().getText();
     }
-
     @Step("Set phone number: {phone number}")
     public void setPhoneNumberInput(String phoneNumber) {
         setInput(phoneNumberInput, phoneNumber);

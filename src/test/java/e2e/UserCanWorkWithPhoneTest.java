@@ -145,28 +145,32 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
         phonesPage = new PhonesPage(app.driver);
-        //phonesPage.waitForLoading();
+        phonesPage.waitForLoading();
+        phonesPage.takePhonesPageScreenshot();
         phonesPage.openPhoneButton();
 
-        //fill addPhoneDialog
+
         addPhoneDialog = new AddPhoneDialog(app.driver);
         addPhoneDialog.waitForOpen();
         addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
         addPhoneDialog.setPhoneNumberInput("12345678911");
         addPhoneDialog.savePhone();
 
-        // check created phone
+
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
         checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
 
-        //
         editPhoneDialog = phonesPage.openEditPhoneForm();
         editPhoneDialog.waitForOpen();
         editPhoneDialog.selectCountryCode(editPhoneDialog.getCountry());
         editPhoneDialog.setPhoneNumberInput("11987654321");
         editPhoneDialog.saveChange();
         phonesPage.waitForLoading();
+
+        phonesPage.deletePhone();
+
+        contactApi.deleteContact(200, contactId);
     }
 
 }

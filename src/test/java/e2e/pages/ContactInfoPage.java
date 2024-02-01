@@ -33,7 +33,7 @@ public class ContactInfoPage extends ContactsPage{
 
     @Step("Open tab: {tab}")
     public void openTab(ContactInfoTabs tab){
-        driver.findElement(By.xpath("//*[@id='ngb-nav-"+tab.value+"']")).click();
+        driver.findElement(By.xpath("//*[@ng-reflect-_id='"+tab.value+"']")).click();
     }
     @Step
     public String getFirstName(){
