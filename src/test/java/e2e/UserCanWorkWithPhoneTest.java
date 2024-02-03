@@ -121,6 +121,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Feature(value = "User can Add, edit, delete phone")
     @Description(value = "User can Add, edit, delete phone for new contact")
     @Severity(SeverityLevel.CRITICAL)
+    @AllureId("1")
     @Test(description = "Work with phone for new contact")
     public void workWithPhoneForNewContact() throws InterruptedException {
         String email = "newtest@gmail.com";
