@@ -4,14 +4,13 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class PhonesPage extends ContactInfoPage {
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@'id = items-table-phone'")
+    @FindBy(xpath = "//*[@id = 'items-table-phone']")
     WebElement table;
 
     @FindBy(xpath = "//*[@formcontrolname='searchInput']")
@@ -39,6 +38,7 @@ public class PhonesPage extends ContactInfoPage {
     public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forVisibility(addPhoneButton);
+        getWait().forVisibility(table);
 
     }
     @Step
@@ -53,13 +53,13 @@ public class PhonesPage extends ContactInfoPage {
     public  String getPhoneNumber(){
         return phoneNumberField.getText();
     }
-//    public void selectEditButton(String edit){
-//        getSelect(editDeleteDropdown).selectByVisibleText(edit);
-//    }
-//    public String getEditButton() {
-//        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
-//    }
-@Step
+    //    public void selectEditButton(String edit){
+    //        getSelect(editDeleteDropdown).selectByVisibleText(edit);
+    //    }
+    //    public String getEditButton() {
+    //        return getSelect(editDeleteDropdown).getFirstSelectedOption().getText();
+    //    }
+    @Step
     public void openEditDeleteDropdown() {
         dropdown.click();
         getWait().forVisibility(dropdown);}
@@ -69,11 +69,11 @@ public class PhonesPage extends ContactInfoPage {
         getWait().forVisibility(editButton);
     }
     @Step
-    public EditPhoneForm openEditPhoneForm(){
+    public EditPhoneDialog openEditPhoneForm(){
         dropdown.click();
         getWait().forVisibility(editButton);
         editButton.click();
-        return new EditPhoneForm(driver);
+        return new EditPhoneDialog(driver);
     }
     @Step
     public void deletePhone(){
@@ -82,8 +82,8 @@ public class PhonesPage extends ContactInfoPage {
         removePhoneButton.click();
     }
     @Step
-    public  void takePhonePageScreenshot(){
-        takeAndCompareScreenshot("Phone page", null);
+    public  void takePhonesPageScreenshot(){
+        takeAndCompareScreenshot("phonesPage", null);
     }
 
     }

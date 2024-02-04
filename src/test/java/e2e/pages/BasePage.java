@@ -91,8 +91,9 @@ public class BasePage {
         String referenceImageFilePath = "reference/" + actualScreenshotName + ".png";
         String tmpFilePath = "reference/tmp_" + actualScreenshotName + ".png";
         File tmp = takeScreenshot(element);
+
         try {
-            saveScreenshot(Files.readAllBytes(tmp.toPath()));
+            saveScreenshot(Files.readAllBytes(tmp.toPath()));// будет брать скриншот и аттачить в алюр
             Files.copy(tmp.toPath(), new File(tmpFilePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
 
             File referenceImageFile = new File(referenceImageFilePath);

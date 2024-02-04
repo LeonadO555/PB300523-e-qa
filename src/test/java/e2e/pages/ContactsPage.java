@@ -78,6 +78,7 @@ public class ContactsPage extends BasePage {
     public void filterByContact(String contactValue){
         searchInput.sendKeys(contactValue);
     }
+
     @Step("Check displayed is not result message")
     public boolean isNoResultMessageDisplayed(){
         getWait().forVisibility(noResultsMessage);

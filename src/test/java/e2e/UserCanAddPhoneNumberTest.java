@@ -13,7 +13,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneForm;
     DeleteContactDialog deleteContactDialog;
 
     Faker faker = new Faker();

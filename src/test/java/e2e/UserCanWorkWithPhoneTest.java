@@ -19,7 +19,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneForm;
     DeleteContactDialog deleteContactDialog;
 
 
@@ -128,25 +128,27 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Feature(value = "User can add, edit, delete phone")
     @Description(value = "User can add, edit, delete  phone for new phone") // описание самого теста = стори
     @Severity(SeverityLevel.CRITICAL)
+    @AllureId("1")
     @Test(description = "Work with phone for new contact")
 
     public void workWithPhoneForNewContact(){
-        String email = "newtwst@gmail.com";
-        String password = "newtwst@gmail.com";
+        String email = "newtest@gmail.com";
+        String password = "newtest@gmail.com";
 
         userApi = new UserApi();
         String token = userApi.login(email, password, 200);
 
         contactApi = new ContactApi(token);
+        //вытащить айди из контакта
         JsonPath json = contactApi.createContact(201).jsonPath();
         int contactId = json.getInt("id");
-
+        //залогтниться
         loginPage = new LoginPage(app.driver);
         loginPage.login(email, password);
 
-        contactInfoPage = new ContactInfoPage(app.driver);
-        contactInfoPage.waitForLoading();
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/" + contactId);
+        contactsPage = new ContactsPage(app.driver);
+        contactsPage.waitForLoading();
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -154,8 +156,9 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         // add phone number
         phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
+        phonesPage.takePhonesPageScreenshot();
         phonesPage.openPhoneButton();
-        phonesPage.takePhonePageScreenshot();
 
         // fill addPhoneDialog
         addPhoneDialog = new AddPhoneDialog(app.driver);
@@ -182,6 +185,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         //
         phonesPage.deletePhone();
 
+        //delete via api
         contactApi.deleteContact(200, contactId);
     }
 

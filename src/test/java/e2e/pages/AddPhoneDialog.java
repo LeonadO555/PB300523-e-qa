@@ -25,7 +25,7 @@ public class AddPhoneDialog extends PhonesPage {
     @FindBy(xpath = "//*[@class='btn btn-primary']")
     WebElement saveButton;
 
-    @Step("")
+    @Step("Wait for open Add contact dialog")
     public void waitForOpen() {
         getWait().forVisibility(countryCodeLabel);
         getWait().forVisibility(countryCodeDropDown);
@@ -37,14 +37,17 @@ public class AddPhoneDialog extends PhonesPage {
     public void selectCountryCode(String country) {
         getSelect(countryCodeDropDown).selectByVisibleText(country);
     }
+
     @Step
     public String getCountry() {
         return getSelect(countryCodeDropDown).getFirstSelectedOption().getText();
     }
+
     @Step
     public void setPhoneNumberInput(String phoneNumber) {
         setInput(phoneNumberInput, phoneNumber);
     }
+
     @Step
     public void savePhone() {
        try {

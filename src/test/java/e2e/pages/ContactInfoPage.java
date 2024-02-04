@@ -42,10 +42,12 @@ public class ContactInfoPage extends ContactsPage {
     public String getLastName() {
         return lastNameField.getText();
     }
+
     @Step
     public String getDescription() {
         return descriptionField.getText();
     }
+
     @Step
     public EditContactForm openEditContactForm() {
         editButton.click();

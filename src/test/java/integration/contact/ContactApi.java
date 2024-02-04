@@ -42,7 +42,7 @@ public class ContactApi extends ApiBase { // всегда экстендится
         return dto;
 
     }
-    @Step("Login")
+    @Step("Create contact")
     // post
     public Response createContact(int code){
         String endpoint = "/api/contact";
