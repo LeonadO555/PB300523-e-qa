@@ -4,11 +4,8 @@
     <test name="SmokeTest">
         <classes>
             <class name="e2e.LoginTest">
-                <methods>
-                    <include name="workWithPhoneForNewContact"/>
-                </methods>
-        </class>
-            <class name="e2e.UserCanWorkWithContactTest"/>
+            </class>
+            <class name="integration.ContactApiTest"/>
         </classes>
     </test>
 </suite>
