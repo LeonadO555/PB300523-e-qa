@@ -1,4 +1,4 @@
-package intagration;
+package integration;
 
 import config.Config;
 import io.restassured.RestAssured;
