@@ -4,7 +4,9 @@
     <test name="SmokeTest">
         <classes>
             <class name="e2e.LoginTest">
-            </class name="integration.ContactApi">
+                    </class>
+            <class name="integration.ContactApiTest">
+                    </class>
         </classes>
     </test>
 </suite>
