@@ -11,7 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserCanWorkWithPhoneTest extends TestBase {
-    LoginPage loginPage;// пуустые переменные, туда будем записывать новые экземпляры класса
+    LoginPage loginPage;
     UserApi userApi;
     ContactsPage contactsPage;
     ContactApi contactApi;
