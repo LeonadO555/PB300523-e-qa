@@ -29,8 +29,8 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         phonesPage = new PhonesPage(app.driver);
         String actualCountry = page.getCountry();
         String actualPhoneNumber = page.getPhoneNumber();
-        Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country); // актуальное с ожидаемым
-        Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber); // актуальное с ожидаемым
+        Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country);
+        Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber);
 
     }
 
@@ -41,9 +41,9 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         String language = "English";
         String country = "Albania";
 
-        String firstName = faker.internet().uuid(); // faker генерирует рандомные данные через генератор uuid
+        String firstName = faker.internet().uuid();
         String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence(); // рандомный текст
+        String description = faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -62,7 +62,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         // Add contact
         addContactDialog = contactsPage.openAddContactDialog();
-        addContactDialog.waitForOpen(); // только для диалога
+        addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
@@ -107,7 +107,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         // filter by contact name
         contactsPage.filterByContact(firstName);
-        contactsPage.waitForLoading(); //дождаться момента по фильтрации
+        contactsPage.waitForLoading();
 
         // check rows count after filter by contact name
         int actualContactCountRow = contactsPage.getContactCount();
@@ -127,6 +127,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Feature(value = "User can Add edit delete phone")
     @Description(value = "User can Add edit delete phone for new contact")
     @Severity(SeverityLevel.CRITICAL)
+    @AllureId("1")
     @Test(description = "Work with phone for new contact")
     public void workWithPhoneForNewContact(){
         String email = "newtest@gmail.com";
