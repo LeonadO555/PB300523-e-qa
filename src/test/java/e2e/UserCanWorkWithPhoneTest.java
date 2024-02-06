@@ -3,8 +3,8 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
-import intagration.contact.ContactApi;
-import intagration.user.UserApi;
+import integration.contact.ContactApi;
+import integration.user.UserApi;
 import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
@@ -127,6 +127,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Feature(value = "User can Add edit delete phone")
     @Description(value = "User can Add edit delete phone for new contact")
     @Severity(SeverityLevel.CRITICAL)
+    @AllureId("1")
     @Test(description = "Work with phone for new contact")
     public void workWithPhoneForNewContact(){
         String email = "newtest@gmail.com";

@@ -1,8 +1,8 @@
-package intagration;
+package integration;
 
-import intagration.contact.ContactApi;
-import intagration.schemas.ContactDto;
-import intagration.user.UserApi;
+import integration.contact.ContactApi;
+import integration.schemas.ContactDto;
+import integration.user.UserApi;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
