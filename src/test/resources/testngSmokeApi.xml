@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="testSmokeNew" verbose="1">
+<suite name="testSmokeApi" verbose="1">
     <test name="SmokeApiTest">
         <classes>
             <class name="integration.ContactApiTest">
-                <methods>
-                    <include name="userCanWorkWithContactViaApiTest"/>
-                </methods>
             </class>
             <class name="integration.AddressApiTest">
-                <methods>
-                    <include name="userCanWorkWithAddressViaApiTest"/>
-                </methods>
             </class>
             <class name="integration.EmailApiTest">
-                <methods>
-                    <include name="userCanWorkWithEmailViaApiTest"/>
-                </methods>
             </class>
             <class name="integration.PhoneApiTest">
-                <methods>
-                    <include name="userCanWorkWithPhoneViaApiTest"/>
-                </methods>
             </class>
         </classes>
     </test>
