@@ -65,7 +65,7 @@ task testSmokeE2e(type: Test){
             events "passed", "skipped", "failed", "standardOut", "standardError"
             exceptionFormat "full"
         }
-        suites 'src/test/resources/testngSmokeE2e.xml'
+        suites 'src/test/resources/testngE2eSmoke.xml'
     }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
