@@ -9,3 +9,9 @@ allure :
 
 allure serve build/allure-results
 
+
+jenkins :
+
+terminal. P.Sh.(Windows)
+
+java -jar jenkins.war
