@@ -1,8 +1,8 @@
-package intagration.contact;
+package integration.contact;
 
 import com.github.javafaker.Faker;
-import intagration.ApiBase;
-import intagration.schemas.ContactDto;
+import integration.ApiBase;
+import integration.schemas.ContactDto;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
