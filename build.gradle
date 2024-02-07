@@ -70,3 +70,13 @@ task testSmokeNew(type: Test){
     }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
+task testSmokeApi(type: Test){
+    useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        suites 'src/test/resources/testngSmokeApi.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
