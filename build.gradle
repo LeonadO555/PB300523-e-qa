@@ -39,7 +39,6 @@ test {
     }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
-
 task testSmoke(type: Test){
     useTestNG(){
         testLogging {
