@@ -18,6 +18,7 @@ public class CreateNewUsersTest extends TestBase{
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
+    Faker faker = new Faker();
     private void checkContactData(ContactInfoPage page, String firstName, String lastName, String description){
         String actualFirstName = page.getFirstName();
         String actualLastName = page.getLastName();
@@ -35,36 +36,34 @@ public class CreateNewUsersTest extends TestBase{
     @AllureId("2")
     @Test
     public void CreateNewUserTest(){
-        String email = "new14t@gmail.com";
+        String email = faker.internet().emailAddress();
         String password = "new14t@gmail.com";
         String language = "English";
         String firstName = "Oleksandr";
         String lastName = "Rashevchenko";
         String description = "345345345fdgdf";
 
-
         userApi = new UserApi();
         String token = userApi.registration(email,password,201);;
         userApi.activation(token,200);
+
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email, password);
 
-        // check that user was logged
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(), language);
 
-        // add contact
+        addContactDialog =new AddContactDialog(app.driver);
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
+
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage, firstName,lastName,description);
-
     }
-
 }
