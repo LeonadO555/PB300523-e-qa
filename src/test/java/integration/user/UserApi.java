@@ -1,6 +1,6 @@
-package intagration.user;
+package integration.user;
 
-import intagration.ApiBase;
+import integration.ApiBase;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 

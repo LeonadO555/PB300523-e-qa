@@ -1,4 +1,4 @@
-package intagration;
+package integration;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
