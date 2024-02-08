@@ -3,6 +3,7 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
+import integration.user.UserApi;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,6 +11,8 @@ import org.testng.annotations.Test;
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
+
+
 
     @Epic(value = "Login")
     @Feature(value = "User login")
@@ -70,4 +73,6 @@ public class LoginTest extends TestBase {
     public void userCanLoginWithInvalidEmailAndPassword() {
         loginTestMethod("newtestgmail.com", "newtestgmail.com", "login_invalid_email_and_password", true);
     }
+
 }
+

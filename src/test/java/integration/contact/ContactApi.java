@@ -17,7 +17,6 @@ public class ContactApi extends ApiBase {
     String firstName = faker.internet().uuid();
     String lastName = faker.internet().uuid();
     String description = faker.lorem().sentence();
-
     String editFirstName = faker.internet().uuid();
     String editLastName = faker.internet().uuid();
     String editDescription = faker.internet().uuid();
