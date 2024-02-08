@@ -29,8 +29,8 @@ public class CreateNewUsersTest extends TestBase{
 
 
     @Epic(value = "Registration")
-    @Feature(value= "User can registration new user,add phone")
-    @Description(value = "User can registration new user,add phone")
+    @Feature(value= "User can registration new user,add contact")
+    @Description(value = "User can registration new user,add contact")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("2")
     @Test
