@@ -75,8 +75,9 @@ public class BasePage {
         String line;
         double difference= 0;
         while ((line=reader.readLine()) != null){
-            difference = Integer.parseInt(line.trim());
+            difference += Integer.parseInt(line.trim());
         }
+
         return  difference;
     }
 
