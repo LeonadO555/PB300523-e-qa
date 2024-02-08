@@ -35,8 +35,8 @@ public class CreateNewUsersTest extends TestBase{
     @AllureId("2")
     @Test
     public void CreateNewUserTest(){
-        String email = "new38733t@gmail.com";
-        String password = "new38733t@gmail.com";
+        String email = "new14t@gmail.com";
+        String password = "new14t@gmail.com";
         String language = "English";
         String firstName = "Oleksandr";
         String lastName = "Rashevchenko";
