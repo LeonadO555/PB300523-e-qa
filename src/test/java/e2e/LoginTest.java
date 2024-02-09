@@ -4,12 +4,14 @@ package e2e;
 import e2e.pages.contact.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
+import integration.user.UserApi;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
+    UserApi userApi;
 
     @Epic(value = "Login")
     @Feature(value = "User login")
@@ -59,6 +61,5 @@ public class LoginTest extends TestBase {
         loginPage.waitForLoading();
         loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
     }
-
 }
 
