@@ -57,6 +57,19 @@ public class ApiBase {
         return response;
     }
 
+    protected Response getRequestWithParamString(String endpoint, int code,String paramName, String paramValue){
+        Response response = RestAssured.given()
+                .spec(spec)
+                .when()
+                .pathParam(paramName,paramValue)
+                .log().all()
+                .get(endpoint)
+                .then().log().all()
+                .extract().response();
+        response.then().assertThat().statusCode(code);
+        return response;
+    }
+
     protected Response postRequest(String endpoint, int code, Object body){
         Response response = RestAssured.given()
                 .spec(spec)//метод, спецификация входная

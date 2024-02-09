@@ -1,7 +1,7 @@
 package e2e;
 
 import com.github.javafaker.Faker;
-import e2e.pages.*;
+import e2e.pages.LoginPage;
 import e2e.pages.contact.*;
 import e2e.utils.DataProviders;
 import integration.contact.ContactApi;
@@ -11,7 +11,7 @@ import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserCanWorkWithContactTest extends TestBase {
+public class CreateNewUserTest extends TestBase {
     LoginPage loginPage;
     UserApi userApi;
     ContactApi contactApi;
@@ -98,17 +98,15 @@ public class UserCanWorkWithContactTest extends TestBase {
         contactsPage.takeScreenshotNoResultMessage();
     }
 
-    @Epic(value = "Contact")
-    @Feature(value = "User can Add edit delete contact")
-    @Description(value = "User can Add edit delete new contact")
+    @Epic(value = "User")
+    @Feature(value = "User can Add edit delete address")
+    @Description(value = "User can Add edit delete address for new contact")
     @Severity(SeverityLevel.CRITICAL)
-    @AllureId("4")
-    @Test(description = "Work with new contact")
-
-    public void workWithNewContact(){
-
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
+    @AllureId("5")
+    @Test(description = "Work with new create user")
+    public void workWithNewCreateUser(){
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
         String language = "English";
 
         String firstName = faker.internet().uuid();
@@ -120,16 +118,19 @@ public class UserCanWorkWithContactTest extends TestBase {
         String editDescription = faker.lorem().sentence();
 
         userApi = new UserApi();
-        String token = userApi.login(email, password, 200);
+        String token = userApi.newUserRegistration(email,password,201);
+
+        userApi.getNewUserActivation(200,token);
 
         contactApi = new ContactApi(token);
-        JsonPath json = contactApi.createContact(201).jsonPath();
-        int contactId = json.getInt("id");
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
-
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email,password);
+        loginPage.waitForLoading();
+
+        JsonPath json = contactApi.createContact(201).jsonPath();
+        int contactId = json.getInt("id");
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
@@ -173,5 +174,3 @@ public class UserCanWorkWithContactTest extends TestBase {
         deleteContactDialog.removeContact();
     }
 }
-
-

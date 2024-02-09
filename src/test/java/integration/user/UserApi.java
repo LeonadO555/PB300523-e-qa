@@ -1,6 +1,8 @@
 package integration.user;
 
+import com.github.javafaker.Faker;
 import integration.ApiBase;
+import integration.schemas.UserDto;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
@@ -8,6 +10,8 @@ import java.util.LinkedHashMap;
 
 public class UserApi extends ApiBase {
     Response response;
+    public UserApi() {
+    }
     @Step("Login via api: {email},{password}")
     public String login(String email,String password, int code){
         String endpoint = "/api/user/login";
@@ -17,4 +21,23 @@ public class UserApi extends ApiBase {
         response = postRequest(endpoint,code,body);
         return response.header("Access-Token");
     }
-}
+
+    public String newUserRegistration(String email,String password, int code){
+        String endpoint = "/api/user";
+        LinkedHashMap<String,String> body = new LinkedHashMap<>();
+        body.put("email",email);
+        body.put("password",password);
+        response = postRequest(endpoint,code,body);
+        return response.asString();
+
+    }
+    public Response getNewUserActivation(int code, String token){
+            String endpoint = "/api/user/activation/{token}";
+            response = getRequestWithParamString(endpoint,code,"token",token);
+            return response;
+    }
+    //public void newUserRegistration() {
+
+    }
+
+
