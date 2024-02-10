@@ -32,4 +32,9 @@ public class AddEmailDialog extends EmailInfoPage {
     public void saveEmailButtonClick() {
         saveButton.click();
     }
+
+    @Step
+    public void takeEmailInfoScreenshot(){
+        takeAndCompareScreenshot("emailInfo", null);
+    }
 }
