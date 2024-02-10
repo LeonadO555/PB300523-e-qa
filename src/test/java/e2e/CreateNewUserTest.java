@@ -38,7 +38,6 @@ public class CreateNewUserTest extends TestBase {
     @AllureId("5")
     @Test(description = "Work with new create user")
     public void workWithNewCreateUser(){
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         String language = "English";
@@ -46,7 +45,7 @@ public class CreateNewUserTest extends TestBase {
         String lastName = "Manolov";
         String description = "Germany,Berlin";
 
-
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
 
 
         userApi = new UserApi();
@@ -63,7 +62,7 @@ public class CreateNewUserTest extends TestBase {
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
-
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
 
 
         addContactDialog = contactsPage.openAddContactDialog();
@@ -114,7 +113,6 @@ public class CreateNewUserTest extends TestBase {
         // create address
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
-        addressesInfoPage.takeAddressInfoPageScreenshot();
         addressesInfoPage.clickOnAddressButton();
 
         addAddressDialog = new AddAddressDialog(app.driver);
