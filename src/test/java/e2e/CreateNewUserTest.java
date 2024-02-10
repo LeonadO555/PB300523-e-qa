@@ -27,6 +27,7 @@ public class CreateNewUserTest extends TestBase {
     AddEmailDialog addEmailDialog;
     AddressesInfoPage addressesInfoPage;
     AddAddressDialog addAddressDialog;
+    DeleteContactDialog deleteContactDialog;
 
     Faker faker = new Faker();
 
@@ -61,6 +62,7 @@ public class CreateNewUserTest extends TestBase {
         Assert.assertEquals(contactsPage.getLanguage(),language);
         app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
 
+
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName,lastName,description);
@@ -72,6 +74,7 @@ public class CreateNewUserTest extends TestBase {
 
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
+        // create phone
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
         phonesPage.takePhonesPageScreenshot();
@@ -94,7 +97,6 @@ public class CreateNewUserTest extends TestBase {
         emailInfoPage.waitForLoading();
         emailInfoPage.clickOnAddEmailButton();
 
-
         addEmailDialog = new AddEmailDialog(app.driver);
         addEmailDialog.waitForLoading();
         addEmailDialog.setEmailInput("g.manolov@gmail.com");
@@ -106,11 +108,11 @@ public class CreateNewUserTest extends TestBase {
 
         contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
 
+        // create address
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
         addressesInfoPage.takeAddressInfoPageScreenshot();
         addressesInfoPage.clickOnAddressButton();
-
 
         addAddressDialog = new AddAddressDialog(app.driver);
         addAddressDialog.selectCountry("Germany");
@@ -122,5 +124,17 @@ public class CreateNewUserTest extends TestBase {
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
         addressesInfoPage.takeAddressInfoPageScreenshot();
+
+        contactInfoPage.openContactsPage();
+        contactsPage.waitForLoading();
+
+        contactsPage.filterByContact(firstName);
+        contactsPage.waitForLoading();
+
+        // delete contact
+        deleteContactDialog = contactsPage.openDeleteDialog();
+        deleteContactDialog.waitForOpen();
+        deleteContactDialog.setConfirmDeletion();
+        deleteContactDialog.removeContact();
     }
 }
