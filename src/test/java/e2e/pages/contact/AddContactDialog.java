@@ -1,5 +1,6 @@
 package e2e.pages.contact;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,5 +68,9 @@ public class AddContactDialog extends ContactsPage {
         }catch (StaleElementReferenceException e){
         e.printStackTrace();
         }
+    }
+    @Step
+    public void takeUserInfoScreenshot(){
+        takeAndCompareScreenshot("userInfo", null);
     }
 }

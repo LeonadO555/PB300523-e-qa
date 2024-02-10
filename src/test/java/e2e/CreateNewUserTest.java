@@ -1,106 +1,38 @@
 package e2e;
 
 import com.github.javafaker.Faker;
+import e2e.enums.ContactInfoTabs;
 import e2e.pages.LoginPage;
+import e2e.pages.address.AddAddressDialog;
+import e2e.pages.address.AddressesInfoPage;
 import e2e.pages.contact.*;
-import e2e.utils.DataProviders;
-import integration.contact.ContactApi;
+import e2e.pages.email.AddEmailDialog;
+import e2e.pages.email.EmailInfoPage;
+import e2e.pages.phone.AddPhoneDialog;
+import e2e.pages.phone.PhonesPage;
 import integration.user.UserApi;
 import io.qameta.allure.*;
-import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CreateNewUserTest extends TestBase {
     LoginPage loginPage;
     UserApi userApi;
-    ContactApi contactApi;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
-    EditContactForm editContactForm;
-    DeleteContactDialog deleteContactDialog;
+    PhonesPage phonesPage;
+    AddPhoneDialog addPhoneDialog;
+    EmailInfoPage emailInfoPage;
+    AddEmailDialog addEmailDialog;
+    AddressesInfoPage addressesInfoPage;
+    AddAddressDialog addAddressDialog;
 
     Faker faker = new Faker();
 
-    private void checkContactData(ContactInfoPage page,String firstName,String lastName,String description){
-        String actualFirstName = page.getFirstName();
-        String actualLastName = page.getLastName();
-        String actualDescription = page.getDescription();
-        Assert.assertEquals(actualFirstName,firstName,actualFirstName + " is not equal " + firstName);
-        Assert.assertEquals(actualLastName,lastName,actualLastName + " is not equal " + lastName);
-        Assert.assertEquals(actualDescription,description,actualDescription + " is not equal " + description);
-    }
-    @Test(dataProvider = "newContact",dataProviderClass = DataProviders.class)
-    public void userCanWorkWithContactTest(String firstName, String lastName, String description) {
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
-        String language = "English";
-
-        String editFirstName = faker.internet().uuid();
-        String editLastName = faker.internet().uuid();
-        String editDescription = faker.lorem().sentence();
-
-        // login as user " войти как пользователь "
-        loginPage=new LoginPage(app.driver);
-        loginPage.waitForLoading();
-        loginPage.login(email,password);
-
-        // Check that user was logged " Проверьте, что пользователь залогинился "
-        contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
-        contactsPage.selectLanguage(language);
-        Assert.assertEquals(contactsPage.getLanguage(),language);
-
-        // add contact " добавить контакт "
-        addContactDialog = contactsPage.openAddContactDialog();
-        addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firstName,lastName,description);
-        addContactDialog.saveContact();
-
-        // check created contact " Создать новый контакт "
-        contactInfoPage = new ContactInfoPage(app.driver);
-        contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firstName,lastName,description);
-
-        // edit contact " изменить контакт "
-        editContactForm = contactInfoPage.openEditContactForm();
-        editContactForm.waitForOpen();
-        editContactForm.setFirstNameInput(editFirstName);
-        editContactForm.setLastNameInput(editLastName);
-        editContactForm.setDescriptionInput(editDescription);
-        editContactForm.saveChanges();
-
-        //check edited contact
-        contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
-
-        //open contacts page
-        contactInfoPage.openContactsPage();
-        contactsPage.waitForLoading();
-
-        //filter by contact name
-        contactsPage.filterByContact(editFirstName);
-        contactsPage.waitForLoading();
-
-        //check row
-        int actualContactCountRow = contactsPage.getContactCount();
-        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
-
-        //delete contact
-        deleteContactDialog = contactsPage.openDeleteDialog();
-        deleteContactDialog.waitForOpen();
-        deleteContactDialog.setConfirmDeletion();
-        deleteContactDialog.removeContact();
-
-        //check that contact was deleted
-        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
-        contactsPage.takeScreenshotNoResultMessage();
-    }
-
-    @Epic(value = "User")
-    @Feature(value = "User can Add edit delete address")
-    @Description(value = "User can Add edit delete address for new contact")
+    @Epic(value = "UserNewRegistration")
+    @Feature(value = "User can be created")
+    @Description(value = "User can be created and edited")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("5")
     @Test(description = "Work with new create user")
@@ -108,69 +40,87 @@ public class CreateNewUserTest extends TestBase {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         String language = "English";
+        String firstName = "Georgiy";
+        String lastName = "Manolov";
+        String description = "Germany,Berlin";
 
-        String firstName = faker.internet().uuid();
-        String lastName = faker.internet().uuid();
-        String description = faker.lorem().sentence();
-
-        String editFirstName = faker.internet().uuid();
-        String editLastName = faker.internet().uuid();
-        String editDescription = faker.lorem().sentence();
 
         userApi = new UserApi();
         String token = userApi.newUserRegistration(email,password,201);
 
         userApi.getNewUserActivation(200,token);
 
-        contactApi = new ContactApi(token);
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
         loginPage.login(email,password);
         loginPage.waitForLoading();
 
-        JsonPath json = contactApi.createContact(201).jsonPath();
-        int contactId = json.getInt("id");
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
 
         contactsPage = new ContactsPage(app.driver);
-        contactsPage.waitForLoading();
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
+        addContactDialog.takeUserInfoScreenshot();
 
-        // check created contact " Создать новый контакт "
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firstName,lastName,description);
 
-        // edit contact " изменить контакт "
-        editContactForm = contactInfoPage.openEditContactForm();
-        editContactForm.waitForOpen();
-        editContactForm.setFirstNameInput(editFirstName);
-        editContactForm.setLastNameInput(editLastName);
-        editContactForm.setDescriptionInput(editDescription);
-        editContactForm.saveChanges();
+        contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
-        //check edited contact
-        contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
+        phonesPage.takePhonesPageScreenshot();
+        phonesPage.openPhoneButton();
 
-        //open contacts page
-        contactInfoPage.openContactsPage();
-        contactsPage.waitForLoading();
+        addPhoneDialog = new AddPhoneDialog(app.driver);
+        addPhoneDialog.waitForOpen();
+        addPhoneDialog.selectCountryCode(addPhoneDialog.getCountry());
+        addPhoneDialog.setPhoneNumberInput("15724689321");
+        addPhoneDialog.savePhone();
 
-        //filter by contact name
-        contactsPage.filterByContact(editFirstName);
-        contactsPage.waitForLoading();
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.takePhonesPageScreenshot();
+        phonesPage.waitForLoading();
 
-        //delete contact
-        deleteContactDialog = contactsPage.openDeleteDialog();
-        deleteContactDialog.waitForOpen();
-        deleteContactDialog.setConfirmDeletion();
-        deleteContactDialog.removeContact();
+        contactInfoPage.openTab(ContactInfoTabs.EMAILS);
+
+        // create email
+        emailInfoPage = new EmailInfoPage(app.driver);
+        emailInfoPage.waitForLoading();
+        emailInfoPage.clickOnAddEmailButton();
+
+
+        addEmailDialog = new AddEmailDialog(app.driver);
+        addEmailDialog.waitForLoading();
+        addEmailDialog.setEmailInput("g.manolov@gmail.com");
+        addEmailDialog.saveEmailButtonClick();
+
+        emailInfoPage = new EmailInfoPage(app.driver);
+        emailInfoPage.waitForLoading();
+        emailInfoPage.takeEmailInfoPageScreenshot();
+
+        contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
+
+        addressesInfoPage = new AddressesInfoPage(app.driver);
+        addressesInfoPage.waitForLoading();
+        addressesInfoPage.takeAddressInfoPageScreenshot();
+        addressesInfoPage.clickOnAddressButton();
+
+
+        addAddressDialog = new AddAddressDialog(app.driver);
+        addAddressDialog.selectCountry("Germany");
+        addAddressDialog.setCity("Berlin");
+        addAddressDialog.setPostCode("13593");
+        addAddressDialog.setStreet("Kudamm");
+        addAddressDialog.addressAddSaveButtonClick();
+
+        addressesInfoPage = new AddressesInfoPage(app.driver);
+        addressesInfoPage.waitForLoading();
+        addressesInfoPage.takeAddressInfoPageScreenshot();
     }
 }
