@@ -45,9 +45,6 @@ public class CreateNewUserTest extends TestBase {
         String lastName = "Manolov";
         String description = "Germany,Berlin";
 
-
-
-
         userApi = new UserApi();
         String token = userApi.newUserRegistration(email,password,201);
 
