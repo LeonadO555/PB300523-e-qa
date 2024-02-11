@@ -3,12 +3,10 @@
 <suite name="testSmoke" verbose="1">
     <test name="SmokeTest">
         <classes>
-            <class name="e2e.LoginTest">
-                <methods>
-                    <include name="userCannotLoginWithInvalidEmail"/>
-                </methods>
-        </class>
-            <class name="e2e.UserCanWorkWithContactTest"/>
+            <class name="integration.ContactApiTest"/>
+            <class name="integration.AddressApiTest"/>
+            <class name="integration.EmailApiTest"/>
+            <class name="integration.PhoneApiTest"/>
         </classes>
     </test>
 </suite>

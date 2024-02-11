@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.10.0'
+    id 'io.qameta.allure' version '2.9.6'
     id "org.gradle.test-retry" version "1.5.3"
 }
 
@@ -13,11 +13,12 @@ repositories {
 
 allure {
     autoconfigure = true
-    version = '2.10.0'
 }
 
+
 dependencies {
-    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.10.0'
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.13.3'
+    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.14.1'
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.6.2'
     implementation group: 'org.testng', name: 'testng', version: '7.8.0'
@@ -29,19 +30,62 @@ dependencies {
 
 test {
     useTestNG()
+    retry {
+        maxRetries = 3
+    }
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
-
 task testSmoke(type: Test){
     useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
         suites 'src/test/resources/testngSmoke.xml'
-    //    suites 'src/test/resources/testngNoSmoke.xml'
     }
-    systemProperty 'allure.results.directory', 'build/allure-result'
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }
-//task testNoSmoke(type: Test){
-    //useTestNG(){
-      //  suites 'src/test/resources/testngNoSmoke.xml'
-    //}
-    //systemProperty 'allure.results.directory', 'build/allure-result'
-//}
+task testNoSmoke(type: Test){
+    useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        suites 'src/test/resources/testngNoSmoke.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
+task testSmokeE2e(type: Test){
+    useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        suites 'src/test/resources/testngE2eSmoke.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
+task testSmokeApi(type: Test){
+    useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        suites 'src/test/resources/testngSmokeApi.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
+task testSmokeHomeWork(type: Test){
+    useTestNG(){
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        suites 'src/test/resources/testngSmokeHomeWork.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
