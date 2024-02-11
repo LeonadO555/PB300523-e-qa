@@ -31,6 +31,14 @@ public class CreateNewUserTest extends TestBase {
 
     Faker faker = new Faker();
 
+    private void checkContactData(ContactInfoPage page, String firsName, String lastName, String description) {
+        String actualFirstName = page.getFirstName();
+        String actualLastName = page.getLastName();
+        String actualDescription = page.getDescription();
+        Assert.assertEquals(actualFirstName, firsName, actualFirstName + "is not equal " + firsName);
+        Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
+        Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
+    }
     @Epic(value = "UserNewRegistration")
     @Feature(value = "User can be created")
     @Description(value = "User can be created and edited")
@@ -38,6 +46,7 @@ public class CreateNewUserTest extends TestBase {
     @AllureId("5")
     @Test(description = "Work with new create user")
     public void workWithNewCreateUser(){
+
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         String language = "English";
@@ -55,12 +64,9 @@ public class CreateNewUserTest extends TestBase {
         loginPage.login(email,password);
         loginPage.waitForLoading();
 
-
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
-
-
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
@@ -70,6 +76,7 @@ public class CreateNewUserTest extends TestBase {
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
+        checkContactData(contactInfoPage,firstName,lastName,description);
 
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
@@ -104,6 +111,7 @@ public class CreateNewUserTest extends TestBase {
         emailInfoPage = new EmailInfoPage(app.driver);
         emailInfoPage.waitForLoading();
         emailInfoPage.takeEmailInfoPageScreenshot();
+        emailInfoPage.waitForLoading();
 
         contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
 
