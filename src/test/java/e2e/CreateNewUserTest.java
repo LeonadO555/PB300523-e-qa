@@ -142,6 +142,6 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
-        deleteContactDialog.deleteContactDialogScreenshot();
+        //deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
