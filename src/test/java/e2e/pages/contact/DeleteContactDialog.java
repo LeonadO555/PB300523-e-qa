@@ -1,6 +1,7 @@
 package e2e.pages.contact;
 
 import e2e.pages.contact.ContactsPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,5 +30,9 @@ public class DeleteContactDialog extends ContactsPage {
         getWait().forClickable(removeContactButton);
         removeContactButton.click();
         getWait().forInvisibility(dialog);
+    }
+    @Step("delete contact dialog")
+    public void deleteContactDialogScreenshot(){
+        takeAndCompareScreenshot("deleteContact", null);
     }
 }
