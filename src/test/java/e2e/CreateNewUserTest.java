@@ -143,6 +143,6 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
         deleteContactDialog = new DeleteContactDialog(app.driver);
-        deleteContactDialog.deleteContactDialogScreenshot();
+        //deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
