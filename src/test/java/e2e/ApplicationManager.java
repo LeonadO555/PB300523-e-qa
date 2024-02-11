@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApplicationManager {
-    private Config config = new Config();
+    private final Config config = new Config();
     public WebDriver driver;
 
     protected void init() {
@@ -43,7 +43,6 @@ public class ApplicationManager {
         driver.get(config.getProjectUrl());
         driver.manage().window().setSize(new Dimension(config.getWindowWight(), config.getWindowHeight()));
     }
-    protected void stop(){
-        driver.quit();
+    protected void stop(){driver.quit();
     }
 }
