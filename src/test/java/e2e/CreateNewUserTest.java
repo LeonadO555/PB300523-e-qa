@@ -59,7 +59,7 @@ public class CreateNewUserTest extends TestBase {
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
+        //app.driver.get("http://phonebook.telran-edu.de:8080/contacts/");
 
 
         addContactDialog = contactsPage.openAddContactDialog();
@@ -134,5 +134,6 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
+        deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
