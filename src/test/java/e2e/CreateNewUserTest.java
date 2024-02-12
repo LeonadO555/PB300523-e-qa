@@ -41,7 +41,7 @@ public class CreateNewUserTest extends TestBase {
     }
     @Epic(value = "UserNewRegistration")
     @Feature(value = "User can be created")
-    @Description(value = "User can be created and edited")
+    @Description(value = " User can be created . " + " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("5")
     @Test(description = "Work with new create user")
@@ -142,6 +142,7 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.waitForOpen();
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
-        deleteContactDialog.deleteContactDialogScreenshot();
+        deleteContactDialog = new DeleteContactDialog(app.driver);
+        //deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
