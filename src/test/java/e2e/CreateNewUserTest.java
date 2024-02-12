@@ -46,7 +46,7 @@ public class CreateNewUserTest extends TestBase {
     @AllureId("1")
 
     @Test(description = "Work with new create user")
-    public void workWithNewCreateUser() throws InterruptedException{
+    public void workWithNewCreateUser(){
 
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
