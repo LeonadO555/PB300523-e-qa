@@ -3,8 +3,8 @@
 <suite name="testSmoke" verbose="1">
     <test name="SmokeTest">
         <classes>
-            <class name="e2e.LoginTest"/>
-            <class name="integration.ContactApiTest"/>
+            <class name="e2e.CreateNewUserTest"/>
+            <class name="integration.user.UserApi"/>
         </classes>
     </test>
 </suite>
