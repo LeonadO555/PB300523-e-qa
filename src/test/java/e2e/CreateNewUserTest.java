@@ -5,25 +5,19 @@ import e2e.pages.AddContactDialog;
 import e2e.pages.ContactInfoPage;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
-import integration.ApiBase;
 import integration.user.UserApi;
 import io.qameta.allure.*;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.sql.Driver;
-
 
 public class CreateNewUserTest extends TestBase {
-    ApiBase apiBase;
     UserApi userApi;
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
     Faker faker = new Faker();
-    WebElement webElement;
 
 
     private void checkContactData(ContactInfoPage page, String firstName, String lastName, String contactDescription) {
@@ -55,7 +49,6 @@ public class CreateNewUserTest extends TestBase {
         userApi = new UserApi();
         String token = userApi.newUserRegistration(email, password, 201);
         System.out.println(token);
-        //userApi.newUserRegistration(email,password,201);
         userApi.activation(token, 200);
 
 
@@ -67,7 +60,6 @@ public class CreateNewUserTest extends TestBase {
 
         contactsPage = new ContactsPage(app.driver);
         Thread.sleep(6000);
-        //contactsPage.getSelect(webElement).selectByVisibleText(language);
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(), language);
 

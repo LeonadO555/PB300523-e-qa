@@ -39,8 +39,6 @@ public class ContactsPage extends BasePage {
     @Step
     public void waitForLoading(){
         getWait().forVisibility(header);
-        getWait().forVisibility(languageDropdown);
-        getWait().forClickable(languageDropdown);
         getWait().forVisibility(contactsButton);
         getWait().forVisibility(addContactButton);
         getWait().forVisibility(contactsList);
