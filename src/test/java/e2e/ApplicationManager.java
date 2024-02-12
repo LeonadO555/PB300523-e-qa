@@ -15,37 +15,37 @@ import java.util.Map;
 
 public class ApplicationManager {
     private final Config config = new Config();
-    public WebDriver driver;
 
-    protected void init()  {
-        if (config.getSelenoidState()){
+    public WebDriver driver;
+    protected void init() {
+        if (config.getSelenoidState()) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("120.0");
-            Map<String,Object>selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC",false);
 
-            capabilities.setCapability("selenoid:options",selenoidOptions);
+            Map<String, Object> selenoidOptions = new HashMap<>();
+            selenoidOptions.put("enableVNC", false);
+
+            capabilities.setCapability("selenoid:options", selenoidOptions);
             try {
                 driver = new RemoteWebDriver(
                         URI.create(config.getSelenoidUrl()).toURL(),
                         capabilities
                 );
-            }catch (MalformedURLException e){
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
 
         } else {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
-        driver.get(config.getProjectUrl());
-        driver.manage().window().setSize(new Dimension(config.getWindowWight(),config.getWindowHeight()));
 
+        driver.get(config.getProjectUrl());
+        driver.manage().window().setSize(new Dimension(config.getWindowWight(), config.getWindowHeight()));
     }
 
-    protected void stop(){
+    protected void stop() {
         driver.quit();
     }
 }
