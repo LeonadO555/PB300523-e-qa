@@ -3,8 +3,8 @@ package e2e;
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
 import e2e.pages.*;
-import intagration.contact.ContactApi;
-import intagration.user.UserApi;
+import integration.contact.ContactApi;
+import integration.user.UserApi;
 import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
@@ -31,7 +31,6 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         String actualPhoneNumber = page.getPhoneNumber();
         Assert.assertEquals(actualCountry, country, actualCountry + "is not equal" + country); // актуальное с ожидаемым
         Assert.assertEquals(actualPhoneNumber, phoneNumber, actualPhoneNumber + "is not equal" + phoneNumber); // актуальное с ожидаемым
-
     }
 
     @Test
@@ -177,5 +176,4 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         contactApi.deleteContact(200,contactId);
     }
-
 }
