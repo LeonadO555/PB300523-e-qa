@@ -3,7 +3,7 @@
 <suite name="testSmoke" verbose="1">
     <test name="SmokeHomeWorkTest">
         <classes>
-            <class name="e2e.CreateNewUserTest">
+            <class name="e2e.CreateNewUser">
             </class>
         </classes>
     </test>

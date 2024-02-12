@@ -43,9 +43,10 @@ public class CreateNewUserTest extends TestBase {
     @Feature(value = "User can be created")
     @Description(value = " User can be created . " + " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
-    @AllureId("5")
+    @AllureId("1")
+
     @Test(description = "Work with new create user")
-    public void workWithNewCreateUser(){
+    public void workWithNewCreateUser() throws InterruptedException{
 
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
