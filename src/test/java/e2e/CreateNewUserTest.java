@@ -92,7 +92,8 @@ public class CreateNewUserTest extends TestBase {
         addPhoneDialog.savePhone();
 
         phonesPage = new PhonesPage(app.driver);
-        //phonesPage.takePhonesPageScreenshot();
+        //
+        // phonesPage.takePhonesPageScreenshot();
         phonesPage.waitForLoading();
 
         contactInfoPage.openTab(ContactInfoTabs.EMAILS);
