@@ -10,7 +10,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,9 +22,8 @@ public class ApplicationManager {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("120.0");
-
             Map<String, Object> selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC", false);
+            selenoidOptions.put("enableVNC", true);
 
             capabilities.setCapability("selenoid:options", selenoidOptions);
             try {
