@@ -44,10 +44,8 @@ public class CreateNewUserTest extends TestBase {
     @Description(value = " User can be created . " + " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
-
     @Test(description = "Work with new create user")
     public void workWithNewCreateUser(){
-
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         String language = "English";
