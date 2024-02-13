@@ -12,21 +12,23 @@ public class ApiBase {
     private final Config config = new Config();
     final String BASE_URI = config.getProjectUrl();
     private final RequestSpecification spec;
+
     public ApiBase() {
         this.spec = new RequestSpecBuilder()
                 .setBaseUri(BASE_URI)
                 .setContentType(ContentType.JSON)
                 .build();
     }
-    public ApiBase(String token)  {
+
+    public ApiBase(String token) {
         this.spec = new RequestSpecBuilder()
-            .setBaseUri(BASE_URI)
-            .setContentType(ContentType.JSON)
-            .addHeader("Access-Token",token)
-            .build();
+                .setBaseUri(BASE_URI)
+                .setContentType(ContentType.JSON)
+                .addHeader("Access-Token", token)
+                .build();
     }
 
-    protected Response getRequest(String endpoint, int code){
+    protected Response getRequest(String endpoint, int code) {
         Response response = RestAssured.given()
                 .spec(spec)
                 .when()
@@ -38,11 +40,11 @@ public class ApiBase {
         return response;
     }
 
-    protected Response getRequestWithParam(String endpoint, int code, String paramName, int id){
+    protected Response getRequestWithParam(String endpoint, int code, String paramName, int id) {
         Response response = RestAssured.given()
                 .spec(spec)
                 .when()
-                .pathParam(paramName,id)
+                .pathParam(paramName, id)
                 .log().all()
                 .get(endpoint)
                 .then().log().all()
@@ -51,7 +53,7 @@ public class ApiBase {
         return response;
     }
 
-    protected Response postRequest(String endpoint, int code, Object body){
+    protected Response postRequest(String endpoint, int code, Object body) {
         Response response = RestAssured.given()
                 .spec(spec)
                 .body(body)
@@ -64,7 +66,7 @@ public class ApiBase {
         return response;
     }
 
-    protected Response putRequest(String endpoint, int code, Object body){
+    protected Response putRequest(String endpoint, int code, Object body) {
         Response response = RestAssured.given()
                 .spec(spec)
                 .body(body)
@@ -77,13 +79,26 @@ public class ApiBase {
         return response;
     }
 
-    protected Response deleteRequest(String endpoint, int code, int id){
+    protected Response deleteRequest(String endpoint, int code, int id) {
         Response response = RestAssured.given()
                 .spec(spec)
                 .when()
-                .pathParam("id",id)
+                .pathParam("id", id)
                 .log().all()
                 .delete(endpoint)
+                .then().log().all()
+                .extract().response();
+        response.then().assertThat().statusCode(code);
+        return response;
+    }
+
+    protected Response getRequestWithParamString(String endpoint, int code, String paramName,String paramValue) {
+        Response response = RestAssured.given()
+                .spec(spec)
+                .when()
+                .pathParam(paramName, paramValue)
+                .log().all()
+                .get(endpoint)
                 .then().log().all()
                 .extract().response();
         response.then().assertThat().statusCode(code);
