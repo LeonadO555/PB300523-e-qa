@@ -1,15 +1,17 @@
 package integration;
 
+import com.github.javafaker.Faker;
 import integration.user.UserApi;
 import org.testng.annotations.Test;
 
 public class UserApiTest {
 
     UserApi userApi;
+    Faker faker = new Faker();
 
     @Test
     public void userCanCreateNewUserApiTest() {
-        String email = "alexpah779@email.com";
+        String email = faker.internet().emailAddress();
         String password = "alexpah779@email.com";
 
         userApi = new UserApi();
