@@ -44,12 +44,12 @@ public class EmailApi extends ApiBase {
     }
     public Response getAllEmail(int code,int contactId){
         String endpoint = "/api/email/{contactId}/all";
-        response = getRequestWhitParam(endpoint,code,"contactId",contactId);
+        response = getRequestWithParam(endpoint,code,"contactId",contactId);
         return response;
     }
     public Response getEmail (int code,int emailId){
         String endpoint = "/api/email/{id}";
-        response = getRequestWhitParam(endpoint,code,"id",emailId);
+        response = getRequestWithParam(endpoint,code,"id",emailId);
         return  response;
     }
 }

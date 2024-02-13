@@ -56,12 +56,12 @@ public class PhoneApi extends ApiBase {
     }
     public Response getAllPhones(int code,int contactId){
         String endpoint = "/api/phone/{contactId}/all";
-        response = getRequestWhitParam(endpoint,code,"contactId",contactId);
+        response = getRequestWithParam(endpoint,code,"contactId",contactId);
         return response;
     }
     public Response getPhone(int code,int id){
         String endpoint = "/api/phone/{id}";
-        response = getRequestWhitParam(endpoint,code,"id",id);
+        response = getRequestWithParam(endpoint,code,"id",id);
         return response;
     }
 
