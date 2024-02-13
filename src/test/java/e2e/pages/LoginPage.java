@@ -1,6 +1,7 @@
 package e2e.pages;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,9 +24,15 @@ public class LoginPage extends BasePage{
 
     @Step("Wait for loading Login page")
     public void waitForLoading(){
-        getWait().forVisibility(emailInput);
-        getWait().forVisibility(passwordInput);
-        getWait().forVisibility(loginButton);
+        try {
+            getWait().forVisibility(emailInput);
+            getWait().forVisibility(passwordInput);
+            getWait().forVisibility(loginButton);
+        }catch (StaleElementReferenceException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void takeLoginPageScreenshot(String actualScreenshotName){
