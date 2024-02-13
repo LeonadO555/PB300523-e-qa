@@ -71,7 +71,7 @@ public class CreateNewUserTest extends TestBase {
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
-        //addContactDialog.takeUserInfoScreenshot();
+        addContactDialog.takeUserInfoScreenshot();
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -82,7 +82,7 @@ public class CreateNewUserTest extends TestBase {
         // create phone
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
-        //phonesPage.takePhonesPageScreenshot();
+        phonesPage.takePhonesPageScreenshot();
         phonesPage.openPhoneButton();
 
         addPhoneDialog = new AddPhoneDialog(app.driver);
@@ -93,7 +93,7 @@ public class CreateNewUserTest extends TestBase {
 
         phonesPage = new PhonesPage(app.driver);
         //
-        // phonesPage.takePhonesPageScreenshot();
+        phonesPage.takePhonesPageScreenshot();
         phonesPage.waitForLoading();
 
         contactInfoPage.openTab(ContactInfoTabs.EMAILS);
@@ -110,7 +110,7 @@ public class CreateNewUserTest extends TestBase {
 
         emailInfoPage = new EmailInfoPage(app.driver);
         emailInfoPage.waitForLoading();
-        //emailInfoPage.takeEmailInfoPageScreenshot();
+        emailInfoPage.takeEmailInfoPageScreenshot();
         emailInfoPage.waitForLoading();
 
         contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
@@ -129,7 +129,7 @@ public class CreateNewUserTest extends TestBase {
 
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
-        //addressesInfoPage.takeAddressInfoPageScreenshot();
+        addressesInfoPage.takeAddressInfoPageScreenshot();
 
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
@@ -143,6 +143,6 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
         deleteContactDialog = new DeleteContactDialog(app.driver);
-        //deleteContactDialog.deleteContactDialogScreenshot();
+        deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
