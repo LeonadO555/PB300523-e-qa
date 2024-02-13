@@ -61,7 +61,7 @@ task testNoSmoke(type: Test){
     systemProperty 'allure.results.directory', 'build/allure-results'
 }
 
-task testRegistration(type: Test){
+task testngRegistration(type: Test){
     useTestNG(){
         suites 'src/test/resources/testngRegistration.xml'
     }
