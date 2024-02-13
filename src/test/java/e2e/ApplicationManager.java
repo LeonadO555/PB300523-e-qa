@@ -35,7 +35,6 @@ public class ApplicationManager {
                 e.printStackTrace();
             }
 
-
         } else {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
@@ -44,7 +43,6 @@ public class ApplicationManager {
         driver.manage().window().setSize(new Dimension(config.getWindowWight(),config.getWindowHeight()));
 
     }
-
     protected void stop(){
         driver.quit();
     }
