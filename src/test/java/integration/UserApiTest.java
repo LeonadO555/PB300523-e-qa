@@ -21,7 +21,7 @@ public class UserApiTest {
         String token = userApi.newUserRegistration(email,password,201);
 
         userApi.getNewUserActivation(200,token);
-
+    userApi.login(email,password,200);
     }
 
 }

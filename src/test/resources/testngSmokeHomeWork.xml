@@ -8,6 +8,8 @@
                     <include name="workWithNewCreateUser"/>
                 </methods>
             </class>
+            <class name="e2e.NewUserAndContactEdit">
+            </class>
         </classes>
     </test>
 </suite>

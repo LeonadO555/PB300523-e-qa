@@ -11,7 +11,6 @@ public class LoginPage extends BasePage{
     public LoginPage(WebDriver driver) {
         super(driver);
     }
-
     // Describe locator
     @FindBy(xpath = "//*[@name='email']")
     WebElement emailInput;
@@ -31,14 +30,10 @@ public class LoginPage extends BasePage{
         }catch (StaleElementReferenceException e){
             e.printStackTrace();
         }
-
-
     }
-
     public void takeLoginPageScreenshot(String actualScreenshotName){
         takeAndCompareScreenshot(actualScreenshotName, null);
     }
-
     @Step("Login as user: {email}, {password}")
     public void login(String email, String password) {
         emailInput.sendKeys(email);
