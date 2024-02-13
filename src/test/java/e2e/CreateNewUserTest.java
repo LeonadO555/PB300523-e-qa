@@ -40,9 +40,9 @@ public class CreateNewUserTest extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
     @Test(description = "Work with new create user")
-    public void workWithNewCreateUser(){
+    public void workWithNewCreateUser() {
         String email = faker.internet().emailAddress();
-        String password = faker.internet().emailAddress();
+        String password = faker.internet().password();
         String language = "Englisch";
         String firstName = "Teddy";
         String lastName = "Skv";
