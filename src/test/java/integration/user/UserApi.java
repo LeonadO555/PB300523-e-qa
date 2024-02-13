@@ -22,7 +22,7 @@ public class UserApi extends ApiBase {
         return response.header("Access-Token"); // из респонса вытаскиваем хэдэр
     }
 
-    @Step("New User Registration via api: {email}, {password}")
+    @Step("New User Registration: {email},{password}")
     public String newUserRegistration(String email, String password, int code) {
         String endpoint = "/api/user";
         LinkedHashMap<String, String> body = new LinkedHashMap<>();
@@ -33,7 +33,7 @@ public class UserApi extends ApiBase {
     }
 
     @Step("New User Activation via api: {token}")
-    public Response getnewUserActivation(int code, String token) {
+    public Response getNewUserActivation(int code, String token) {
         String endpoint = "/api/user/activation/{token}";
         response = getRequestWithParamString(endpoint, code, "token", token);
         return response;

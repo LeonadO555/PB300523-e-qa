@@ -52,7 +52,7 @@ public class CreateNewUserTest extends TestBase{
         userApi = new UserApi();
         String token = userApi.newUserRegistration(email, password, 201);
 
-        userApi.getnewUserActivation(200,token);
+        userApi.getNewUserActivation(200,token);
 
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
