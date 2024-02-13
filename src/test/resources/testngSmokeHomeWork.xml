@@ -4,9 +4,6 @@
     <test name="SmokeHomeWorkTest">
         <classes>
             <class name="e2e.CreateNewUserTest">
-                <methods>
-                    <include name="workWithNewCreateUser"/>
-                </methods>
             </class>
             <class name="e2e.NewUserAndContactEdit">
             </class>

@@ -59,7 +59,6 @@ public class NewUserAndContactEdit extends TestBase {
         addContactDialog.waitForOpen();
         addContactDialog.setAddContactForm(firstName,lastName,description);
         addContactDialog.saveContact();
-        addContactDialog.takeUserInfoScreenshot();
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
