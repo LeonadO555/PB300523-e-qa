@@ -5,6 +5,7 @@
         <classes>
             <class name="e2e.CreateNewUserTest"/>
             <class name="e2e.LoginTest"/>
+            <class name="e2e.UserCanEditExistingContactTest"/>
             <class name="integration.user.UserApi"/>
             <class name="integration.ContactApiTest"/>
         </classes>
