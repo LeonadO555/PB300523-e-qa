@@ -29,7 +29,6 @@ dependencies {
     implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 }
 
-
 task testSmokeHomeWork(type: Test){
     useTestNG(){
         testLogging {
