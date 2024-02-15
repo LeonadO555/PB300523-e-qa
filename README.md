@@ -37,4 +37,4 @@
 - Screenshots are saved in `reference` folder
 - Screenshots are taken when test fails
 - To do screenshot is reference need to change screenshot name, remove `tmp_` from screenshot name
-- Screenshots are attached to allure report
+- Screenshots are attached to allure report 
