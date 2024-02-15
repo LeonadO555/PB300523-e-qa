@@ -7,27 +7,32 @@ import java.util.Properties;
 public class Config {
     private final Properties properties;
 
-    public Config(){
+    public Config() {
         properties = new Properties();
-        try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(input);
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException("Failed to read config.properties", e);
         }
     }
-    public  String getProjectUrl(){
+
+    public String getProjectUrl() {
         return properties.getProperty("project.url");
     }
-    public  String getSelenoidUrl(){
+
+    public String getSelenoidUrl() {
         return properties.getProperty("selenoid.url");
     }
-    public  Boolean getSelenoidState(){
+
+    public Boolean getSelenoidState() {
         return Boolean.parseBoolean(properties.getProperty("selenoid.state"));
     }
-    public Integer getWindowWight(){
+
+    public Integer getWindowWight() {
         return Integer.parseInt(properties.getProperty("window.width"));
     }
-    public Integer getWindowHeight(){
+
+    public Integer getWindowHeight() {
         return Integer.parseInt(properties.getProperty("window.height"));
     }
 }
