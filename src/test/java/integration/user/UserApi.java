@@ -22,14 +22,6 @@ public class UserApi extends ApiBase {
         return response.header("Access-Token");
     }
 
-
-
-
-
-
-
-
-
     public String registration(String email,String password,int code){
         String endpoint = "/api/user";
         LinkedHashMap<String,String>body = new LinkedHashMap<>();

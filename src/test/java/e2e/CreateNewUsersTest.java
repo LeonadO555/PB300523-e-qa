@@ -36,7 +36,7 @@ public class CreateNewUsersTest extends TestBase{
     @AllureId("2")
     @Test
     public void CreateNewUserTest(){
-        String email = faker.internet().emailAddress();
+        String email = "new10t@gmail.com";
         String password = "new14t@gmail.com";
         String language = "English";
         String firstName = "Oleksandr";
