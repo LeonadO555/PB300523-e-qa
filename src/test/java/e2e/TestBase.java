@@ -9,12 +9,11 @@ public class TestBase {
     protected static ApplicationManager app = new ApplicationManager();
 
     @BeforeMethod
-    public void setupTest()  {
+    public void setupTest() {
         app.init();
     }
-
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
         app.stop();
     }
 

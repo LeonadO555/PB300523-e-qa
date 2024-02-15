@@ -32,7 +32,6 @@ public class UserApi extends ApiBase {
     public void activation(String token ,int code){
         String endpoint = "/api/user/activation/{token}";
         getRequestWhitParamString(endpoint,code,"token",token);
-
     }
 
 
