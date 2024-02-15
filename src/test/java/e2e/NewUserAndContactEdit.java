@@ -11,12 +11,11 @@ import org.testng.annotations.Test;
 
 public class NewUserAndContactEdit extends TestBase {
     LoginPage loginPage;
-    UserApi userApi;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
     EditContactForm editContactForm;
-
+    DeleteContactDialog deleteContactDialog;
 
     private void checkContactData(ContactInfoPage page, String firsName, String lastName, String description) {
         String actualFirstName = page.getFirstName();
@@ -26,12 +25,12 @@ public class NewUserAndContactEdit extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
-    @Epic(value = "new user with changed data ")
-    @Feature(value = "contact data was changet")
+    @Epic(value = "new user with changed data and delete ")
+    @Feature(value = "contact data was changed and deleted")
     @Description(value =  " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
-    @Test(description = "Work with edited contact")
+    @Test(description = "Work with edited contact and deleted")
     public void EditContact(){
         String email = "georgiy123@gmail.com";
         String password = "georgiy123@gmail.com";
@@ -41,7 +40,7 @@ public class NewUserAndContactEdit extends TestBase {
         String description = "Germany,Berlin";
 
 
-        String editFirstName = "Artur";
+        String editFirstName = "Arturios";
         String editLastName = "Martini";
         String editDescription = "Istanbul,Turkish";
 
@@ -54,6 +53,7 @@ public class NewUserAndContactEdit extends TestBase {
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
         Assert.assertEquals(contactsPage.getLanguage(),language);
+
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
@@ -73,5 +73,20 @@ public class NewUserAndContactEdit extends TestBase {
 
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
+
+        contactInfoPage.openContactsPage();
+        contactsPage.waitForLoading();
+
+        //filter by contact name
+        contactsPage.filterByContact(editFirstName);
+        contactsPage.waitForLoading();
+
+        int actualContactCountRow = contactsPage.getContactCount();
+        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
+
+        deleteContactDialog = contactsPage.openDeleteDialog();
+        deleteContactDialog.waitForOpen();
+        deleteContactDialog.setConfirmDeletion();
+        deleteContactDialog.removeContact();
     }
 }
