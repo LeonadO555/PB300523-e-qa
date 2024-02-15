@@ -108,10 +108,10 @@ public class BasePage {
             if (difference > maxDiffPercent) {
                 throw new RuntimeException(referenceImageFilePath + " not equal " + tmpFilePath + " difference: " + difference);
             }
-
             Files.deleteIfExists(new File(tmpFilePath).toPath());
         } catch (IOException e){
             e.printStackTrace();
         }
+
     }
 }
