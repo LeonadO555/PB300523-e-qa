@@ -35,7 +35,7 @@ public class CreateNewUserTest extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("2")
 
-    @Test
+    @Test(description = "Create new user")
     public void CreateNewUserTest() throws InterruptedException {
 
         String email = faker.internet().emailAddress();
