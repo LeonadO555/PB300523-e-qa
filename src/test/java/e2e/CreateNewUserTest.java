@@ -5,7 +5,10 @@ import e2e.enums.ContactInfoTabs;
 import e2e.pages.LoginPage;
 import e2e.pages.address.AddAddressDialog;
 import e2e.pages.address.AddressesInfoPage;
-import e2e.pages.contact.*;
+import e2e.pages.contact.AddContactDialog;
+import e2e.pages.contact.ContactInfoPage;
+import e2e.pages.contact.ContactsPage;
+import e2e.pages.contact.DeleteContactDialog;
 import e2e.pages.email.AddEmailDialog;
 import e2e.pages.email.EmailInfoPage;
 import e2e.pages.phone.AddPhoneDialog;
@@ -39,13 +42,14 @@ public class CreateNewUserTest extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
+
     @Epic(value = "UserNewRegistration")
     @Feature(value = "User can be created")
     @Description(value = " User can be created . " + " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
     @Test(description = "Work with new create user")
-    public void workWithNewCreateUser(){
+    public void workWithNewCreateUser() {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         String language = "English";
@@ -54,35 +58,35 @@ public class CreateNewUserTest extends TestBase {
         String description = "Germany,Berlin";
 
         userApi = new UserApi();
-        String token = userApi.newUserRegistration(email,password,201);
+        String token = userApi.newUserRegistration(email, password, 201);
 
-        userApi.getNewUserActivation(200,token);
+        userApi.getNewUserActivation(200, token);
 
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
-        loginPage.login(email,password);
+        loginPage.login(email, password);
         loginPage.waitForLoading();
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
-        Assert.assertEquals(contactsPage.getLanguage(),language);
+        Assert.assertEquals(contactsPage.getLanguage(), language);
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firstName,lastName,description);
+        addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
-        addContactDialog.takeUserInfoScreenshot();
+        //addContactDialog.takeUserInfoScreenshot();
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firstName,lastName,description);
+        checkContactData(contactInfoPage, firstName, lastName, description);
 
         contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
         // create phone
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
-        phonesPage.takePhonesPageScreenshot();
+        //phonesPage.takePhonesPageScreenshot();
         phonesPage.openPhoneButton();
 
         addPhoneDialog = new AddPhoneDialog(app.driver);
@@ -110,7 +114,7 @@ public class CreateNewUserTest extends TestBase {
 
         emailInfoPage = new EmailInfoPage(app.driver);
         emailInfoPage.waitForLoading();
-        emailInfoPage.takeEmailInfoPageScreenshot();
+        //emailInfoPage.takeEmailInfoPageScreenshot();
         emailInfoPage.waitForLoading();
 
         contactInfoPage.openTab(ContactInfoTabs.ADDRESSES);
@@ -129,7 +133,7 @@ public class CreateNewUserTest extends TestBase {
 
         addressesInfoPage = new AddressesInfoPage(app.driver);
         addressesInfoPage.waitForLoading();
-        addressesInfoPage.takeAddressInfoPageScreenshot();
+        //addressesInfoPage.takeAddressInfoPageScreenshot();
 
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
@@ -143,6 +147,6 @@ public class CreateNewUserTest extends TestBase {
         deleteContactDialog.setConfirmDeletion();
         deleteContactDialog.removeContact();
         deleteContactDialog = new DeleteContactDialog(app.driver);
-        deleteContactDialog.deleteContactDialogScreenshot();
+        //deleteContactDialog.deleteContactDialogScreenshot();
     }
 }
