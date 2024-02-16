@@ -1,5 +1,6 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,11 +34,12 @@ public class EmailInfoPage extends ContactInfoPage {
         getWait().forClickable(addEmailButton);
     }
 
-
+    @Step
     public void clickOnAddEmailButton() {
         addEmailButton.click();
     }
 
+    @Step
     public EditEmailDialog openEditEmailDialog() {
         optionDropDown.click();
         getWait().forVisibility(editEmailButton);
@@ -45,19 +47,23 @@ public class EmailInfoPage extends ContactInfoPage {
         return new EditEmailDialog(driver);
     }
 
+    @Step
     public String getEmail() {
         return emailInputField.getText();
     }
 
+    @Step
     public void tabDropDawn() {
         optionDropDown.click();
 
     }
 
+    @Step
     public void filterByEmail(String emailCheck) {
         searchInput.sendKeys(emailCheck);
     }
 
+    @Step
     public void deleteEmail() {
         optionDropDown.click();
         getWait().forVisibility(removeEmailButton);

@@ -13,12 +13,12 @@ public class UserCanAddPhoneNumberTest extends TestBase {
     ContactInfoPage contactInfoPage;
     PhonesPage phonesPage;
     AddPhoneDialog addPhoneDialog;
-    EditPhoneForm editPhoneForm;
+    EditPhoneDialog editPhoneDialog;
     DeleteContactDialog deleteContactDialog;
 
     Faker faker = new Faker();
 
-    private  void checkPhoneData(PhonesPage page, String country, String phoneNumber){
+    private void checkPhoneData(PhonesPage page, String country, String phoneNumber) {
         phonesPage = new PhonesPage(app.driver);
         String actualCountry = page.getCountry();
         String actualPhoneNumber = page.getPhoneNumber();
@@ -27,7 +27,7 @@ public class UserCanAddPhoneNumberTest extends TestBase {
     }
 
     @Test
-    public void userCanAddPhoneNumber()throws InterruptedException {
+    public void userCanAddPhoneNumber() throws InterruptedException {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
@@ -77,14 +77,14 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         // check created phone
         phonesPage = new PhonesPage(app.driver);
-        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber() );
+        checkPhoneData(phonesPage, phonesPage.getCountry(), phonesPage.getPhoneNumber());
 
         // edit phone number
-        editPhoneForm = phonesPage.openEditPhoneForm();
-        editPhoneForm.waitForOpen();
-        editPhoneForm.selectCountryCode(editPhoneForm.getCountry());
-        editPhoneForm.setPhoneNumberInput("22222222222");
-        editPhoneForm.saveChange();
+        editPhoneDialog = phonesPage.openEditPhoneForm();
+        editPhoneDialog.waitForOpen();
+        editPhoneDialog.selectCountryCode(editPhoneDialog.getCountry());
+        editPhoneDialog.setPhoneNumberInput("22222222222");
+        editPhoneDialog.saveChange();
         phonesPage.waitForLoading();
 
         //delete phone
@@ -110,8 +110,5 @@ public class UserCanAddPhoneNumberTest extends TestBase {
 
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), " No result message is not visible");
         contactsPage.takeScreenshotNoResultMessage();
-
-
     }
-
 }

@@ -1,5 +1,6 @@
 package integration;
 
+import config.Config;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -7,7 +8,9 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class ApiBase {
-    final String BASE_URI = "http://phonebook.telran-edu.de:8080/";
+
+    private final Config config = new Config();
+    final String BASE_URI = config.getProjectUrl();
     private final RequestSpecification spec;
 
     public ApiBase() {
@@ -84,6 +87,19 @@ public class ApiBase {
                 .pathParam("id", id)
                 .log().all()
                 .delete(endpoint)
+                .then().log().all()
+                .extract().response();
+        response.then().assertThat().statusCode(code);
+        return response;
+    }
+
+    protected Response getRequestWithParamString(String endpoint, int code, String paramName, String paramValue) {
+        Response response = RestAssured.given()
+                .spec(spec)
+                .when()
+                .pathParam(paramName, paramValue)
+                .log().all()
+                .get(endpoint)
                 .then().log().all()
                 .extract().response();
         response.then().assertThat().statusCode(code);

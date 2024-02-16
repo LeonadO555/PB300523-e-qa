@@ -3,14 +3,18 @@ package e2e;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
 import e2e.utils.DataProviders;
-import org.testng.Assert;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
 
-    @Test
+    @Epic(value = "Login")
+    @Feature(value = "User login")
+    @Description(value = "User can login with role admin")
+    @Severity(SeverityLevel.BLOCKER)
+    @Test(description = "User can login")
     public void userCanLogin() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";

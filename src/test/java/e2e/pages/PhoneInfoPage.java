@@ -1,10 +1,11 @@
 package e2e.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PhoneInfoPage extends ContactInfoPage{
+public class PhoneInfoPage extends ContactInfoPage {
     public PhoneInfoPage(WebDriver driver) {
         super(driver);
     }
@@ -32,19 +33,20 @@ public class PhoneInfoPage extends ContactInfoPage{
     WebElement removePhoneButton;
 
 
-
-
-    public void waitForLoading(){
+    @Step
+    public void waitForLoading() {
         getWait().forVisibility(searchInput);
         getWait().forClickable(addPhoneButton);
     }
 
-    public void clickOnAddPhoneButton(){
+    @Step
+    public void clickOnAddPhoneButton() {
         addPhoneButton.click();
 
 
     }
 
+    @Step
     public EditPhoneDialog openEditPhoneDialog() {
         optionDropDown.click();
         getWait().forVisibility(editPhoneButton);
@@ -52,17 +54,22 @@ public class PhoneInfoPage extends ContactInfoPage{
         return new EditPhoneDialog(driver);
     }
 
-    public String getCountryCode(){
+    @Step
+    public String getCountryCode() {
         return countryCodeField.getText();
     }
 
-    public String getPhoneNumber(){
+    @Step
+    public String getPhoneNumber() {
         return phoneInputField.getText();
     }
-    public void filterByPhone(String phoneCheckValue){
+
+    @Step
+    public void filterByPhone(String phoneCheckValue) {
         searchInput.sendKeys(phoneCheckValue);
     }
 
+    @Step
     public void deletePhone() {
         optionDropDown.click();
         getWait().forVisibility(removePhoneButton);

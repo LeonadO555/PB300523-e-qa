@@ -17,8 +17,8 @@ public class EmailDto {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("contactID")
-    private int contactID;
+    @JsonProperty("contactId")
+    private int contactId;
 
     public int getId() {
         return id;
@@ -36,11 +36,11 @@ public class EmailDto {
         this.email = email;
     }
 
-    public int getContactID() {
-        return contactID;
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 }
