@@ -1,30 +1,25 @@
 package e2e.pages.phone;
 
-import e2e.pages.phone.PhonesPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EditPhoneDialog extends PhonesPage {
+    @FindBy(xpath = "//*[@for='cc-select']")
+    WebElement countryCodeLabel;
+    @FindBy(xpath = "//*[@id='cc-select']")
+    WebElement countryCodeDropDown;
+    @FindBy(xpath = "//*[@for='selected-cc']")
+    WebElement phoneNumberField;
+    @FindBy(xpath = "//*[@id='selected-cc']")
+    WebElement phoneNumberInput;
+    @FindBy(xpath = "//*[@class='btn btn-primary']")
+    WebElement saveButton;
+
     public EditPhoneDialog(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(xpath = "//*[@for='cc-select']")
-    WebElement countryCodeLabel;
-
-    @FindBy(xpath = "//*[@id='cc-select']")
-    WebElement countryCodeDropDown;
-
-    @FindBy(xpath = "//*[@for='selected-cc']")
-    WebElement phoneNumberField;
-
-    @FindBy(xpath = "//*[@id='selected-cc']")
-    WebElement phoneNumberInput;
-
-    @FindBy(xpath = "//*[@class='btn btn-primary']")
-    WebElement saveButton;
 
     @Step("Wait for open edit phone dialog")
     public void waitForOpen() {
@@ -44,15 +39,16 @@ public class EditPhoneDialog extends PhonesPage {
     public String getCountry() {
         return getSelect(countryCodeDropDown).getFirstSelectedOption().getText();
     }
+
     @Step
     public void setPhoneNumberInput(String phoneNumber) {
         setInput(phoneNumberInput, phoneNumber);
     }
 
     @Step
-    public void saveChange(){
+    public void saveChange() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
     }
-    }
+}
 

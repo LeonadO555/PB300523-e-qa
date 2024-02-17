@@ -7,33 +7,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class PhonesPage extends ContactInfoPage {
+    @FindBy(xpath = "//*[@id='items-table-phone']")
+    WebElement table;
+    @FindBy(xpath = "//*[@formcontrolname='searchInput']")
+    WebElement searchInput;
+    @FindBy(xpath = "//*[@id='btn-add-phone']")
+    WebElement addPhoneButton;
+    @FindBy(xpath = "//*[@class='row-table-cc']")
+    WebElement countryCodeField;
+    @FindBy(xpath = "//*[@class='row-table-pn']")
+    WebElement phoneNumberField;
+    @FindBy(xpath = "//*[@class='nav-item ml-auto dropdown']")
+    WebElement dropdown;
+    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-edit']")
+    WebElement editButton;
+    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
+    WebElement removePhoneButton;
+
     public PhonesPage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(xpath = "//*[@id='items-table-phone']")
-    WebElement table;
-
-    @FindBy(xpath = "//*[@formcontrolname='searchInput']")
-    WebElement searchInput;
-
-    @FindBy(xpath = "//*[@id='btn-add-phone']")
-    WebElement addPhoneButton;
-
-    @FindBy(xpath = "//*[@class='row-table-cc']")
-    WebElement countryCodeField;
-
-    @FindBy(xpath = "//*[@class='row-table-pn']")
-    WebElement phoneNumberField;
-
-    @FindBy(xpath = "//*[@class='nav-item ml-auto dropdown']")
-    WebElement dropdown;
-
-    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-edit']")
-    WebElement editButton;
-
-    @FindBy(xpath = "//*[@class='dropdown-item btn-phone-remove']")
-    WebElement removePhoneButton;
 
     @Step
     public void waitForLoading() {
@@ -59,18 +52,6 @@ public class PhonesPage extends ContactInfoPage {
     }
 
     @Step
-    public void openEditDeleteDropdown() {
-        dropdown.click();
-        getWait().forVisibility(dropdown);
-    }
-
-    @Step
-    public void clickEditButton() {
-        editButton.click();
-        getWait().forVisibility(editButton);
-    }
-
-    @Step
     public EditPhoneDialog openEditPhoneForm() {
         dropdown.click();
         getWait().forVisibility(editButton);
@@ -86,7 +67,7 @@ public class PhonesPage extends ContactInfoPage {
     }
 
     @Step
-    public void takePhonesPageScreenshot(){
+    public void takePhonesPageScreenshot() {
         takeAndCompareScreenshot("phonesPage", null);
     }
 

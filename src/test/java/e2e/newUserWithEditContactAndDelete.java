@@ -2,14 +2,12 @@ package e2e;
 
 
 import e2e.pages.LoginPage;
-
 import e2e.pages.contact.*;
-import integration.user.UserApi;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NewUserAndContactEdit extends TestBase {
+public class newUserWithEditContactAndDelete extends TestBase {
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
@@ -25,13 +23,14 @@ public class NewUserAndContactEdit extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
+
     @Epic(value = "new user with changed data and delete ")
     @Feature(value = "contact data was changed and deleted")
-    @Description(value =  " Contact info created ")
+    @Description(value = " Contact info created ")
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
     @Test(description = "Work with edited contact and deleted")
-    public void EditContact(){
+    public void EditContactAndDelete() {
         String email = "georgiy123@gmail.com";
         String password = "georgiy123@gmail.com";
         String language = "English";
@@ -47,22 +46,22 @@ public class NewUserAndContactEdit extends TestBase {
 
         loginPage = new LoginPage(app.driver);
         loginPage.waitForLoading();
-        loginPage.login(email,password);
+        loginPage.login(email, password);
         loginPage.waitForLoading();
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.selectLanguage(language);
-        Assert.assertEquals(contactsPage.getLanguage(),language);
+        Assert.assertEquals(contactsPage.getLanguage(), language);
 
 
         addContactDialog = contactsPage.openAddContactDialog();
         addContactDialog.waitForOpen();
-        addContactDialog.setAddContactForm(firstName,lastName,description);
+        addContactDialog.setAddContactForm(firstName, lastName, description);
         addContactDialog.saveContact();
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,firstName,lastName,description);
+        checkContactData(contactInfoPage, firstName, lastName, description);
 
         editContactForm = contactInfoPage.openEditContactForm();
         editContactForm.waitForOpen();
@@ -72,12 +71,11 @@ public class NewUserAndContactEdit extends TestBase {
         editContactForm.saveChanges();
 
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage,editFirstName,editLastName,editDescription);
+        checkContactData(contactInfoPage, editFirstName, editLastName, editDescription);
 
         contactInfoPage.openContactsPage();
         contactsPage.waitForLoading();
 
-        //filter by contact name
         contactsPage.filterByContact(editFirstName);
         contactsPage.waitForLoading();
 
