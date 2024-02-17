@@ -36,6 +36,11 @@ public class ContactsPage extends BasePage {
     WebElement noResultsMessage;
     @FindBy(xpath = "//*[text()='Logout']")
     WebElement logoutButton;
+    @FindBy(xpath = "//*[@ng-reflect-router-link='/contacts/49261']")
+    WebElement newContactOnNewRegisteredUser;
+    public void clickOnContactOnNewRegisteredUser(){
+        newContactOnNewRegisteredUser.click();
+    }
 
     @Step
     public void waitForLoading(){

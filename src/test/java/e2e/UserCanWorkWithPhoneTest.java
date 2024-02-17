@@ -149,7 +149,6 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         phonesPage = new PhonesPage(app.driver);
         phonesPage.waitForLoading();
-        phonesPage.takePhonesPagesScreenshot();
         phonesPage.openPhoneButton();
 
         //fill addPhoneDialog

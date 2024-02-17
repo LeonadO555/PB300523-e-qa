@@ -3,10 +3,7 @@
 <suite name="testNoSmoke" verbose="1">
     <test name="NoSmokeTest">
         <classes>
-            <class name="e2e.LoginTest">
-                <methods>
-                    <include name="userCanLogin"/>
-                </methods>
+            <class name="e2e.EditCreatedContactOnNewRegisteredUserTest">
             </class>
         </classes>
     </test>

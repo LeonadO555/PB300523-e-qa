@@ -17,21 +17,21 @@ public class ApplicationManager {
     private final Config config = new Config();
     public WebDriver driver;
 
-    protected void init()  {
-        if (config.getSelenoidState()){
+    protected void init() {
+        if (config.getSelenoidState()) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             capabilities.setVersion("120.0");
-            Map<String,Object>selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC",false);
+            Map<String, Object> selenoidOptions = new HashMap<>();
+            selenoidOptions.put("enableVNC", false);
 
-            capabilities.setCapability("selenoid:options",selenoidOptions);
+            capabilities.setCapability("selenoid:options", selenoidOptions);
             try {
                 driver = new RemoteWebDriver(
                         URI.create(config.getSelenoidUrl()).toURL(),
                         capabilities
                 );
-            }catch (MalformedURLException e){
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
 
@@ -41,11 +41,11 @@ public class ApplicationManager {
             driver = new ChromeDriver();
         }
         driver.get(config.getProjectUrl());
-        driver.manage().window().setSize(new Dimension(config.getWindowWeight(),config.getWindowHeight()));
+        driver.manage().window().setSize(new Dimension(config.getWindowWeight(), config.getWindowHeight()));
 
     }
 
-    protected void stop(){
+    protected void stop() {
         driver.quit();
     }
 }

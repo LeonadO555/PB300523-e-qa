@@ -38,11 +38,23 @@ public class ApiBase {
         response.then().assertThat().statusCode(code);
         return response;
     }
-    protected Response getRequestWhitParam(String endpoint,int code,String paramName,int id){
+    protected Response getRequestWhitParam(String endpoint,int code,String paramName,int paramValue){
         Response response = RestAssured.given()
                 .spec(spec)
                 .when()
-                .pathParam(paramName,id)
+                .pathParam(paramName,paramValue)
+                .log().all()
+                .get(endpoint)
+                .then().log().all()
+                .extract().response();
+        response.then().assertThat().statusCode(code);
+        return response;
+    }
+    protected Response getRequestWhitParamString(String endpoint,int code,String paramName,String paramValue){
+        Response response = RestAssured.given()
+                .spec(spec)
+                .when()
+                .pathParam(paramName,paramValue)
                 .log().all()
                 .get(endpoint)
                 .then().log().all()
