@@ -22,7 +22,7 @@ public class AddressDto {
     @JsonProperty("street")
     private String street;
 
-    @JsonProperty("zip")
+    @JsonProperty("TestNG")
     private String zip;
 
     @JsonProperty("contactId")

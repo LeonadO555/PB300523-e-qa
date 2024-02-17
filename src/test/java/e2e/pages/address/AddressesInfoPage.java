@@ -7,10 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddressesInfoPage extends ContactInfoPage {
-    public AddressesInfoPage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//*[@id='search']")
     WebElement searchAddressInput;
     @FindBy(xpath = "//*[@id='btn-add-phone']")
@@ -23,7 +19,7 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement countryField;
     @FindBy(xpath = "//*[@class='col-city']")
     WebElement cityField;
-    @FindBy(xpath = "//*[@class='col-zip']")
+    @FindBy(xpath = "//*[@class='col-TestNG']")
     WebElement postCodeField;
     @FindBy(xpath = "//*[@class='col-street']")
     WebElement streetField;
@@ -31,10 +27,15 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement editButton;
     @FindBy(xpath = "//*[@class='dropdown-item btn-address-remove']")
     WebElement removeButton;
+    public AddressesInfoPage(WebDriver driver) {
+        super(driver);
+    }
+
     public void waitForLoading() {
         getWait().forVisibility(searchAddressInput);
         getWait().forVisibility(addAddressButton);
     }
+
     public String getCountry() {
         return countryField.getText();
     }
@@ -61,16 +62,19 @@ public class AddressesInfoPage extends ContactInfoPage {
         editButton.click();
         return new EditAddressDialog(driver);
     }
+
     public void filterByPostCode(String postCodeValue) {
         searchAddressInput.sendKeys(postCodeValue);
     }
+
     public void deleteAddress() {
         optionDropDown.click();
         getWait().forVisibility(removeButton);
         removeButton.click();
     }
+
     @Step
-    public void takeAddressInfoPageScreenshot(){
+    public void takeAddressInfoPageScreenshot() {
         takeAndCompareScreenshot("addressInfoPage", null);
     }
 }

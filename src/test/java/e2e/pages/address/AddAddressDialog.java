@@ -5,10 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddAddressDialog extends AddressesInfoPage {
-    public AddAddressDialog(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//*[@id='cc-select']")
     WebElement countryDropdown;
     @FindBy(xpath = "//*[@id='input-city']")
@@ -20,6 +16,10 @@ public class AddAddressDialog extends AddressesInfoPage {
     @FindBy(xpath = "//*[@class='btn btn-primary btn-block']")
     WebElement saveButton;
 
+    public AddAddressDialog(WebDriver driver) {
+        super(driver);
+    }
+
     public void waitForOpen() {
         getWait().forVisibility(countryDropdown);
         getWait().forVisibility(cityInput);
@@ -27,19 +27,24 @@ public class AddAddressDialog extends AddressesInfoPage {
         getWait().forVisibility(streetInput);
         getWait().forVisibility(saveButton);
     }
-    public void selectCountry(String country){
+
+    public void selectCountry(String country) {
         getSelect(countryDropdown).selectByVisibleText(country);
     }
-    public void setCity(String city){
+
+    public void setCity(String city) {
         cityInput.sendKeys(city);
     }
-    public void setPostCode(String postCode){
+
+    public void setPostCode(String postCode) {
         postCodeInput.sendKeys(postCode);
     }
-    public void setStreet(String street){
+
+    public void setStreet(String street) {
         streetInput.sendKeys(street);
     }
-    public void addressAddSaveButtonClick(){
+
+    public void addressAddSaveButtonClick() {
         saveButton.click();
     }
 }

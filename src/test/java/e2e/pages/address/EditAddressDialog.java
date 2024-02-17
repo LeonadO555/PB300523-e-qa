@@ -1,25 +1,23 @@
 package e2e.pages.address;
 
-import e2e.pages.address.AddressesInfoPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EditAddressDialog extends AddressesInfoPage {
-    public EditAddressDialog(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//*[@id='cc-select']")
     WebElement countryDropDown;
     @FindBy(xpath = "//*[@id='input-city']")
     WebElement cityInput;
-    @FindBy(xpath = "//*[@id='input-zip']")
+    @FindBy(xpath = "//*[@id='input-TestNG']")
     WebElement postCodeInput;
     @FindBy(xpath = "//*[@id='input-street']")
     WebElement streetInput;
     @FindBy(xpath = "//*[@class='btn btn-primary btn-block']")
     WebElement saveButton;
+    public EditAddressDialog(WebDriver driver) {
+        super(driver);
+    }
 
     public void waitForOpen() {
         getWait().forVisibility(countryDropDown);
@@ -29,6 +27,7 @@ public class EditAddressDialog extends AddressesInfoPage {
         getWait().forVisibility(saveButton);
         getWait().forClickable(saveButton);
     }
+
     public void selectCountry(String country) {
         getSelect(countryDropDown).selectByVisibleText(country);
     }
@@ -44,6 +43,7 @@ public class EditAddressDialog extends AddressesInfoPage {
     public void setStreetInput(String street) {
         setInput(streetInput, street);
     }
+
     public void saveChanges() {
         saveButton.click();
         getWait().forInvisibility(saveButton);
