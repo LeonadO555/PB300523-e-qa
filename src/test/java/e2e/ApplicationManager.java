@@ -5,7 +5,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -49,14 +48,6 @@ public class ApplicationManager {
 
     protected void stop() {
         driver.quit();
-
-
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("useAutomationExtension", false);
-        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-
 
     }
 }
