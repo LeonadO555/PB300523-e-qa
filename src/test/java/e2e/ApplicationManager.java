@@ -1,4 +1,5 @@
 package e2e;
+
 import config.Config;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class ApplicationManager {
     private final Config config = new Config();
     public WebDriver driver;
+
 
     protected void init() {
         if (config.getSelenoidState()) {
@@ -46,5 +48,6 @@ public class ApplicationManager {
 
     protected void stop() {
         driver.quit();
+
     }
 }

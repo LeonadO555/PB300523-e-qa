@@ -6,9 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddEmailDialog extends EmailInfoPage {
-    public AddEmailDialog(WebDriver driver) {
-        super(driver);
-    }
     @FindBy(xpath = "//*[@role='dialog']")
     WebElement dialog;
     @FindBy(xpath = "//*[@id='input-email']")
@@ -17,6 +14,9 @@ public class AddEmailDialog extends EmailInfoPage {
     WebElement saveButton;
     @FindBy(xpath = "//*[@aria-label='Close']")
     WebElement closeWindowsButton;
+    public AddEmailDialog(WebDriver driver) {
+        super(driver);
+    }
 
     @Step("Wait for open Add Email Dialog")
     public void waitForOpen() {
@@ -25,16 +25,14 @@ public class AddEmailDialog extends EmailInfoPage {
         getWait().forClickable(saveButton);
         getWait().forClickable(closeWindowsButton);
     }
+
     @Step("Set email input: {email}")
     public void setEmailInput(String email) {
         emailFieldInput.sendKeys(email);
     }
+
     public void saveEmailButtonClick() {
         saveButton.click();
     }
 
-    @Step
-    public void takeEmailInfoScreenshot(){
-        takeAndCompareScreenshot("emailInfo", null);
-    }
 }

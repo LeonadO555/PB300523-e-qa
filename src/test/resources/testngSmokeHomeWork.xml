@@ -5,7 +5,7 @@
         <classes>
             <class name="e2e.CreateNewUserTest">
             </class>
-            <class name="e2e.NewUserAndContactEdit">
+            <class name="e2e.newUserWithEditContactAndDelete">
             </class>
         </classes>
     </test>

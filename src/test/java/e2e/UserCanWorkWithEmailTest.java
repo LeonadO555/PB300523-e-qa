@@ -2,7 +2,7 @@ package e2e;
 
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
-import e2e.pages.*;
+import e2e.pages.LoginPage;
 import e2e.pages.contact.AddContactDialog;
 import e2e.pages.contact.ContactInfoPage;
 import e2e.pages.contact.ContactsPage;
@@ -40,10 +40,12 @@ public class UserCanWorkWithEmailTest extends TestBase {
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal " + lastName);
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal " + description);
     }
+
     private void checkEmailData(EmailInfoPage page, String email) {
         String actualEmailName = page.getEmail();
         Assert.assertEquals(actualEmailName, email, actualEmailName + "is not equal " + email);
     }
+
     @Test
     public void userCanWorkWithEmailTest() {
         String email = "newTest@gmail.com";
@@ -92,8 +94,8 @@ public class UserCanWorkWithEmailTest extends TestBase {
 
         // check email data
         emailInfoPage = new EmailInfoPage(app.driver);
-        //emailInfoPage.waitForLoading();
-        checkEmailData(emailInfoPage,expectedEmail);
+        emailInfoPage.waitForLoading();
+        checkEmailData(emailInfoPage, expectedEmail);
         emailInfoPage.waitForLoading();
 
         // edit email dialog
@@ -104,7 +106,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
         emailInfoPage.waitForLoading();
 
         //check edited email
-        checkEmailData(emailInfoPage,editExpectedEmail);
+        checkEmailData(emailInfoPage, editExpectedEmail);
         emailInfoPage.waitForLoading();
 
         //check search form
@@ -142,7 +144,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("2")
     @Test(description = "Work with email for new contact")
-    public void workWithEmailForNewContact(){
+    public void workWithEmailForNewContact() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
 
@@ -157,11 +159,11 @@ public class UserCanWorkWithEmailTest extends TestBase {
         int contactId = json.getInt("id");
 
         loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
+        loginPage.login(email, password);
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/" + contactId);
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -192,7 +194,7 @@ public class UserCanWorkWithEmailTest extends TestBase {
         emailInfoPage.waitForLoading();
 
         //check edited email
-        checkEmailData(emailInfoPage,editExpectedEmail);
+        checkEmailData(emailInfoPage, editExpectedEmail);
         emailInfoPage.waitForLoading();
 
         //check search form
@@ -201,6 +203,6 @@ public class UserCanWorkWithEmailTest extends TestBase {
 
         //delete email
         emailInfoPage.deleteEmail();
-        contactApi.deleteContact(200,contactId);
+        contactApi.deleteContact(200, contactId);
     }
 }

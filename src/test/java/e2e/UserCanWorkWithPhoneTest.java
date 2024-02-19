@@ -2,8 +2,7 @@ package e2e;
 
 import com.github.javafaker.Faker;
 import e2e.enums.ContactInfoTabs;
-import e2e.pages.*;
-
+import e2e.pages.LoginPage;
 import e2e.pages.contact.AddContactDialog;
 import e2e.pages.contact.ContactInfoPage;
 import e2e.pages.contact.ContactsPage;
@@ -56,7 +55,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
-        String country = "Albania";
+
 
         String firstName = faker.internet().uuid(); // faker генерирует рандомные данные через генератор uuid
         String lastName = faker.internet().uuid();
@@ -143,7 +142,7 @@ public class UserCanWorkWithPhoneTest extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @AllureId("1")
     @Test(description = "Work with phone for new contact")
-    public void workWithPhoneForNewContact(){
+    public void workWithPhoneForNewContact() {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
 
@@ -155,11 +154,11 @@ public class UserCanWorkWithPhoneTest extends TestBase {
         int contactId = json.getInt("id");
 
         loginPage = new LoginPage(app.driver);
-        loginPage.login(email,password);
+        loginPage.login(email, password);
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
-        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/"+contactId);
+        app.driver.get("http://phonebook.telran-edu.de:8080/contacts/" + contactId);
 
         contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
@@ -189,6 +188,6 @@ public class UserCanWorkWithPhoneTest extends TestBase {
 
         phonesPage.deletePhone();
 
-        contactApi.deleteContact(200,contactId);
+        contactApi.deleteContact(200, contactId);
     }
 }
