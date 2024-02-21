@@ -28,14 +28,15 @@
 ### Config file
 - Config file is located `src/main/resources/config.properties`
 - Need to add project url
-- selenoid.state - `false = local run´, ´true = remote run´
-- selenoid.url - ´url to selenoid´
+- selenoid.state - `false = local run` , `true = remote run`
+- selenoid.url - `url to selenoid`
 
 ### Reports
-- After running tests, you can find reports in build/reports/allure-report folder
-- To open report, run allure serve build/allure-results
+- After running tests, you can find reports in `build/reports/allure-report` folder
+- To open report, run `allure serve build/allure-results`
+
 ### Screenshots
-- Screenshots are saved in reference folder
+- Screenshots are saved in `reference` folder
 - Screenshots are taken when test fails
-- To do screenshot is reference need to change screenshot name , remove tmp_ from screenshot name
+- To do screenshot is reference need to change screenshot name , remove `tmp_`from screenshot name
 - Screenshots are attached to allure report
