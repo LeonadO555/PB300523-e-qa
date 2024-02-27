@@ -74,8 +74,8 @@ public class UserCanWorkWithContactTest extends TestBase {
         contactsPage.filterByContact(editFirstName);
         contactsPage.waitForLoading();
         // check rows count after filter by contact name
-        int actualContactCountRow = contactsPage.getContactCount();
-        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
+        int actualContactCounta = contactsPage.getContactCount();
+        Assert.assertEquals(actualContactCounta, 1, "Contact count row after filter should be 1");
         // delete contact
         deleteContactDialog = contactsPage.openDeleteDialog();
         deleteContactDialog.waitForOpen();
