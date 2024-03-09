@@ -19,7 +19,7 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement countryField;
     @FindBy(xpath = "//*[@class='col-city']")
     WebElement cityField;
-    @FindBy(xpath = "//*[@class='col-TestNG']")
+    @FindBy(xpath = "//*[@class='col-code']")
     WebElement postCodeField;
     @FindBy(xpath = "//*[@class='col-street']")
     WebElement streetField;
@@ -27,6 +27,7 @@ public class AddressesInfoPage extends ContactInfoPage {
     WebElement editButton;
     @FindBy(xpath = "//*[@class='dropdown-item btn-address-remove']")
     WebElement removeButton;
+
     public AddressesInfoPage(WebDriver driver) {
         super(driver);
     }

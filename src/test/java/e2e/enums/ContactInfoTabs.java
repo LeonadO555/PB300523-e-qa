@@ -10,7 +10,8 @@ public enum ContactInfoTabs {
     ADDRESSES("4");
     public final String value;
 
-    ContactInfoTabs(String value){
+
+    ContactInfoTabs(String value) {
         this.value = value;
     }
 }
