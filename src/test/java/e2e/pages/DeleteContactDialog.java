@@ -20,7 +20,8 @@ public class DeleteContactDialog extends ContactsPage{
     WebElement removeContactButton;
 
     public void waitForOpen(){
-        getWait().forInvisibility(confirmDeletionCheckBox);
+        getWait().forVisibility(dialog);
+        getWait().forVisibility(confirmDeletionCheckBox);
         getWait().forVisibility(removeContactButton);
     }
 
@@ -30,7 +31,7 @@ public class DeleteContactDialog extends ContactsPage{
 
     }
 
-    public void removeContact() throws InterruptedException {
+    public void removeContact(){
         getWait().forClickable(removeContactButton);
         removeContactButton.click();
         getWait().forInvisibility(dialog);

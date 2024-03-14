@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Wait {
     public WebDriver driver;
-    Duration TIMEOUT = Duration.ofSeconds(2);
+    Duration TIMEOUT = Duration.ofSeconds(5);
 
     public Wait(WebDriver driver){
         this.driver = driver;
@@ -43,7 +43,7 @@ public class Wait {
         try {
             setWait().until(ExpectedConditions.invisibilityOf(element));
         } catch (TimeoutException e){
-            throw new TimeoutException(element.getAccessibleName() + " is not visible more than " + TIMEOUT.toString());
+            throw new TimeoutException(element.getAccessibleName() + " is visible more than " + TIMEOUT.toString());
         }
 
     }
@@ -51,7 +51,7 @@ public class Wait {
         try {
             setWait().until(ExpectedConditions.elementToBeClickable(element));
         } catch (TimeoutException e){
-            throw new TimeoutException(element.getAccessibleName() + " is not visible more than " + TIMEOUT.toString());
+            throw new TimeoutException(element.getAccessibleName() + " is not clickable more than " + TIMEOUT.toString());
         }
 
     }

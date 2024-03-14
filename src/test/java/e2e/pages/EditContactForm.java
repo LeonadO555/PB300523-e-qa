@@ -11,23 +11,23 @@ public class EditContactForm extends ContactInfoPage{
             super(driver);
         }
 
-        @FindBy(xpath = "//class[@name='btn btn-secondary cansel-btn-ec']")
-        WebElement canselButton;
-        @FindBy(xpath = "//*[@class='btn btn-primary submit-btn-ec']")
-        WebElement saveButton;
-        @FindBy(xpath = "//input[@name='input-ec-firstName']")
-        WebElement firstNameInput;
-        @FindBy(xpath = "//input[@name='input-ec-lastName']")
-        WebElement lastNameInput;
-        @FindBy(xpath = "//*[@name='input-ec-description']")
-        WebElement descriptionInput;
+    @FindBy(xpath = "//button[@class='btn btn-secondary cancel-btn-ec']")
+    WebElement cancelButton;
+    @FindBy(xpath = "//button[@class='btn btn-primary submit-btn-ec']")
+    WebElement saveButton;
+    @FindBy(xpath = "//input[@name='input-ec-firstName']")
+    WebElement firstNameInput;
+    @FindBy(xpath = "//input[@name='input-ec-lastName']")
+    WebElement lastNameInput;
+    @FindBy(xpath = "//textarea[@name='input-ec-description']")
+    WebElement descriptionInput;
+
 
     public void waitForOpen(){
-        getWait().forInvisibility(firstNameInput);
-        getWait().forInvisibility(lastNameInput);
-        getWait().forInvisibility(descriptionInput);
-        getWait().forInvisibility(firstNameField);
-        getWait().forInvisibility(saveButton);
+        getWait().forVisibility(firstNameInput);
+        getWait().forVisibility(lastNameInput);
+        getWait().forVisibility(descriptionInput);
+        getWait().forVisibility(saveButton);
         getWait().forClickable(saveButton);
     }
 

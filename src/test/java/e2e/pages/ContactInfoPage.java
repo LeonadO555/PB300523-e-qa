@@ -21,12 +21,13 @@ public class ContactInfoPage extends ContactsPage {
     @FindBy(xpath = "//button[@id='btn-edit-contact']")
     WebElement editButton;
 
+
     public void waitForLoading(){
-        getWait().forInvisibility(firstNameField);
-        getWait().forInvisibility(lastNameField);
-        getWait().forInvisibility(descriptionField);
-        getWait().forInvisibility(firstNameField);
-        getWait().forInvisibility(editButton);
+        getWait().forVisibility(firstNameField);
+        getWait().forVisibility(lastNameField);
+        getWait().forVisibility(descriptionField);
+        getWait().forVisibility(firstNameField);
+        getWait().forVisibility(editButton);
         getWait().forClickable(editButton);
     }
 

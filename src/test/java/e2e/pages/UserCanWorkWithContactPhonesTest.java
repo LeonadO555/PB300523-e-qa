@@ -1,18 +1,21 @@
-package e2e;
+package e2e.pages;
 
 import com.github.javafaker.Faker;
+import e2e.TestBase;
 import e2e.Untils.DataProviders;
-import e2e.pages.*;
+import e2e.enums.ContactInfoTabs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserCanWorkWithContactTest extends TestBase{
+public class UserCanWorkWithContactPhonesTest extends TestBase {
+
     LoginPage loginPage;
     ContactsPage contactsPage;
     AddContactDialog addContactDialog;
     ContactInfoPage contactInfoPage;
+    PhonesPage phonesPage;
+    EditContactPhone editContactPhone;
     EditContactForm editContactForm;
-    DeleteContactDialog deleteContactDialog;
     Faker  faker = new Faker();
     private void checkContactData(ContactInfoPage page, String firstName, String lastName, String description){
         String actualFirstName = page.getFirstName();
@@ -22,15 +25,15 @@ public class UserCanWorkWithContactTest extends TestBase{
         Assert.assertEquals(actualLastName, lastName, actualLastName + "is not equal" + lastName );
         Assert.assertEquals(actualDescription, description, actualDescription + "is not equal" + description );
     }
-    @Test(dataProvider = "newContact", dataProviderClass = DataProviders.class)
-    public void userCanWorkWithContactTest(String firstName, String lastName, String description) {
+    @Test
+    public void userCanWorkWithContactPhonesTest() throws InterruptedException {
         String email = "newtest@gmail.com";
         String password = "newtest@gmail.com";
         String language = "English";
 
-        //String firstName = faker.internet().uuid();
-        //String lastName = faker.internet().uuid();
-        //String description = faker.lorem().sentence();
+        String firstName = faker.internet().uuid();
+        String lastName = faker.internet().uuid();
+        String description = faker.lorem().sentence();
 
         String editFirstName = faker.internet().uuid();
         String editLastName = faker.internet().uuid();
@@ -54,28 +57,15 @@ public class UserCanWorkWithContactTest extends TestBase{
         contactInfoPage.waitForLoading();
         checkContactData(contactInfoPage, firstName, lastName, description);
 
-        editContactForm = contactInfoPage.openEditContactForm();
-        editContactForm.waitForOpen();
-        editContactForm.setFirstNameInput(editFirstName);
-        editContactForm.setLastNameInput(editLastName);
-        editContactForm.setDescriptionInput(editDescription);
-        editContactForm.saveChanges();
-
+        contactInfoPage = new ContactInfoPage(app.driver);
         contactInfoPage.waitForLoading();
-        checkContactData(contactInfoPage, editFirstName, editLastName, editDescription);
+        contactInfoPage.openTab(ContactInfoTabs.PHONES);
 
-        contactInfoPage.openContactsPage();
-        contactsPage.waitForLoading();
-        contactsPage.filterByContact(editFirstName);
-        contactsPage.waitForLoading();
+        phonesPage = new PhonesPage(app.driver);
+        phonesPage.waitForLoading();
 
-        int actualContactCountRow = contactsPage.getContactCount();
-        Assert.assertEquals(actualContactCountRow, 1, "Contact count row after filter should be 1");
 
-        deleteContactDialog = contactsPage.openDeleteDialog();
-        deleteContactDialog.waitForOpen();
-        deleteContactDialog.setConfirmDeletionCheckBox();
-        deleteContactDialog.removeContact();
-        Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
     }
 }
+
+

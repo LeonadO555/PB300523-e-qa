@@ -42,7 +42,7 @@ public class AddContactDialog extends ContactsPage {
             getWait().forVisibility(dialog);
             getWait().forVisibility(firstNameInput);
             getWait().forVisibility(lastNameInput);
-            getWait().forInvisibility(descriptionInput);
+            getWait().forVisibility(descriptionInput);
             getWait().forVisibility(submitAddContact);
         }
 
