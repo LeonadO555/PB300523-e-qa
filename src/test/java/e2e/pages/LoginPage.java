@@ -20,20 +20,22 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//*[@type='submit']")
     WebElement loginButton;
 
-    public void waitForLogin(){
+    public void waitForLoading(){
         getWait().forVisibility(emailInput);
         getWait().forVisibility(passwordInput);
         getWait().forVisibility(loginButton);
+    }
 
+    public void takeLoginPageScreenshot(String actualScreenshotName) {
+        takeAndCompareScreenshot(actualScreenshotName, null);
     }
 
     //Describe methods
 
     public void login(String email, String password){
+
         emailInput.sendKeys(email);
-
         passwordInput.sendKeys(password);
-
         loginButton.click();
 
     }

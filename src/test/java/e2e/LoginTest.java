@@ -1,11 +1,9 @@
 package e2e;
 
 
-import e2e.pages.BasePage;
+import e2e.Untils.DataProviders;
 import e2e.pages.ContactsPage;
 import e2e.pages.LoginPage;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
@@ -26,13 +24,17 @@ public class LoginTest extends TestBase {
         contactsPage.waitForLoading();
     }
 
-    @Test
-    public void userCannotLoginWithInvalidEmail(){
-        String email = "newtest@gmail.com";
-        String password = "newtest@gmail.com";
+
+    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataProviders.class)
+    public void userCannotLogin(String email, String password, String caseName){
+        //String email = "newtest@gmail.com";
+        //String password = "newtest@gmail.com";
 
         loginPage = new LoginPage(app.driver);
+        loginPage.waitForLoading();
         loginPage.login(email,password);
-        loginPage.waitForLogin();
+
+        loginPage.waitForLoading();
+        loginPage.takeLoginPageScreenshot(caseName + "_negative_login_case");
     }
 }

@@ -38,7 +38,7 @@ public class UserCanWorkWithContactTest extends TestBase{
 
         loginPage = new LoginPage(app.driver);
         loginPage.login(email, password);
-        loginPage.waitForLogin();
+        loginPage.waitForLoading();
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
@@ -77,5 +77,6 @@ public class UserCanWorkWithContactTest extends TestBase{
         deleteContactDialog.setConfirmDeletionCheckBox();
         deleteContactDialog.removeContact();
         Assert.assertTrue(contactsPage.isNoResultMessageDisplayed(), "No result message is not visible");
+        contactsPage.takeScreenshotNoResultMessage();
     }
 }

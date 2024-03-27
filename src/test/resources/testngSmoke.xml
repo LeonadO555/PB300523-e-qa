@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testing-1.0.dtd">
+<suite name="testSmoke" verbose="1">
+    <test name="SmokeTest">
+    <classes>
+        <class name="e2e.LoginTest">
+            <methods>
+                <include name="userCannotLoginWithInvalidEmailDP"/>
+            </methods>
+        </class>
+        <class name="e2e.UserCanWorkWithContactTest"/>
+    </classes>
+    </test>
+        </suite>

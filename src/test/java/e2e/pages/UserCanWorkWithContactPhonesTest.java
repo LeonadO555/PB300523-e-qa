@@ -2,7 +2,6 @@ package e2e.pages;
 
 import com.github.javafaker.Faker;
 import e2e.TestBase;
-import e2e.Untils.DataProviders;
 import e2e.enums.ContactInfoTabs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -41,7 +40,7 @@ public class UserCanWorkWithContactPhonesTest extends TestBase {
 
         loginPage = new LoginPage(app.driver);
         loginPage.login(email, password);
-        loginPage.waitForLogin();
+        loginPage.waitForLoading();
 
         contactsPage = new ContactsPage(app.driver);
         contactsPage.waitForLoading();
@@ -66,6 +65,8 @@ public class UserCanWorkWithContactPhonesTest extends TestBase {
 
 
     }
+
+
 }
 
 

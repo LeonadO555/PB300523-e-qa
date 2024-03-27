@@ -18,5 +18,12 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG()
+}
+
+task testSmoke(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testngSmoke.xml'
+        //suites 'src/test/resources/testngNoSmoke.xml'
+    }
 }
